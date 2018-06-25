@@ -13,7 +13,16 @@ library(grader)
 knitr::opts_chunk$set(echo = FALSE)
 tutorial_options(exercise.checker = grade_learnr)
 
+WALK_20M <- read_csv("data/chapter_3/20M WALK.CSV")
+GRIP <- read_csv("data/chapter_3/GRIP STRENGTH AND MASS.CSV")
+MONT_BLANC <- read_csv("data/chapter_3/MONT BLANC ASCENT.CSV")
+POOL_RUNNING <- read_csv("data/chapter_3/POOL RUNNING.CSV")
+RELAXATION <- read_csv("data/chapter_3/RELAXATION.CSV")
+SOCCER_FITNESS <- read_csv("data/chapter_3/SOCCER FITNESS.CSV")
+WALKDANCE <- read_csv("data/chapter_3/WALKDANCE.CSV")
 
+WALKDANCE <- WALKDANCE %>% 
+  spread(key = Exercise_Regime, value = Peak_VO2)
 ```
 
 # Topic 8 - Summarising and Displaying Data
@@ -32,18 +41,20 @@ Study Description: In August 2002, physiological tests were performed on 285 cli
 
 Aim: 	To provide adequate graphical summaries of the sample of 197 Ascent Times and to estimate the typical Ascent Time for successful climbers of Mont Blanc (at this time of year).
 
-Summary statistics for the Ascent Time variable 
-```{r}
-
+Summary statistics for the Ascent_Time variable 
+```{r echo = T}
+summary(MONT_BLANC$Ascent_Time)
 ```
 
 The spread in Ascent Times can be summarised by the sample quartiles (3.50 and 4.75 hours).    Although this information is interesting, a clearer view is provided by plotting the data.
 
 The box plot highlights the ‘middle half’ of the sample and places less weight on each of the end quartiles.
 
-Draw a boxplot of the Ascent Times for the sample of Mont Blanc climbers.
-```{r}
-
+Draw a boxplot of the Ascent Time for the sample of Mont Blanc climbers.
+```{r echo = T}
+ggplot(data = MONT_BLANC,mapping = aes(x = Reached_Summit, y = Ascent_Time)) +
+  geom_boxplot() +
+  coord_flip()
 ```
 If there is evidence of symmetry in the box plot and the sample mean and median are similar then the Normal distribution is likely to be a reasonable assumption as to the process which generated the data.
 
@@ -67,13 +78,15 @@ Study Description:	  As part of a fitness test battery in a Scottish professiona
 Aims:  To provide numerical and graphical summaries to compare CMJ Height across the populations of Senior and Youth professional soccer players.
 
 The summary statistic
-```{r}
-
+```{r echo = T}
+summary(SOCCER_FITNESS)
 ```
 
 Boxplot counter movement jump height by squad:
-```{r}
-
+```{r echo = T}
+ggplot(data = SOCCER_FITNESS,mapping = aes(x = Squad, y = CMJump)) +
+  geom_boxplot() +
+  coord_flip()
 ```
 
 Conclusion:  The subjective impression from the plot is that typically CMJ Height is higher in the population of Senior soccer players than in the population of Youth players.  The estimated difference in mean CMJ Height is 6.6 cm in favour of the Senior players.  The higher scores for the Senior players may reflect differences in maturational status and training background.
@@ -87,13 +100,15 @@ Study Description:  A sample of 28 recreational distance runners were taken and 
 Aim: To determine which, if any, of the relaxation methods (Meditation or Progressive Muscular Relaxation) significantly reduce exercise Heart Rate on average compared to Controls over a two week period.
 
 summary statistic:
-```{r}
-
+```{r echo = T}
+summary(RELAXATION$Reduction)
 ```
 
 box plot of reduction in heart rate by treatment
-```{r}
-
+```{r echo = T}
+ggplot(data = RELAXATION,mapping = aes(x = Treatment, y = Reduction)) +
+  geom_boxplot() +
+  coord_flip()
 ```
 
 Conclusion:  It appears that Meditation tends to reduce, on average, Heart Rate during a standardised running test among recreational distance runners unlike the other two treatments where there is not only virtually no overlap with the Meditation Treatment but also what looks like a random scatter about zero reduction for both these other Treatments.  
@@ -110,14 +125,18 @@ Study Description:  Twelve subjects performed both an Aerobic Dance exercise ses
 
 Aim:  	To compare Relative Intensity during the Aerobic Dance and Walking sessions.  
 
-Draw a scatter plot of Relative Intensity vs Exercise Regime
-```{r}
-
+Draw a scatter plot of Peak_VO2 vs Exercise_Regime
+```{r echo = T}
+ggplot(data = WALKDANCE,mapping = aes(x = Aerobic_Dance, y = Walk)) +
+  geom_point() +
+  geom_smooth(method='lm')
 ```
 
-Box plot of difference in relative intensity 
-```{r}
-
+Box plot of difference in Peak_VO2 
+```{r echo = T}
+ggplot(data = WALKDANCE,mapping = aes(x = 1, y = abs(Walk-Aerobic_Dance))) +
+  geom_boxplot() +
+  coord_flip()
 ```
 
 Conclusion: The typical Relative Intensity of the population of interest is likely to be higher by about 15% of Peak  VO2 for the Aerobic Dance class compared to a Walking session.   Note that the exercise intensity is sufficiently high in both modes of exercise to maintain or improve aerobic fitness in an elderly population (according to the American College of Sports Medicine aerobic fitness guidelines) if the sessions are carried out on a regular basis.

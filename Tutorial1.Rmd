@@ -2,7 +2,7 @@
 title: "Data Visualisation with ggplot2"
 output: 
       learnr::tutorial:
-          progressive: true
+          progressive: false
 runtime: shiny_prerendered
 ---
 
@@ -232,11 +232,14 @@ fifa
 ### Top 5 clubs in EPL
 Add + geom_boxplot() to the ggplot
 ```{r ggplot_box, exercise=TRUE, exercise.lines = 5}
-ggplot(data = filter(fifa[1:100,],league =="English Premier League"), mapping = aes(x = club, y = overall))
+ggplot(data = filter(fifa[1:100,],league =="English Premier League"), mapping = aes(x = club, y = overall)) + 
+  labs(y = "overall rating")
+
 ```
 
 ```{r ggplot_box-solution}
 ggplot(data = filter(fifa[1:100,],league =="English Premier League"), mapping = aes(x = club, y = overall)) + 
+  labs(y = "overall rating") + 
   geom_boxplot()
 ```
 
@@ -251,12 +254,14 @@ strict_check(success = "Nice boxplot!")
 ### Coorinate System.
 Add + coord_flip() to the ggplot
 ```{r ggplot_box_flip, exercise=TRUE, exercise.lines = 5}
-ggplot(data = filter(fifa,league =="English Premier League"), mapping = aes(x = club, y = overall))+ 
+ggplot(data = filter(fifa,league =="English Premier League"), mapping = aes(x = club, y = overall)) + 
+  labs(y = "overall rating")+ 
   geom_boxplot()
 ```
 
 ```{r ggplot_box_flip-solution}
 ggplot(data = filter(fifa,league =="English Premier League"), mapping = aes(x = club, y = overall)) + 
+  labs(y = "overall rating") + 
   geom_boxplot()+ 
   coord_flip()
 ```

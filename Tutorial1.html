@@ -10,7 +10,7 @@
 
 
 
-<meta name="progressive" content="true" />
+<meta name="progressive" content="false" />
 <meta name="allow-skip" content="false" />
 
 <title>Data Visualisation with ggplot2</title>
@@ -56,6 +56,12 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
   </script>
 </div>
 <p>Here is a simple ggplot of pokemon defense vs attack <img src="Tutorial1_files/figure-html/ggplot_simple-1.png" width="624" /></p>
+<div id="section-a-graphing-workflow" class="section level3">
+<h3>A graphing workflow</h3>
+<p>Our code follows the common workflow for making graphs with ggplot2. To make a graph, you:</p>
+<p>Start the graph with ggplot() Add elements to the graph with a geom_ function Select variables with the mapping = aes() argument</p>
+<p>ggplot template: ggplot(data = <DATA>) + <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))</p>
+</div>
 <div id="section-color" class="section level3">
 <h3>Color</h3>
 Color the points by the type of each pokemon by inserting color = generation to the paramaters in aes
@@ -226,11 +232,13 @@ Add position = “dodge” to geom_bar
 <h3>Top 5 clubs in EPL</h3>
 Add + geom_boxplot() to the ggplot
 <div class="tutorial-exercise" data-label="ggplot_box" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
-<pre class="text"><code>ggplot(data = filter(fifa[1:100,],league ==&quot;English Premier League&quot;), mapping = aes(x = club, y = overall))</code></pre>
+<pre class="text"><code>ggplot(data = filter(fifa[1:100,],league ==&quot;English Premier League&quot;), mapping = aes(x = club, y = overall)) + 
+  labs(y = &quot;overall rating&quot;)</code></pre>
 <script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
 </div>
 <div class="tutorial-exercise-support" data-label="ggplot_box-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>ggplot(data = filter(fifa[1:100,],league ==&quot;English Premier League&quot;), mapping = aes(x = club, y = overall)) + 
+  labs(y = &quot;overall rating&quot;) + 
   geom_boxplot()</code></pre>
 </div>
 <div class="tutorial-exercise-support" data-label="ggplot_box-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
@@ -244,12 +252,14 @@ Add + geom_boxplot() to the ggplot
 <h3>Coorinate System.</h3>
 Add + coord_flip() to the ggplot
 <div class="tutorial-exercise" data-label="ggplot_box_flip" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
-<pre class="text"><code>ggplot(data = filter(fifa,league ==&quot;English Premier League&quot;), mapping = aes(x = club, y = overall))+ 
+<pre class="text"><code>ggplot(data = filter(fifa,league ==&quot;English Premier League&quot;), mapping = aes(x = club, y = overall)) + 
+  labs(y = &quot;overall rating&quot;)+ 
   geom_boxplot()</code></pre>
 <script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
 </div>
 <div class="tutorial-exercise-support" data-label="ggplot_box_flip-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>ggplot(data = filter(fifa,league ==&quot;English Premier League&quot;), mapping = aes(x = club, y = overall)) + 
+  labs(y = &quot;overall rating&quot;) + 
   geom_boxplot()+ 
   coord_flip()</code></pre>
 </div>
@@ -267,11 +277,11 @@ library(grader)
 knitr::opts_chunk$set(echo = FALSE)
 tutorial_options(exercise.checker = grade_learnr)
 
-pokemon <- read_csv("Pokemon.csv")
+pokemon <- read_csv("data/Pokemon.csv")
 
-bechdel <- read_csv("BechdelTest.csv")
+bechdel <- read_csv("data/BechdelTest.csv")
 
-fifa <- read_csv("FifaPlayers.csv")
+fifa <- read_csv("data/FifaPlayers.csv")
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
