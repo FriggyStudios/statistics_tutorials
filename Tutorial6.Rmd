@@ -1,0 +1,97 @@
+---
+title: "Relational Data"
+output: 
+      learnr::tutorial:
+          progressive: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(grader)
+knitr::opts_chunk$set(echo = FALSE)
+tutorial_options(exercise.checker = grade_learnr)
+
+pokemon_combat <- read_csv("data/PokemonCombat.csv")
+pokemon_type <- read_csv("data/PokemonType.csv")
+
+pokemon_combat_g1 <- filter(pokemon_combat,generation == 1)
+```
+# Topic 6 - Relational Data
+
+Multiple tables of data are called relational data. It is realtions, not just the individual datasets that are important. 
+Mutate Joins: add new variables to one data frame from mathching observations in another.
+
+Filtering joins: filter observations from one data frame based on whether they match an observation in the other table.
+
+Set operations: treat observations as if they were set elements.
+
+Two related data frames.
+One describes the Pokemon's combat ability.
+The other describes the Pokemons' type
+```{r echo = T}
+pokemon_combat
+
+pokemon_type
+```
+
+## Inner Join
+
+inner_join joins two tables by a common key.
+```{r echo = T}
+pokemon_combat_g1 %>%
+  inner_join(pokemon_type, by = "#")
+```
+
+## Outer Join
+Outer join joins tables by a key and keeps observations that appear in the left or right table.  
+
+left_join of pokemon_combat_g1 with pokemon_type by "#"
+```{r echo = T}
+pokemon_combat_g1 %>%
+  left_join(pokemon_type, by = "#")
+```
+
+right_join pokemon_combat with pokemon_type by "#"
+```{r outer, exercise=TRUE, exercise.lines = 5}
+pokemon_combat_g1 %>%
+```
+
+```{r outer-solution}
+pokemon_combat_g1 %>%
+  right_join(pokemon_type, by = "#")
+```
+
+```{r outer-hint}
+pokemon_combat_g1 %>%
+  right_join(pokemon_type, by = "#")
+```
+
+```{r outer-check}
+strict_check(success = "Nice outer join!")
+```
+
+## Filter Join
+semi_join pokemon_combat_g1 with pokemon_type by "#"
+```{r filter, exercise=TRUE, exercise.lines = 5}
+pokemon_combat_g1 %>%
+```
+
+```{r filter-solution}
+pokemon_combat_g1 %>%
+  semi_join(pokemon_type, by = "#")
+```
+
+```{r filter-hint}
+pokemon_combat_g1 %>%
+  semi_join(pokemon_type, by = "#")
+```
+
+```{r filter-check}
+strict_check(success = "Nice semi join!")
+```
+
+
+
+

@@ -1,0 +1,72 @@
+---
+title: "Pipes with magrittr"
+output: 
+      learnr::tutorial:
+          progressive: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(grader)
+knitr::opts_chunk$set(echo = FALSE)
+tutorial_options(exercise.checker = grade_learnr)
+
+bechdel <- read_csv("data/BechdelTest.csv")
+```
+
+# Topic 7 - Pipes with magrittr
+
+Pipes are a powerful way to express a sequnce of operations in a single statement.
+
+The following are alternative aproaches to using pipes.
+## Intermediate steps
+```{r echo = T}
+profit <- bechdel$dom_gross + bechdel$int_gross - bechdel$budget
+mean_profit <- mean(profit,na.rm = TRUE)
+formatted_mean_profit <- format(mean_profit,scientific = TRUE)
+print(formatted_mean_profit)
+```
+
+## Overwrite the Original
+```{r echo = T}
+formatted_mean_profit <- bechdel$dom_gross + bechdel$int_gross - bechdel$budget
+formatted_mean_profit <- mean(formatted_mean_profit,na.rm = T)
+formatted_mean_profit <- format(formatted_mean_profit,scientific = TRUE)
+print(formatted_mean_profit)
+```
+
+## Function Composition
+```{r echo = T}
+print(format(mean(bechdel$dom_gross+bechdel$int_gross-bechdel$budget,na.rm=TRUE),scientific = TRUE))
+```
+
+## Use the Pipe
+Rewrite one of the alternatives using the pipe: %>%
+```{r comparison, exercise=TRUE, exercise.lines = 5}
+(bechdel$dom_gross + bechdel$int_gross - bechdel$budget) %>%
+  mean(...) %>%
+  ...
+  
+```
+
+```{r comparison-solution}
+(bechdel$dom_gross + bechdel$int_gross - bechdel$budget) %>%
+  mean(na.rm=T) %>%
+  format(scientific = TRUE) %>%
+  print
+
+```
+
+```{r comparison-hint}
+(bechdel$dom_gross + bechdel$int_gross - bechdel$budget) %>%
+  mean(na.rm=T) %>%
+  format(scientific = TRUE) %>%
+  print
+
+```
+
+```{r comparison-check}
+strict_check(success = "Good job!")
+```

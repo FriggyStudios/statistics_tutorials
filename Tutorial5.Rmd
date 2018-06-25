@@ -1,0 +1,151 @@
+---
+title: "Tidy Date"
+output: 
+      learnr::tutorial:
+          progressive: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(grader)
+knitr::opts_chunk$set(echo = FALSE)
+tutorial_options(exercise.checker = grade_learnr)
+
+table_g <- tribble(
+  ~country, ~"2017", ~"2018",
+  "Ireland", 100, 120,
+  "Spain", 50, 80,
+  "Portugal", 150, 5
+)
+
+table_sp <- tribble(
+  ~country, ~type, ~count,
+  "Ireland", "cases", 100,
+  "Ireland", "population", 4773000,
+  "England", "cases", 200,
+  "England", "population", 53013000,
+)
+
+table_se <- tribble(
+  ~country, ~rate,
+  "Ireland", "100 / 4773000",
+  "England", "200 / 53013000"
+)
+
+table_u <- tribble(
+  ~country, ~century, ~year, ~rate,
+  "Ireland", 19, 99, "100 / 4773000",
+  "Ireland", 20, 00, "100 / 4773000",
+  "England", 19, 99, "200 / 53013000",
+  "England", 20, 00, "200 / 53013000"
+)
+
+table_m_v <- tribble(
+ ~country, ~rate, 
+ "Ireland", ".01",
+ "England", ".004", 
+ "Spain", ".1",
+ "France", NA
+)
+```
+# Topic 5 - Tidy Data
+Data is tidy if: 
+  Variables are in columns, observations are in rows, and values are in cells.
+
+## Gathering
+```{r}
+table_g
+```
+
+In table_g, gather the columns '2017, '2018' into 'year'.
+```{r gather, exercise=TRUE, exercise.lines = 5}
+table_g %>% 
+```
+
+```{r gather-solution}
+table_g %>% 
+  gather('2017','2018', key = 'year', value = 'class')
+```
+
+```{r gather-hint}
+table_g %>% 
+  gather('2017','2018', key = 'year', value = 'class')
+```
+
+```{r gather-check}
+strict_check(success = "The columns are gathered!")
+```
+## Spreading
+```{r}
+table_sp
+```
+
+In table_sp, spread the values 'cases', 'population' in key into separate columns.
+```{r spread, exercise=TRUE, exercise.lines = 5}
+table_sp %>% 
+```
+
+```{r spread-solution}
+table_sp %>% 
+  spread(key = type, value = count)
+```
+
+```{r spread-hint}
+table_sp %>% 
+  spread(key = type, value = count)
+```
+
+```{r spread-check}
+strict_check(success = "The column is spread into new columns!")
+```
+## Separate
+```{r}
+table_se
+```
+
+In table_se, separate rate into cases and population
+```{r separate, exercise=TRUE, exercise.lines = 5}
+table_se %>% 
+```
+
+```{r separate-solution}
+table_se %>% 
+  separate(rate, into = c("cases", "population"))
+```
+
+```{r separate-hint}
+table_se %>% 
+  separate(rate, into = c("cases", "population"))
+```
+
+```{r separate-check}
+strict_check(success = "The column is seperated into new columns!")
+```
+## Unite
+```{r}
+table_u
+```
+
+In table_u, unite century and year into new
+```{r unite, exercise=TRUE, exercise.lines = 5}
+table_u %>% 
+```
+
+```{r unite-solution}
+table_u %>% 
+  unite(new, century, year)
+```
+
+```{r unite-hint}
+table_u %>% 
+  unite(new, century, year)
+```
+
+```{r unite-check}
+strict_check(success = "The columns is united into a new column!")
+```
+
+
+

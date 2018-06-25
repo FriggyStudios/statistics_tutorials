@@ -1,0 +1,270 @@
+---
+title: "Data Visualisation with ggplot2"
+output: 
+      learnr::tutorial:
+          progressive: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(grader)
+knitr::opts_chunk$set(echo = FALSE)
+tutorial_options(exercise.checker = grade_learnr)
+
+pokemon <- read_csv("data/Pokemon.csv")
+
+bechdel <- read_csv("data/BechdelTest.csv")
+
+fifa <- read_csv("data/FifaPlayers.csv")
+```
+
+
+# Topic 1 - Data Visualisation with ggplot2
+
+## Scatter Plots
+Pokemon data of all Pokemon (generations 1 to 6)
+```{r echo = T}
+pokemon
+```
+
+Here is a simple ggplot of pokemon defense vs attack
+```{r ggplot_simple}
+ggplot(data = pokemon) +
+  geom_point(mapping = aes(x = attack, y = defense))
+```
+
+### A graphing workflow
+Our code follows the common workflow for making graphs with ggplot2. To make a graph, you:
+
+Start the graph with ggplot()
+Add elements to the graph with a geom_ function
+Select variables with the mapping = aes() argument
+
+ggplot template:
+ ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+
+### Color
+Color the points by the type of each pokemon by inserting color = generation to the paramaters in aes
+```{r ggplot_color, exercise=TRUE, exercise.lines = 5}
+ggplot(data = pokemon) +
+  geom_point(mapping = aes(x = attack, y = defense))
+```
+
+```{r ggplot_color-solution}
+ggplot(data = pokemon) +
+  geom_point(mapping = aes(color = generation, x = attack, y = defense))
+```
+
+```{r ggplot_color-hint}
+aes(x = attack, y = defense, color = generation)
+```
+
+```{r ggplot_color-check}
+strict_check(success = "Nice colors!")
+```
+### Shape
+Shape the points by the generation of each pokemon by inserting shape = generation to the paramaters in aes. To assign shapes to a continuous variable add + scale_shape_identity() to the ggplot
+
+```{r ggplot_shape, exercise=TRUE, exercise.lines = 5}
+ggplot(data = pokemon) +
+  geom_point(mapping = aes(x = attack, y = defense))
+```
+
+```{r ggplot_shape-solution}
+ggplot(data = pokemon) +
+  geom_point(mapping = aes(shape = generation, x = attack, y = defense)) +
+    scale_shape_identity()
+```
+
+```{r ggplot_shape-hint}
+aes(x = attack, y = defense, shape = generation) +
+    scale_shape_identity()
+```
+
+```{r ggplot_shape-check}
+strict_check(success = "Nice shapes! ggplot2 will only use six shapes at a time, additional groups will go unplotted when you use this aesthitc.")
+```
+
+### Facets
+Add + facet_wrap(~ generation, nrow = 2) to the ggplot, this facets the plot on the generation. Set the color = legendary
+
+```{r ggplot_facet, exercise=TRUE, exercise.lines = 5}
+ggplot(data = pokemon) +
+  geom_point(mapping = aes(x = attack, y = defense))
+```
+
+```{r ggplot_facet-solution}
+ggplot(data = pokemon) +
+  geom_point(mapping = aes(x = attack, y = defense, color = legendary)) +
+  facet_wrap(~ generation, nrow = 2)
+```
+
+```{r ggplot_facet-hint}
+ geom_point(mapping = aes(x = attack, y = defense, color = legendary)) +
+  facet_wrap(~ generation, nrow = 2)
+```
+
+```{r ggplot_facet-check}
+strict_check(success = "Nice facet! Notice generation 2 and 3 has pokemon with the highest defense and the plot of generation 5 does not have very extreme outliers compared to the other generations.")
+```
+
+### Smooth Geom
+Scatter plot of Pokemons' defense vs hp
+```{r}
+ggplot(data = pokemon) +
+  geom_point(mapping = aes(x = hp, y = defense))
+```
+
+Change geom_point to geom_smooth with paramter methos = 'loess'
+```{r ggplot_smooth, exercise=TRUE, exercise.lines = 5}
+ggplot(data = pokemon) +
+  geom_point(mapping = aes(x = hp, y = defense))
+```
+
+```{r ggplot_smooth-solution}
+ggplot(data = pokemon) +
+  geom_smooth(method = 'loess', mapping = aes(x = hp, y = defense))
+```
+
+```{r ggplot_smooth-hint}
+geom_smooth(method = 'loess', mapping = aes(x = hp, y = defense))
+```
+
+```{r ggplot_smooth-check}
+strict_check(success = "Nice smooth curve!")
+```
+
+### Overlay Graphs
+How can we overly the two previous graphics on defense vs hp?
+
+Add the geom_smooth to the ggplot using the + operator
+```{r ggplot_overlay, exercise=TRUE, exercise.lines = 5}
+ggplot(data = pokemon) +
+  geom_point(mapping = aes(x = hp, y = defense))
+```
+
+```{r ggplot_overlay-solution}
+ggplot(data = pokemon) +
+  geom_smooth(method = 'loess',mapping = aes(x = hp, y = defense)) +
+  geom_point(mapping = aes(x = hp, y = defense))
+```
+
+```{r ggplot_overlay-hint}
+  geom_smooth(method = 'loess',mapping = aes(x = hp, y = defense)) +
+  geom_point(mapping = aes(x = hp, y = defense))
+```
+
+```{r ggplot_overlay-check}
+strict_check(success = "Nice overlay!")
+```
+
+## Bar Charts
+The Bechdel Test tests the representation of women in films.
+The test asks 3 questions in order:
+1. Are there women?
+2. Do the women talk to each other?
+3. Do the women talk about something other than men?
+```{r echo = T}
+bechdel
+```
+
+Bar chart of number of films that passed and failed the bechdel test
+```{r}
+ggplot(data = bechdel) +
+  geom_bar(mapping = aes(x = test))
+```
+
+###Fill
+Bars are filled by proportion of how many bechdel test questions the films passed.
+```{r}
+ggplot(data = bechdel) +
+  geom_bar(mapping = aes(x = binary, fill = test))
+```
+
+### Fill Position
+Add position = "fill" in geom_bar
+```{r ggplot_fill, exercise=TRUE, exercise.lines = 5}
+ggplot(data = bechdel) +
+  geom_bar(mapping = aes(x = binary, fill = test))
+```
+
+```{r ggplot_fill-solution}
+ggplot(data = bechdel) +
+  geom_bar(mapping = aes(x = binary, fill = test), position = "fill")
+```
+
+```{r ggplot_fill-hint}
+  geom_bar(mapping = aes(x = binary, fill = test), position = "fill")
+```
+
+```{r ggplot_fill-check}
+strict_check(success = "Nice filled bar chart! We can see that most films that do not pass the test, have women in the film that do not talk to each other.")
+```
+
+### Dodge Position
+Add position = "dodge" to geom_bar
+```{r ggplot_dodge, exercise=TRUE, exercise.lines = 5}
+ggplot(data = bechdel) +
+  geom_bar(mapping = aes(x = binary, fill = test))
+```
+
+```{r ggplot_dodge-solution}
+ggplot(data = bechdel) +
+  geom_bar(mapping = aes(x = binary, fill = test), position = "dodge")
+```
+
+```{r ggplot_dodge-hint}
+  geom_bar(mapping = aes(x = binary, fill = test), position = "dodge")
+```
+
+```{r ggplot_dodge-check}
+strict_check(success = "Nice filled bar chart with dodge!")
+```
+
+## Box Plots
+Fifa 18 player data
+```{r echo = T}
+fifa
+```
+### Top 5 clubs in EPL
+Add + geom_boxplot() to the ggplot
+```{r ggplot_box, exercise=TRUE, exercise.lines = 5}
+ggplot(data = filter(fifa[1:100,],league =="English Premier League"), mapping = aes(x = club, y = overall))
+```
+
+```{r ggplot_box-solution}
+ggplot(data = filter(fifa[1:100,],league =="English Premier League"), mapping = aes(x = club, y = overall)) + 
+  geom_boxplot()
+```
+
+```{r ggplot_box-hint}
+  + geom_boxplot()
+```
+
+```{r ggplot_box-check}
+strict_check(success = "Nice boxplot!")
+```
+
+### Coorinate System.
+Add + coord_flip() to the ggplot
+```{r ggplot_box_flip, exercise=TRUE, exercise.lines = 5}
+ggplot(data = filter(fifa,league =="English Premier League"), mapping = aes(x = club, y = overall))+ 
+  geom_boxplot()
+```
+
+```{r ggplot_box_flip-solution}
+ggplot(data = filter(fifa,league =="English Premier League"), mapping = aes(x = club, y = overall)) + 
+  geom_boxplot()+ 
+  coord_flip()
+```
+
+```{r ggplot_box_flip-hint}
+  + coord_flip()
+```
+
+```{r ggplot_box_flip-check}
+strict_check(success = "Nice flipped boxplot! Now all the team names are visible.")
+```

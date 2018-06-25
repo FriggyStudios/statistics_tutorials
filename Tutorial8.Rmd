@@ -1,0 +1,251 @@
+---
+title: "Summarising and Displaying Data"
+output: 
+      learnr::tutorial:
+          progressive: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(grader)
+knitr::opts_chunk$set(echo = FALSE)
+tutorial_options(exercise.checker = grade_learnr)
+
+
+```
+
+# Topic 8 - Summarising and Displaying Data
+Once the data have been collected and electronically recorded, the starting point in all statistical analyses is to provide useful and meaningful numerical and graphical summaries of the data.
+
+## Single Sample Problems (Independent Data)
+
+In order to graphically summarise independent data involving a single response variable of interest measured on a single sample of subjects:-
+i) provide summary statistics such as the Five Number Summary.
+ii) provide a box plot of the variable of interest using an appropriate axis scale and including a suitable title and axis labels
+
+### Mont Blanc Ascent Time 
+Background:  Many people aspire to climb Mont Blanc (4807m), the highest mountain in Western Europe. A key component when a climb of Mont Blanc is planned is the likely time for a successful ascent.
+
+Study Description: In August 2002, physiological tests were performed on 285 climbers passing through the Gouter Hut as they prepared to climb Mont Blanc and the Ascent Times of 197 climbers, known to have succeeded, were recorded.
+
+Aim: 	To provide adequate graphical summaries of the sample of 197 Ascent Times and to estimate the typical Ascent Time for successful climbers of Mont Blanc (at this time of year).
+
+Summary statistics for the Ascent Time variable 
+```{r}
+
+```
+
+The spread in Ascent Times can be summarised by the sample quartiles (3.50 and 4.75 hours).    Although this information is interesting, a clearer view is provided by plotting the data.
+
+The box plot highlights the ‘middle half’ of the sample and places less weight on each of the end quartiles.
+
+Draw a boxplot of the Ascent Times for the sample of Mont Blanc climbers.
+```{r}
+
+```
+If there is evidence of symmetry in the box plot and the sample mean and median are similar then the Normal distribution is likely to be a reasonable assumption as to the process which generated the data.
+
+Given this graphical evidence, a rough estimate of the likely range of Ascent Times for 95% of the population of interest (i.e. those who successfully climbed Mount Blanc) is available by calculating 
+the sample mean +/- 2 times the sample standard deviation,
+i.e. 4.2589+- 2*0.8209  i.e.   2.6 to 5.9 hours.
+
+Conclusion:  For those who made a successful accent on Mont Blanc, the typical Ascent Time was around 4¼ hours.   The vast majority of climbers who successfully climb Mount Blanc should take between 2½ and 6 hours.  
+
+## Designs involving Between Subject Factors only
+
+1. provide summary statistics such as the sample five-number summary separately for each sample and, if appropriate, the sample mean and sample standard deviation.
+
+2. provide box plots of the response variable for all samples on the same graph using a suitable axis scale, title and axis label.
+
+### Soccer Fitness
+Background:  Many professional soccer clubs use a physiological test battery to assess their players on a regular basis. Testing can be of benefit to the players and coaches for a variety of reasons including the identification of strengths and weaknesses in individual players and the monitoring of players throughout the season. Jumping Ability is considered to be important in soccer as players often have to compete for the ball in the air.   A comparison of this variable across Senior and Youth players may provide players and coaches with information on whether the Youth players have attained the levels of the Senior players.
+
+Study Description:	  As part of a fitness test battery in a Scottish professional soccer club, 37 elite Senior and Youth soccer players performed a Counter Movement Jump (CMJ) Test.   This test is similar to some jumping movements carried out in a game.   Counter Movement Jump Height was measured using a contact mat and the highest value from 3 attempts (after familiarisation) was recorded. 
+
+Aims:  To provide numerical and graphical summaries to compare CMJ Height across the populations of Senior and Youth professional soccer players.
+
+The summary statistic
+```{r}
+
+```
+
+Boxplot counter movement jump height by squad:
+```{r}
+
+```
+
+Conclusion:  The subjective impression from the plot is that typically CMJ Height is higher in the population of Senior soccer players than in the population of Youth players.  The estimated difference in mean CMJ Height is 6.6 cm in favour of the Senior players.  The higher scores for the Senior players may reflect differences in maturational status and training background.
+
+
+### Relaxation and Running Performance 
+Background:  Relaxation techniques could reduce the oxygen cost of running and lower Heart Rate during exercise.  A reduced oxygen cost has the potential to improve endurance running performance. It is also of interest to examine the effects of relaxation techniques on Exercise Heart Rate.  A reduced Exercise Heart Rate may result in a lower myocardial oxygen consumption which may be of value to some cardiac patient groups. 
+
+Study Description:  A sample of 28 recreational distance runners were taken and randomised into one of three Treatments (Control, Meditation or Progressive Muscular Relaxation (PMR) as a potential means of reducing their Heart Rates during exercise.  The Heart Rates at the end of a standardised running test of all 28 athletes (13 Controls, 8 on Meditation and 7 on PMR) were taken both before and after two weeks of 'treatment' where the appropriate Treatment was adhered to by each runner for a two-week period.  The reduction in this Heart Rate over this two week period (i.e. Pre-Study Heart Rate – Post-Study Heart Rate) was taken as the response variable.
+
+Aim: To determine which, if any, of the relaxation methods (Meditation or Progressive Muscular Relaxation) significantly reduce exercise Heart Rate on average compared to Controls over a two week period.
+
+summary statistic:
+```{r}
+
+```
+
+box plot of reduction in heart rate by treatment
+```{r}
+
+```
+
+Conclusion:  It appears that Meditation tends to reduce, on average, Heart Rate during a standardised running test among recreational distance runners unlike the other two treatments where there is not only virtually no overlap with the Meditation Treatment but also what looks like a random scatter about zero reduction for both these other Treatments.  
+
+## Within Subject Designs (Dependent Data)
+Another common form of design undertaken in Sports and Exercise Science research is to measure the same variable under different conditions (‘levels’) for each individual in a single sample i.e. a Within Subject Design.
+
+The simplest case involves a Within Subject Factor with two levels - the same variable is measured twice (once each under two different “conditions” or levels) on each subject in a single sample from the target population.  Each response has two observations (e.g. under different ‘conditions’ such as before and after some intervention), which will likely to be dependent upon each other.  Typically the analysis relates to assessing the population mean difference between these two ‘conditions’/levels under the usual assumptions of Normality.  This type of design is often referred to as a Paired Design as there is a pair of observations per subject.  
+
+### Exercise and the Elderly
+Background: Regular exercise has the potential to help limit the deterioration in mobility in the elderly as well as maintain or improve their aerobic fitness. Aerobic Dance and Walking are two possible modes of exercise that can be carried out by the elderly.  Comparison of these modes of exercise at a self-selected pace will determine if they have the potential to maintain or improve aerobic fitness in the elderly.
+
+Study Description:  Twelve subjects performed both an Aerobic Dance exercise session and a Walking session individually on an indoor track.  The order of sessions was balanced with half the subjects performing the Aerobic Dance first and half the Walking Session first. Gas collection was carried out during the 18 minutes of each session and the gas samples were collected in Douglas bags in 3-minute periods.  The subjects also performed an incremental treadmill test to volitional exhaustion. During the treadmill test each subject’s peak  was determined so that the Relative Intensity (the average % Peak  over the 18 minutes) of the Aerobic Dance and Walking sessions could be established. 
+
+Aim:  	To compare Relative Intensity during the Aerobic Dance and Walking sessions.  
+
+Draw a scatter plot of Relative Intensity vs Exercise Regime
+```{r}
+
+```
+
+Box plot of difference in relative intensity 
+```{r}
+
+```
+
+Conclusion: The typical Relative Intensity of the population of interest is likely to be higher by about 15% of Peak  VO2 for the Aerobic Dance class compared to a Walking session.   Note that the exercise intensity is sufficiently high in both modes of exercise to maintain or improve aerobic fitness in an elderly population (according to the American College of Sports Medicine aerobic fitness guidelines) if the sessions are carried out on a regular basis.
+
+### Deep Water Running
+Background:   Deep water running (DWR) is performed by some athletes who wish to reduce the number of training sessions on land where the high impact of foot strikes may result in injury over time.   Injured athletes who cannot sustain sessions on land due to pain or discomfort sometimes favour DWR.   While DWR is not bio-mechanically exactly the same as running on land, the movements are fairly similar. Despite the fact that Lactate Threshold (LT) is sometimes used to provide training intensity guidance, no comparison has been made between LT in DWR and during track and treadmill running.  As some athletes use DWR, Track and Treadmill training, it would be useful to compare some physiological responses in the three settings. For example, comparing the Heart Rate at LT for DWR and track and treadmill running will help the athlete to adjust his/her training Heart Rate (if necessary) for a given exercise setting.
+
+Study Description: Eighteen well-trained male endurance runners were recruited to perform incremental tests using three-minute stages once for each of DWR, track running and treadmill running.  The order in which the subjects carried out the three tests was determined using balanced 3 by 3 Latin Squares (see Chapter 2) but unfortunately three runners withdrew from the study.  Tests took place at the same time of day at least one week apart.  The response variable was taken as the Heart Rate at the Lactate Threshold. 
+
+Aim: To compare typical Heart Rates at Lactate Threshold in deep water running, track running and treadmill running in well-trained male endurance runners.
+
+Plot heart rate at lactate threshold by condition
+```{r}
+
+```
+
+Plot box plot of heart rate at lactate threshold by condition
+```{r}
+
+```
+
+Draw summary of heart rate at lactate threahold
+```{r}
+
+```
+
+Conclusion: This study suggests that mean Heart Rate at LT for Well-Trained Male Endurance Runners is much lower in DWR than in Track and Treadmill running.   It could therefore be concluded that the use of the same training Heart Rates for water and land running is inappropriate.
+
+## Designs with Between and Within Subject Factors
+Probably the most commonly used design in Sports and Exercise Science involves the use of one Between Subject factor at 2 levels and one Within Subject Factor also at 2 levels (i.e. two independent samples of paired data). The approach needed in such designs often reduces to comparing the pairwise difference in the Within Subject Factor levels across the two levels of the Between Subject Factor (i.e. a two-sample comparison of the differences).
+
+### Overweight Women and Exercise
+Background: Being overweight is an ever-increasing problem in the western world.  Problems associated with being overweight include a greater incidence of diabetes and coronary heart disease.  One problem often encountered by the overweight is limited mobility.  Exercise programmes have the potential to enhance mobility by decreasing body mass and by improving strength and endurance. 
+
+Study Description: Twenty six overweight (i.e. a Body Mass Index of 25 or more) middle-aged females were randomly allocated as either an Exerciser or a Control. The Exercisers carried out a Functional Exercise Programme (involving aerobic and strength exercises) per week for 12 weeks.  One key variable used to investigate the usefulness of the Exercise Programme was the Time taken for the women to Walk 20 metres from a standing start.  This response variable was one of a battery of variables measured pre and post the 12 weeks of the study.
+
+Aim:	To investigate the effect of a 12-week Functional Exercise Programme for overweight women on 20 m Walking Time.
+
+Plot scatter plot of before and after 20m walking time:
+```{r}
+
+```
+
+Draw summary statistic:
+```{r}
+
+```
+
+Plot boxplot of difference in walking times by treatment
+```{r}
+
+```
+
+Conclusion:  There is a strong suggestion that the Exercise Programme undertaken had a beneficial effect on the typical time taken to walk 20 m in this sample of overweight middle-aged women.  Those who undertook the Exercise Programme had a sample mean improvement of approximately 1 second over the Control sample.  Such an improvement is of the order of magnitude of 6% given the typical 20 m walking times of such women.  
+
+## Between Subject Designs incorporating a Covariate.
+In Between Subject Designs there can often be other continuous variables (called Covariates) which are known or thought likely to influence the (response) variable of interest for each subject/observational unit.  For example, in a longitudinal study comparing two different diets (the Between Subject Factor) in terms of increased Basal Metabolic Rate (BMR), such a covariate could be an individual’s body mass at the start of the study period.  If the covariate does influence the response variable, then adjusting for this will improve the comparison of the Between Subject Factor (i.e. improve precision of estimates).
+
+A suitable approach to summarising data from such a scenario is to:
+
+1. Provide the usual summary statistics for the response variable (and for the covariate) such as the sample mean, median, minimum, maximum, standard deviation separately for each level of the Between Subject Factor;
+2. Provide a labelled scatter plot of the response variable on the vertical (y) axis) and the covariate on the horizontal (x) axis with a different symbol for each level of the Between Subject Factor.
+
+### Grip Strength
+Background:  In the sport of rock climbing the steeper the rock face is, generally, the more difficult the climb is graded. Climbs are graded from Moderate to Extreme (E), with E1 being the easiest climb on this E scale. A Severe grading is between Moderate and Extreme and is not deemed to be a high climbing standard. It is reasonable to speculate that high levels of climbing specific finger strength and perhaps Grip Strength are of great importance in elite climbing.
+
+Study Description:  Independent samples of ten Elite*1 (i.e. have successfully completed a climbing standard of ‘E1’ in the last 12 months), ten Recreational (i.e. have successfully completed a climb no harder than ‘Severe’ in the last 12 months) and ten Non-climbers (i.e. Controls) had the Grip Strength of their (dominant) right hand measured, as well as having their Body Mass recorded.   All subjects were male. 
+
+Aim:  To compare average Grip Strength of the (dominant) right hand among the three populations of male climbers while adjusting for Body Mass if necessary.
+
+Plot box plot of grip strength by climber type:
+```{r}
+
+```
+
+Summarise the data:
+```{r}
+
+```
+
+Plot scatter plot of grip strength vs body mass with laballed climber type:
+```{r}
+
+```
+
+Conclusion: Adjusting Grip Strength for Body Mass seems worthwhile and it appears, on adjustment, that Elite climbers do have considerably greater Grip Strength on average than either of the other two Climber Types who appear similar in Grip Strength profile.    Any formal analysis to decide whether there is sufficient evidence to claim an actual difference in population mean Grip Strength would have to incorporate both Body Mass and Climber Type.   
+
+## Modelling Relationships (Correlation and Regression)
+A common problem in Sports and Exercise Science is to investigate whether two variables measured on the same subject are related in any way.  Relationships between a pair of variables can involve two completely different interpretations.   The first of these is where there is a link between the two variables but there is no causal relationship; a child’s physical activity level mid week may be related to his/her weekend physical activity levels but that his/her mid week activity (barring an accident of course!) should, in general, have no influence on his/her weekend physical activity and vice versa.  Neither variable has a specific ‘role’.   This is called a Correlation problem.
+
+Background:   Low levels of Physical Activity (PA) are considered to be a major factor in the obesity epidemic in young children at the present time.  There is a need to measure PA in young children for a number of reasons including the assessment of interventions and the comparison of different populations. Accelerometers are now commonly used to measure PA.  They can be used to monitor total PA and categorise intensity levels. Accelerometers are small, light-weight and attached to the waist with a belt.  In this study an Actigraph accelerometer was used which measures movement mainly in the vertical plane and the output is given in digital counts. 
+
+Study Description: In a study of the PA of modern-day children under 5 years of age, each of a random sample of 76 pre-school children from the West of Scotland had his or her PA measured (using an accelerometer) on a Saturday and Wednesday within seven days of each other.   Half of the children had their PA measured midweek and again on the following weekend while the remaining half were measured on a weekend and then the midweek following.
+
+Aim: To examine the relationship, if any, between a child’s PA, as measured by an accelerometer, midweek and at the weekend. 
+
+Plot a scatter plot of midweek vs weekend physical activity in children:
+```{r}
+
+```
+
+Conclusion:   There appears to be, at best, a moderate positive relationship between Midweek and Weekend physical activity in children, when measured using an accelerometer.  
+
+Background:  Laboratory tests have been used extensively to provide information about the relationship between physiological markers and distance running performance. Sub-maximal blood lactate variables are commonly used as such physiological markers, e.g. the running velocity required to raise the blood lactate to a predetermined concentration such as 4 mmol.L-1. 
+
+Study Description: Sixteen well-trained middle distance runners performed a
+3 km time trial on an indoor 200 m track and an incremental running test on a treadmill from which the running velocity (km.h-1) at a blood lactate concentration of 4 mmol.L-1 (v-4mM) was determined using interpolation.
+
+Aim:  To investigate the dependency, if any, of 3 km track running time on laboratory measured running velocity (v-4mM) among well-trained middle distance runners.
+
+Plot a scatter plot of 3km time vs running velocity
+```{r}
+
+```
+
+Conclusion:  There is evidence of a strong negative linear dependence of 3 km time on blood lactate concentration of 4 mmol.L-1 in the sample of runners provided.   
+
+Background:   Exercise guidelines suggest that carrying out aerobic exercise for 20 minutes on at least 3 times a week at between 60% and 90% of and individual’s Maximum Heart Rate is likely to maintain or improve aerobic fitness. Maximum Heart Rate of an individual is often estimated as 220 minus the age of an individual. 
+
+Study Description:  A sample of 26 physically active males underwent an incremental treadmill exercise test to volitional exhaustion.  The Maximum Heart Rate (max HR) of each subject during this test was recorded as was his Age. 
+
+Aim:  To investigate whether the Maximum Heart Rate of individuals is indeed on average equal to 220 minus the Age of an individual.
+
+Plot a scatter plot of maximum heart rate vs age
+```{r}
+
+```
+
+Conclusion:  The “reputed” relationship that Maximum HR = 220 - Age does not perfectly model Maximum Heart Rate on an individual level.   There is a suggestion that the relationship may be true “on average” but with a reasonably large level of variability of Maximum Heart Rate at any age. 
+
+

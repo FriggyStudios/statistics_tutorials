@@ -1,0 +1,275 @@
+---
+title: "Data Transformation"
+output: 
+      learnr::tutorial:
+          progressive: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(grader)
+knitr::opts_chunk$set(echo = FALSE)
+tutorial_options(exercise.checker = grade_learnr)
+
+fifa <- read_csv("data/FifaPlayers.csv")
+```
+
+# Topic 2 - Data Transformation
+
+## Objects
+
+Create new objects with <-
+```{r object, echo = T}
+x <- 1 + 2
+```
+Objects names must start with a letter and may contain letters, numbers and underscores: _
+
+### Comparisons
+Check is 2 + 3 equal to 5
+```{r comparison, exercise=TRUE, exercise.lines = 5}
+... + ... == ...
+```
+
+```{r comparison-solution}
+2 + 3 == 5
+```
+
+```{r comparison-hint}
+2 + 3 == 5
+```
+
+```{r comparison-check}
+strict_check(success = "It is...")
+```
+
+## dplyr
+5 key dpylr function:
+
+* filter
+* arrange
+* select
+* mutate
+* summarize
+
+### Filter
+Filter players who have nationality: "Republic of Ireland" and play in the league: "English Premier League".
+
+```{r filter, exercise=TRUE, exercise.lines = 5}
+filter(fifa, nationality == "...", ... == "English Premier League")
+```
+
+```{r filter-solution}
+filter(fifa, nationality == "Republic of Ireland", league == "English Premier League")
+```
+
+```{r filter-hint}
+filter(fifa, nationality == "Republic of Ireland", league == "English Premier League")
+```
+
+```{r filter-check}
+strict_check(success = "Nice filter!")
+```
+
+### Logical Operators
+Filter players who have nationality: "Republic of Ireland" or have nationality: "Wales"
+
+```{r logical1, exercise=TRUE, exercise.lines = 5}
+filter(fifa, ... | ...)
+```
+
+```{r logical1-solution}
+filter(fifa, nationality == "Republic of Ireland" | nationality == "Wales")
+```
+
+```{r logical1-hint}
+filter(fifa, nationality == "Republic of Ireland" | nationality == "Wales")
+```
+
+```{r logical1-check}
+strict_check(success = "Nice filter!")
+```
+
+### More filter
+
+Filter players who play for a Machester club, Manchester City or Manchester United, using the %in% operator.
+
+```{r logical2, exercise=TRUE, exercise.lines = 5}
+filter(fifa, club %in% c(...,...))
+```
+
+```{r logical2-solution}
+filter(fifa, club %in% c("Manchester United", "Manchester City"))
+```
+
+```{r logical2-hint}
+filter(fifa, club %in% c("Manchester United", "Manchester City"))
+```
+
+```{r logical2-check}
+strict_check(success = "Nice filter!")
+```
+
+### Missing Values
+NA - not available
+```{r}
+NA
+```
+The value is not known or is non applicable
+
+filter only includes results which are TRUE, and excludes results which are FALSE and NA
+```{r, echo = T}
+t <- tibble(x = c(1,20,NA,10,4,NA))
+filter(t, x %in% c(1:10))
+```
+
+### Arrange
+Arrange the "England" players in descending order of age.
+Use desc(age)
+```{r arrange, exercise=TRUE, exercise.lines = 5}
+arrange(filter(fifa,nationality == "England"),...)
+```
+
+```{r arrange-solution}
+arrange(filter(fifa,nationality == "England"),desc(age))
+```
+
+```{r arrange-hint}
+desc(age)
+```
+
+```{r arrange-check}
+strict_check(success = "Nice arranging!")
+```
+
+### Select
+Select the columns: overall, pac, sho, pas, dri, def, phy
+```{r select, exercise=TRUE, exercise.lines = 5}
+select(fifa,...)
+```
+
+```{r select-solution}
+select(fifa, overall, pac, sho, pas, dri, def, phy)
+```
+
+```{r select-hint}
+select(fifa, overall, pac, sho, pas, dri, def, phy)
+```
+
+```{r select-check}
+strict_check(success = "Nice column selecting!")
+```
+
+### Mutate
+Add a new column kick = sho + pas.
+Use mutate.
+```{r mutate, exercise=TRUE, exercise.lines = 5}
+fifa_sample <- select(fifa,sho,pas)
+mutate(fifa_sample,...)
+```
+
+```{r mutate-solution}
+fifa_sample <- select(fifa,sho,pas)
+mutate(fifa_sample,kick = sho + pas)
+```
+
+```{r mutate-hint}
+mutate(fifa_sample,kick = sho + pas)
+```
+
+```{r mutate-check}
+strict_check(success = "Nice new column!")
+```
+
+### Transmute
+Use transmute instead of mutate.
+This leaves us with only the new columns.
+```{r transmute, exercise=TRUE, exercise.lines = 5}
+fifa_sample <- select(fifa,sho,pas)
+mutate(fifa_sample,kick=sho+pas)
+```
+
+```{r transmute-solution}
+fifa_sample <- select(fifa,pac,sho,pas,dri,def,phy)
+transmute(fifa_sample,kick=sho+pas)
+```
+
+```{r transmute-hint}
+transmute(fifa_sample,kick=sho+pas)
+```
+
+```{r transmute-check}
+strict_check(success = "Nice new column!")
+```
+
+### Grouping
+Group by nationality and prefers_gk.
+Summarize with avg_age = mean(age).
+```{r group, exercise=TRUE, exercise.lines = 3}
+fifa_small <- group_by(fifa, ...)
+summarize(fifa_small,...)
+```
+
+```{r group-solution}
+fifa_small <- group_by(fifa, nationality, prefers_gk)
+summarize(fifa_small, avg_age = mean(age))
+```
+
+```{r group-hint}
+fifa_small <- group_by(fifa, nationality, prefers_gk)
+summarize(fifa_small, avg_age = mean(age))
+```
+
+```{r group-check}
+strict_check(success = "Nice groupings!")
+```
+
+### Pipes
+dpylr pipes make it easier to nest functions together into one statement.
+
+Without dpylr pipes, using nested functions:
+```{r echo = T}
+select(filter(fifa,nationality =="Spain"),name,overall)
+```
+
+Without dpylr pipes, using variables:
+```{r echo = T}
+fifa_sample <- filter(fifa,nationality =="Spain")
+select(fifa_sample,name,overall)
+```
+
+With dpylr pipes:
+```{r echo = T}
+fifa %>%
+  filter(nationality == "Spain") %>%
+  select(name,overall)
+```
+
+Replace the code below with dpylr pipes: %>%
+```{r pipe, exercise=TRUE, exercise.lines = 3}
+fifa_sample1 <- group_by(fifa,nationality)
+fifa_sample2 <- summarize(fifa_sample1,count = n(), avg_age = mean(age))
+fifa_sample3 <- filter(fifa_sample2,avg_age < 25)
+arrange(fifa_sample3, avg_age)
+```
+
+```{r pipe-solution}
+fifa %>% 
+  group_by(nationality) %>%
+  summarize(count = n(), avg_age = mean(age)) %>%
+  filter(avg_age < 25) %>%
+  arrange(avg_age)
+```
+
+```{r pipe-hint}
+fifa %>% 
+  group_by(nationality) %>%
+  summarize(count = n(), avg_age = mean(age)) %>%
+  filter(avg_age < 25) %>% 
+  arrange(avg_age)
+```
+
+```{r pipe-check}
+strict_check(success = "Nice dplyr pipes!")
+```

@@ -1,0 +1,163 @@
+---
+title: "Exploratory Data Analysis"
+output: 
+      learnr::tutorial:
+          progressive: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(grader)
+knitr::opts_chunk$set(echo = FALSE)
+tutorial_options(exercise.checker = grade_learnr)
+
+pokemon <- read_csv("data/Pokemon.csv")
+
+bechdel <- read_csv("data/BechdelTest.csv")
+
+fifa <- read_csv("data/FifaPlayers.csv")
+```
+# Topic 3 - Exploratory Data Analysis
+
+## Visualizing Distributions
+Bar chart showing the number of Pokemon of each type
+```{r echo=T}
+ggplot(data=pokemon) +
+  geom_bar(mapping = aes(x = type_1)) +
+  coord_flip()
+```
+
+Visualise the distrubtion of pokemon's hp using a histogram with binwidth = 10
+```{r visual1, exercise=TRUE, exercise.lines = 5}
+ggplot(data=pokemon) +
+  ...
+```
+
+```{r visual1-solution}
+ggplot(data=pokemon) +
+  geom_histogram(mapping = aes(x = hp),binwidth=10)
+```
+
+```{r visual1-hint}
+ggplot(data=pokemon) +
+  geom_histogram(mapping = aes(x = hp),binwidth=10)
+```
+
+```{r visual1-check}
+strict_check(success = "Nice histogram!")
+```
+
+Visualise the distrubtion of pokemon's attack using a freqpoly, filtering dragon, ground, normal and water type_1 pokemons, using a freqpoly with color = type_1 and binwidth=5
+```{r visual2, exercise=TRUE, exercise.lines = 5}
+ggplot(data=filter(pokemon,type_1 %in% ...)) +
+```
+
+```{r visual2-solution}
+ggplot(data=filter(pokemon,type_1 %in% c("Water","Normal","Grass","Bug"))) +
+  geom_freqpoly(mapping = aes(x = attack,color = type_1), binwidth=5)
+```
+
+```{r visual2-hint}
+ggplot(data=filter(pokemon,type_1 %in% c("Water","Normal","Grass","Bug"))) +
+  geom_freqpoly(mapping = aes(x = attack,color = type_1), binwidth=5)
+```
+
+```{r visual2-check}
+strict_check(success = "Nice histogram!")
+```
+
+## Unusual Values
+Histogram of wage of footballers
+```{r echo=T}
+ggplot(data=fifa) +
+  geom_histogram(mapping = aes(x = eur_wage),binwidth=1000)
+```
+The only evidence of outliers is the unusually wide limits on the y-axis
+
+Add coord_cartesian ylim of c(0,20)
+```{r unusual, exercise=TRUE, exercise.lines = 5}
+ggplot(data=fifa) +
+  geom_histogram(mapping = aes(x = eur_wage),binwidth=1000)
+```
+
+```{r unusual-solution}
+ggplot(data=fifa) +
+  geom_histogram(mapping = aes(x = eur_wage),binwidth=1000) +
+  coord_cartesian(ylim = c(0,20))
+```
+
+```{r unusual-hint}
+ggplot(data=fifa) +
+  geom_histogram(mapping = aes(x = eur_wage),binwidth=1000) +
+  coord_cartesian(ylim = c(0,20))
+```
+
+```{r unusual-check}
+strict_check(success = "Well done!. It is much easier to see small values now.")
+```
+
+## Missing Values
+NA values can not be plotted and may give errors
+```{r echo=T}
+ggplot(data=bechdel,mapping = aes(x = test, y = dom_gross)) +
+  geom_point()
+```
+Remove the missing value warning by using the paramater na.rm = TRUE in geom_point
+
+```{r missing, exercise=TRUE, exercise.lines = 5}
+ggplot(data=bechdel,mapping = aes(x = test, y = dom_gross)) +
+  geom_point()
+```
+
+```{r missing-solution}
+ggplot(data=bechdel,mapping = aes(x = test, y = dom_gross)) +
+  geom_point(na.rm = TRUE)
+```
+
+```{r missing-hint}
+ggplot(data=bechdel,mapping = aes(x = test, y = dom_gross)) +
+  geom_point(na.rm = TRUE)
+```
+
+```{r missing-check}
+strict_check(success = "Missing values no longer give warnings.")
+```
+
+## Covariation
+Covariation is the tendency for the values of two or more variables to vary togeter in a related way.
+
+International Reputation vs Average Wage
+```{r echo=T}
+ggplot(data=(fifa %>% 
+  group_by(international_reputation) %>%
+  summarize(count = n(), avg_wage = mean(eur_wage))))+
+  geom_point(mapping = aes(x = international_reputation, y = avg_wage))
+```
+
+Find covariation between two other variables in the fifa data
+```{r covariation, exercise=TRUE, exercise.lines = 5}
+ggplot(data=fifa,mapping = aes(...)) +
+  ...
+```
+
+```{r covariation-hint}
+"Plot two variables in the fifa dataset that may be related."
+```
+
+## Patterns
+From this tile plot we can see a decline in number of water pokemon through generations, and a reduced number of pokemon in generation 6 when compared to other generations.
+
+```{r echo=T}
+pokemon %>%
+  count(generation,type_1) %>%
+  ggplot(mapping = aes(x=generation,y=type_1)) +
+    geom_tile(mapping = aes(fill = n))
+```
+
+This barchart confirms the suspician that the 6th generation of Pokemon has the least number of Pokemon.
+```{r echo=T}
+  ggplot(data=pokemon,mapping = aes(x = generation)) +
+  geom_bar()
+```

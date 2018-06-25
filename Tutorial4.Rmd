@@ -1,0 +1,173 @@
+---
+title: "Tibble and Readr"
+output: 
+      learnr::tutorial:
+          progressive: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(grader)
+knitr::opts_chunk$set(echo = FALSE)
+tutorial_options(exercise.checker = grade_learnr)
+
+bechdel <- read_csv("data/BechdelTest.csv")
+```
+# Topic 4 - Tibble and Readr
+
+## Tibble
+
+### Creating a tibble
+
+```{r echo=T}
+tibble( x = 1:5,
+        y = 10,
+        z = x^3 - y)
+```
+
+Create your own tibble
+```{r tibble, exercise=TRUE, exercise.lines = 5}
+tibble(...)
+```
+
+```{r tibble-hint}
+"Add paramaters to tibble: column_name = variable"
+```
+
+### Tribble
+Creating a tibble using tribble allows individual observations to be written one at a time.
+```{r echo = T}
+tribble(
+  ~id, ~name, ~age,
+  123, "Leon", 18,
+  456, "Elaine", 21,
+  789, "Corey", 20
+)
+```
+
+Create your own tribble
+```{r tribble, exercise=TRUE, exercise.lines = 5}
+
+```
+
+```{r tribble-hint}
+tribble(...)
+```
+
+### Subsetting
+Each column of a tibble can be selected using the $ operator or double square brackets [[]]
+```{r echo = T}
+t <- tibble(x = 5, y = 10)
+
+t$x
+
+t[["y"]]
+
+t %>% .$y
+
+t %>% .[["x"]]
+```
+
+Subset your own tibble
+```{r subset_tibble, exercise=TRUE, exercise.lines = 5}
+
+```
+
+```{r subset_tibble-hint}
+"Use $ or [[]] to subset a tibble."
+```
+
+### Convert to data.frame
+```{r echo = T}
+t <- tibble(x = 5, y = 10)
+
+as.data.frame(t)
+```
+
+## Readr
+
+### Reading csv
+Using read_csv
+```{r echo = T}
+pokemon <- read_csv("data/Pokemon.csv")
+class(pokemon)
+pokemon
+```
+
+### Parsing
+Parsing string to logical entries.
+str shows the structure as logi
+```{r echo = T}
+str(parse_logical(c("TRUE", "FALSE", "TRUE")))
+```
+
+Parse the following vector of strings, v, as integers. Show the structure using str.
+```{r parse, exercise=TRUE, exercise.lines = 5}
+v <- c("1", "2", "3")
+
+```
+
+```{r parse-solution}
+v <- c("1", "2", "3")
+str(parse_integer(v))
+```
+
+```{r parse-hint}
+str(parse_integer(v))
+```
+
+```{r parse-check}
+strict_check(success = "integers are parsed.")
+```
+
+### Date and Time
+```{r echo = T}
+parse_date("2018-05-25")
+```
+
+```{r echo = T}
+parse_date("25/05/2018", "%d/%m/%y")
+```
+
+Parse the date "01/02/15" as month, day, year.
+```{r date, exercise=TRUE, exercise.lines = 5}
+
+```
+
+```{r date-solution}
+parse_date("01/02/15", "%m/%d/%y")
+```
+
+```{r date-hint}
+parse_date("01/02/15", "%m/%d/%y")
+```
+
+```{r date-check}
+strict_check(success = "Nice date!")
+```
+
+### Writing to File
+```{r echo = T}
+write_csv(bechdel, "data/bechdel2.csv")
+```
+
+Write bechdel to R's custom binary format called RDS as "behcel.rds"
+```{r rds, exercise=TRUE, exercise.lines = 5}
+
+```
+
+```{r rds-solution}
+write_rds(bechdel,"behcel.rds")
+```
+
+```{r rds-hint}
+write_rds(bechdel,"behcel.rds")
+```
+
+```{r rds-check}
+strict_check(success = "Bechdel is written as a RDS")
+```
+
+
