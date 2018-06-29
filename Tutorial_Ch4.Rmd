@@ -1,0 +1,275 @@
+---
+title: "Summarising and Displaying Data"
+output: 
+      learnr::tutorial:
+          progressive: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(grader)
+knitr::opts_chunk$set(echo = FALSE)
+tutorial_options(exercise.checker = grade_learnr)
+
+WALK_20M <- read_csv("data/chapter_3/20M WALK.CSV")
+```
+
+# Ch4: Estimating Parameters
+Statistics is the subject of drawing inferences about some summary aspect of a population (i.e. a population parameter) based on a representative sample of the population.   It is very unlikely that the researcher/scientist will ever have the time, enthusiasm and budget to carry out a census study (i.e. collect data on all members of a population) and he/she will instead have to rely on a (hopefully representative) sample of the population on which to base any inference.  
+
+The provision of a clear and useful subjective impression based on appropriate summary statistics and graphs is the first important step in handling any data set.   The previous chapter presented illustrations of how best to summarise a sample of data, both numerically and graphically, across a variety of common contexts in Sports and Exercise Science.   In each context, the most ‘suitable’ summary statistic was chosen and this depends crucially on the assumed probability model underlying the response variable of interest in the population.   Throughout this chapter and indeed much of this text-book, the assumption is made that each population can be adequately represented as a “Normal probability model or Normal distribution” and consequently interest will lie in population means as the relevant population parameters of interest.   This assumption will, of course, have to be justified in all cases before any final conclusions can be drawn from any data set.
+
+Once this Normal model assumption has been justified, formal techniques are required that will allow (sample) estimates of the population means to be made that incorporate the natural variability produced from taking (random) samples.   These involve mathematical ideas beyond the scope of this textbook and, in fact, are of little value in aiding understanding of the basic ideas of inference.   The only really key aspect is that the assumed model can be used to quantify the likely variability in sample means (of the same sample size as that observed) across potentially different samples and hence the “error” that will accrue from estimating a population mean from the actual observed sample of data from that underlying Normal population. This is the basis of the formal statistical model underlying this and subsequent chapters.
+
+## Interval Estimation
+Many of the questions considered in Sports and Exercise Science research involve the estimation of population means.   The sample mean is the best estimate of the population mean.   If a different sample of the same size were taken, it is virtually certain that the corresponding estimate (sample mean) would be different for this and indeed any other sample (of the same size).
+
+Every sample statistic involves some aspect of ‘error’ when used as an estimate of a population parameter.   This ‘error’ is composed of two elements, namely sampling variability and poor sample design.  The second of these can often be controlled and dramatically improved by implementing a sound study design as described in Chapter 2.   There is, however, only limited control regarding sampling variability.   Statistical theory provides a framework for combining a sample statistic and its sampling variability into a range of values likely to contain the population parameter (i.e. an interval estimate) rather than a single point estimate such as the sample mean.   This often involves quantification of the so-called estimated standard error (ese) of the point estimate.   Interval estimation will be the most important tool in the researcher’s statistical toolbox.   It is crucial that the researcher is able to interpret such interval estimates, understand exactly what information such intervals provide and appreciate the ‘terms and conditions’ that apply to such intervals.
+
+## Interval Estimation for a Population Mean
+The sample mean is the best ‘point’ estimate available of the population mean of interest - it is however highly unlikely to actually equal the population mean.  An extension to a point estimate is an interval estimate, a range of values likely to contain the population parameter.  Such an interval, often referred to as a Confidence Interval, is dictated by an arbitrary choice of ‘confidence’ which, by convention, is typically chosen to be 95% (see the Technical Comments at the end of this chapter for more discussion on this).  
+
+For example, a 95% Confidence Interval (CI) for a population mean is of the form
+		Sample Mean  +/-  2 ese of the Sample Mean
+where the ese (i.e. estimated standard error) of the sample mean is calculated by the sample standard deviation divided by the square root of the sample size.   The ese provides an estimate as to the precision of the sample statistic, the larger the ese the less precise the statistic (in this case the sample mean) is as an estimate of the corresponding parameter (in this case the population mean).  
+
+A 95% Confidence Interval ensures that, in repeated sampling, 95% of intervals produced by such a method will contain the true (but unknown) population parameter - almost always regardless of the value of this population parameter.  Strictly speaking nothing can be said about any actual, observed (95%) Confidence Interval, other than that such a method will often 'catch' the true value in the interval.  
+
+When the key question of interest is to estimate a population mean from a single sample of data from a Normal distribution, the full analysis can be summarised as follows:
+
+1. provide summary statistics and a box plot of the variable of interest;
+2. investigate whether the variable of interest is likely to have arisen from a Normal distribution;
+3. provide an interval estimate of the likely values of the population mean;
+4.	make an objective statement regarding the key question of interest given the interval estimate provided.
+
+### 5m Sprint Time in Soccer Players
+Background:  Soccer players are often involved in short duration sprints during a game in order to make a tackle, intercept the ball or receive a pass.  Thus, speed over 5 m is deemed to be a very important attribute for soccer players.    Regular measurement of 5 m sprint speeds for soccer players will allow the assessment of the efficacy of training programmes and the impact of injuries. 
+Study Description: As part of a fitness test battery in a professional soccer club, a sample of 43 elite soccer players performed a number of 5 m sprints. After a warm-up, the players performed three sprints on an indoor track with a set recovery between each sprint.  Times were recorded to one hundredth of a second using electronic time gates. The fastest time from the three trials for each player was used in the analysis outlined below.
+Source:  Sports Performance Unit, Scottish Premier League Club. 
+
+Aim: 	To estimate the mean 5 m sprint for the population of professional soccer players.
+
+Summary statistic of sprint times
+```{r echo = T}
+
+```
+
+Plot a box plot of the 5m Sprint Time
+```{r echo = T}
+
+```
+
+One-Sample 95% Confidence Interval for the population mean 5 m Sprint Time
+```{r echo = T}
+
+```
+
+Conclusion:  On the basis of a 95% Confidence Interval, it is likely that the population mean 5 m Sprint Time for elite soccer players is somewhere between 1.05 and 1.09 seconds.
+
+## Comparing Two Population Means (The Simplest Between Subject Design)
+This can arise from an observational study (two independent samples) or through a designed experiment (a single sample randomised into one of the two levels of a Between Subject Factor).  Regardless of the context, the response variable of interest is recorded for each subject in both samples/levels and interest relates to the comparison of the population mean. The parameter of interest is the difference in population means and is estimated naturally by using the difference in the sample means.   If the difference in the two population means is zero then the population means are identical; this simple fact is central in interpreting the results from two sample comparisons.  
+
+The formal analysis can be summarised as follows:
+
+1. provide summary statistics and a box plot of the response variable categorised by the levels of the Between Subject Factor;
+2. provide and comment on a suitable interval estimate of the likely difference in the population means;
+3. if appropriate, make an objective statement as to whether zero is a plausible value for the difference in population means.  
+
+The assumptions on which this analysis is based are that the samples are independent, and that the response variable of interest was sampled from underlying Normal distributions.
+
+### Soccer Fitness (Revisited)
+Aim:  To compare the mean Counter Movement Jump (CMJ) Height in the populations of Senior and Youth soccer players.
+
+Analysis:	The sample of Senior players had a higher sample mean CMJ than the Youths by about 7 cm (Box 3.4.1).  The box plot presented in Figure 4.3.1 is a slight variation of that in Figure 3.4.1, in that the width of the box is now proportional to the size of the sample to highlight the unequal sample sizes.  
+Plot a box plot CMJump by Squad:
+```{r box_jump, exercise=TRUE, exercise.lines = 5}
+ggplot(data = SOCCER_FITNESS,...)
+```
+
+```{r box_jump-solution}
+ggplot(data = SOCCER_FITNESS,mapping = aes(x = Squad, y = CMJump)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r box_jump-hint}
+ggplot(data = SOCCER_FITNESS,mapping = aes(x = Squad, y = CMJump)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r box_jump-check}
+strict_check(success = "The assumption of Normality is questionable for population of Seniors as the median is not quite in the centre of the IQR.  The CMJ Height distribution is plausibly Normal in the Youth population however based on the symmetry present in each box plot.  The variability in the CMJ across both samples is reasonably similar.
+
+In order to make a formal comparison between the population of Senior and Youth Elite players a 95% Confidence Interval for the difference in population mean CMJ Height is required")
+```
+
+One-Sample 95% Confidence Interval for the population mean CMJump
+```{r}
+
+```
+
+The output presents the sample sizes, means, standard deviations and estimated standard errors for each of the two samples.  The estimate of the difference in the population means is given here as Senior Squad mean minus Youth Squad mean (i.e. 55.08 – 48.49 = 6.59 cm).  The difference in the sample means therefore is 6.59 cm favouring the Senior players.  The 95% Confidence Interval, a two-sample t interval (highlighted in bold in Box 4.3.1), is for the difference in the population mean CMJ Height for the Senior Squad minus the population mean for the Youth Squad.  This interval is interpreted in a similar manner as before; the interval provides a credible range for the likely value of the difference between the two population means. 
+
+The key point here is to realise that, if zero does not lie in the interval, there is a significant difference between the two population means.   In this example, the 95% Confidence Interval does not contain zero and therefore it is highly likely that there is a difference between the two population means.   As the 95% CI for the difference in the population means is strictly positive there is evidence that CMJ Height, on average, is higher in the Senior Players compared to the Youth Players.    
+
+Conclusion:   There is convincing evidence of a difference in the mean CMJ Height between the two populations of soccer players.  The mean CMJ Height is likely to be higher in Senior players by somewhere between 3 and 10 cm on average, compared to Youth players. 
+
+### Physiotherapy Pain Relief
+Background: Ischaemic pain can be induced by applying a tourniquet to the arm just above the elbow to obstruct blood flow. The subject is asked to flex and relax the forearm muscles continuously for a short period of time (e.g. 1 minute).   When the exercise is stopped, pain increases and typically becomes unbearable after about eight minutes.   This method is used in experimental studies of pain because it causes no permanent tissue damage.
+
+Study Description: A sample of 29 young healthy females was taken to investigate the effect of a mental distraction task on induced ischaemic pain.  Subjects were randomly allocated to one of two methods of Pain Relief (i.e. control and distraction).  A sub-maximal effort tourniquet technique (SETT) was used to induce ischaemic pain on a subject’s non-dominant arm while she performed sets of 20 repetitions of hand gripping exercises at 75% of her maximal grip strength over a 100 second period.  The distraction employed was a colour word ‘Stroop’ test and this mental task consists of a pencil and paper ‘Stroop’ task modified to cover 160 words typed in red, yellow, blue or green in a randomised order.  Each word did not represent its colour meaning.     While the distraction was being carried out, subjects recorded the time when they first felt pain i.e. their perceived pain levels using a Visual Analogue Scale (VAS) from the moment they acknowledged pain (i.e. their Pain Threshold) until they could not can tolerate the pain any longer (i.e. their Pain Tolerance). 
+
+Aim:  To investigate the effect of a mental distraction task on induced ischaemic pain by comparing the difference in population mean Pain Threshold between those on the Intervention (i.e. distracted) and Controls.
+
+Summary statisic of Pain Threshold
+```{r}
+
+```
+
+Plot a box plot of Pain Threshold by Group
+```{r}
+
+```
+
+Two sample T-Test of Pain Threshold and Treatment
+```{r}
+
+```
+
+Conclusion:    In terms of the time to onset of the perception of ischaemic pain, a mental distraction Stroop task can significantly increase this by somewhere between 23 and 90 seconds on average.
+
+The next example involves a designed experiment where the analysis is carried out to ‘confirm’ that the randomisation was effective in terms of the two samples being reasonably comparable at baseline (i.e. to check that the two randomised samples look to have arisen from the same population).  
+
+### Osteoporosis and Exercise
+Background: Osteoporosis is a fairly common condition in post-menopausal women.  The porous bones in this population are susceptible to fracture. The consequences of a fracture can be very serious. For example, a fracture of the neck of the femur in elderly females is associated with a very poor prognosis and may include physical incapacity and death.  Exercise programmes have the potential to increase the well-being of osteoporosis sufferers. For example, if the balance of these subjects could be improved, the subjects would be less likely to fall and therefore less likely to fracture.
+
+Study Description: A sample of 30 middle-aged osteoporotic women was randomised either to a twice-weekly physiotherapist-led exercise regime or to be a control.   Physiological assessments, including a functional reach test measuring balance, were conducted on all women both before and after two months of the ‘intervention’ (i.e. exercise or control).
+
+Aim:	To assess whether the Controls and Exercisers were comparable at baseline (i.e. immediately before the study) in terms of this measure of balance.
+
+Summary statistic of balance before
+```{r}
+
+```
+
+Plot a box plot of balance by group
+```{r}
+
+```
+
+Two sample T-Test of balance before and regime
+```{r}
+
+```
+
+he 95% Confidence Interval (highlighted in bold) is for the difference in the population mean Balance for Controls minus the population mean Balance for Exercisers.  This 95% Confidence Interval contains zero and therefore it is plausible that there is no difference between the two population means – especially since zero lies almost exactly in the middle of this interval estimate. 
+
+Conclusion: There is no evidence of a difference in mean Balance for Controls and Exercisers at baseline.  The two samples may not have had identical Balance scores but there is evidence that the populations can be considered comparable at baseline on average.  The difference in the two sample means can therefore be attributed to random sampling.  
+
+## Interval Estimation for Paired data (The Simplest Within Subject Design)
+Recall that Paired data arise in Within Subject Designs with a single factor at two levels.   A pair of measurements is made on the same individual (e.g. VO2 max before and after a training intervention, isokinetic knee extensor strength of dominant and non dominant leg) and are ‘dependent’ upon each other.  If a particular individual’s observation at the first level of the Within Subject Factor is high, it is not surprising that his/her observation at the second level will also be high and vice versa.  This dependency can often be exploited to reduce the problem to a single sample of differences
+
+### Training Intervention
+Background: Norwegian studies have shown that high intensity aerobic interval training is effective in enhancing VO2 max in soccer players. This improvement in VO2 max has resulted in the players covering a greater distance during games.  Strength training may improve running economy, sprinting and jumping performance. 
+
+Study Description:	  A sample of 18 full-time youth soccer players from a Youth Academy performed high intensity aerobic interval training and neuromuscular strength training twice-a-week over a 10-week in-season period in addition to usual regime of soccer training and matches. 
+
+Aim: To investigate whether a concurrent high intensity interval-training and neuromuscular strength improves on average the VO2 max of soccer players over a 10-week period.
+
+Plot a scatter plot of Pre vs Post VO2 Max
+```{r}
+
+```
+
+Plot a box plot of improvement in VO2 Max
+```{r}
+
+```
+
+One-Sample Confidence Interval
+```{r}
+
+```
+
+This interval suggests that the actual mean improvement is likely to be between 3.99 and 6.23 ml.kg-1.min-1.   As this interval does not contain zero, there is evidence of a mean improvement in max due to the training intervention.   
+
+Conclusion:  There is evidence of a real improvement in mean max among professional soccer players due to this training intervention.   The mean improvement in the sample was 5.1 ml.kg-1.min-1, which is nearly an 8% improvement on the typical Pre-study max of around 68 ml.kg-1.min-1.
+
+## One Between and One Within Subject Factor (each at 2 levels)
+Such a design involves samples of Paired data from two distinct and different populations i.e. a design with one Between Subject Factor and one Within Subject Factor both at two levels.  The methods needed to analyse such designs are in fact just those already presented in the previous sections of this chapter.  The analysis required often reduces to nothing more than a comparison of the mean differences in the two samples.   
+
+The same assumptions that apply to two sample comparisons apply here to the two samples of differences. The data are assumed to be random samples and the differences are assumed to have arisen from Normal populations.  Of course, the assumption that the differences are not related to the initial values must be validated also.
+
+### Osteoporosis and Exercise (Revisited)
+Aim:  To investigate whether or not such an exercise regime can significantly improve, on average, the balance of osteoporotic women over a two-month period of exercise over any ‘natural’ improvement of controls.
+
+Plot a scatter plot of Balance before vs balance after, label the group by color
+```{r}
+
+```
+
+Plot a box plot of improvement in balance by regime
+```{r}
+
+```
+
+Two sample T-Test for improvement in balance
+```{r}
+
+```
+
+Interval estimates for the average improvement in this measure of Balance for each Regime separately
+```{r}
+
+```
+
+On the basis of these, it can be seen that, on average, Controls do not significantly improve over the study period (since the interval of –1 to 4 cm does include zero) whereas Exercisers do, in general, improve Balance by between 2 and 6 cm on average.
+
+Conclusion: There is evidence that post-menopausal Osteoporotic women, on average, can significantly improve their Balance (as measured by a Functional Reach test) with a two month physiotherapist-led exercise regime.
+A second illustration of this ‘two sample paired problem’ now follows as such contexts are the most common problem in Sports and Exercise Science and it is well worth looking at the different types of results that can arise here.
+
+### Exercise and the Elderly (Revisited)
+Aims:  To compare the average difference in Relative Intensity during Aerobic Dance and Walking sessions for each sex separately and then to investigate whether the difference in Relative Intensity (if any) is, on average, similar for Males and Females.
+
+plot a scatter plot of intensity by excercise regime and sex
+```{r}
+
+```
+
+Plot a box plot of difference in relative intensity by sex
+```{r}
+
+```
+
+One-Sample T: Dance-Walk(M), Dance-Walk(F) 
+```{r}
+
+```
+
+The separate intervals provide evidence, that in the elderly population, both Males and Females tend to have a higher mean Relative Intensity when carrying out an Aerobic Dance session than when they take part in an individual Walking session.   
+
+Two-sample T for Dance-Walk(M) vs Dance-Walk(F)
+```{r}
+
+```
+
+Despite the fact that the sample mean difference was higher for Males, the 95% Confidence Interval for “Males minus Females” contains zero and, therefore, there is not sufficient evidence to claim that such an increase in Relative Intensity is higher in the population of elderly males compared to the population of elderly females.  
+
+Conclusion: The Relative Intensity was significantly higher on average for the Aerobic Dance session than the Walking session for both Males and Females in this elderly population.   There was no evidence however that the typical difference between these types of session is different for the sexes.  
+
+## Prediction and Tolerance intervals
+One misconception in the interpretation of a Confidence Interval (CI) for a population mean is to consider it as providing an estimate of the likely value of a particular individual in the population.  For example, the 95% CI calculated previously for the population mean Ascent Time of Mont Blanc was between 4 hours 10 minutes and 4 hours 20 minutes.   This interval provides a likely range of values for the population mean and not a likely range for any future individual.   Of course, the sample mean is still the best (point) estimate that could be used when predicting the actual Ascent Time of a future climber, but the corresponding interval estimate should naturally be wider to take into account the considerable variability in Ascent Time from climber to climber.  The interval that is appropriate for a future (random) member of the population is called a Prediction Interval (PI).   This takes into account not only the uncertainty/error in the estimate of the population mean but also the population variability/standard deviation since the assumption throughout this section is still that the underlying population is Normally distributed.
+
+Another form of “interval” encountered in Sports and Exercise Science is that of the so-called Tolerance Interval (TI) or “Normal” Ranges as they are referred to particularly in Medicine.   These are ranges of values within which it is intended that a fixed proportion of the target population will lie.  Such ranges are particularly useful when generating ‘reference ranges’ for acceptable levels of particular substances in drug testing, as a benchmark to detect athletes who may be ‘doping’.
+
+The difference between Tolerance and Prediction intervals is quite subtle and often causes confusion.  The main point to consider is whether the researcher is trying to use the current sample to predict the actual value of a single future observation (i.e. a Prediction Interval) or to estimate the range of the variable covering the vast majority of the population (i.e. a Tolerance Interval).
+
+### Avalanche Survival
+Background: Asphyxiation is a common cause of death in avalanche burial.  This is often due to the accumulation of expired CO2 in the immediate air supply, leading to the displacement of available oxygen.  Recent studies have indicated that incorporation of a CO2 scrubbing agent into a breathing apparatus may be a successful means of survival enhancement.  Soda Lime is one of the most commonly used CO2 removal agents used in anaesthetic practice.  
+
+Study Description:  A sample of 14 healthy subjects performed two blinded trials, one with a Soda Lime canister and one with a Placebo canister acting as a Control.  Subjects breathed through a mouthpiece into a closed-circuit system attached to a Douglas Bag containing 12 litres of 100% O2.  They were instructed to continue for as long as they could tolerate breathing from the system (i.e. their Tolerance Time).  The design was balanced as seven of the subjects used the Soda Lime canister first while the other seven used the Placebo first.
+
+Aim:  	To provide estimates of the likely Tolerance Time for a future person in a laboratory simulated avalanche situation both with and without a Soda Lime canister.

@@ -20,12 +20,15 @@ POOL_RUNNING <- read_csv("data/chapter_3/POOL RUNNING.CSV")
 RELAXATION <- read_csv("data/chapter_3/RELAXATION.CSV")
 SOCCER_FITNESS <- read_csv("data/chapter_3/SOCCER FITNESS.CSV")
 WALKDANCE <- read_csv("data/chapter_3/WALKDANCE.CSV")
+ACTIVITY <- read_csv("data/chapter_3/ACTIVITY.CSV")
+MAX_HEART_RATE <- read_csv("data/chapter_3/MAX HEART RATE.CSV")
 
 WALKDANCE <- WALKDANCE %>% 
   spread(key = Exercise_Regime, value = Peak_VO2)
+names(WALKDANCE) <- gsub(" ","_",names(WALKDANCE))
 ```
 
-# Topic 8 - Summarising and Displaying Data
+# Ch3 - Summarising and Displaying Data
 Once the data have been collected and electronically recorded, the starting point in all statistical analyses is to provide useful and meaningful numerical and graphical summaries of the data.
 
 ## Single Sample Problems (Independent Data)
@@ -50,13 +53,27 @@ The spread in Ascent Times can be summarised by the sample quartiles (3.50 and 4
 
 The box plot highlights the ‘middle half’ of the sample and places less weight on each of the end quartiles.
 
-Draw a boxplot of the Ascent Time for the sample of Mont Blanc climbers.
-```{r echo = T}
+Draw a boxplot of the Ascent_Time classed by Reached_Summit for the sample of Mont Blanc climbers.
+
+```{r box_ascent, exercise=TRUE, exercise.lines = 5}
+ggplot(data = MONT_BLANC,...)
+```
+
+```{r box_ascent-solution}
 ggplot(data = MONT_BLANC,mapping = aes(x = Reached_Summit, y = Ascent_Time)) +
   geom_boxplot() +
   coord_flip()
 ```
-If there is evidence of symmetry in the box plot and the sample mean and median are similar then the Normal distribution is likely to be a reasonable assumption as to the process which generated the data.
+
+```{r box_ascent-hint}
+ggplot(data = MONT_BLANC,mapping = aes(x = Reached_Summit, y = Ascent_Time)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r box_ascent-check}
+strict_check(success = "If there is evidence of symmetry in the box plot and the sample mean and median are similar then the Normal distribution is likely to be a reasonable assumption as to the process which generated the data.")
+```
 
 Given this graphical evidence, a rough estimate of the likely range of Ascent Times for 95% of the population of interest (i.e. those who successfully climbed Mount Blanc) is available by calculating 
 the sample mean +/- 2 times the sample standard deviation,
@@ -82,15 +99,26 @@ The summary statistic
 summary(SOCCER_FITNESS)
 ```
 
-Boxplot counter movement jump height by squad:
-```{r echo = T}
+Plot a box plot CMJump by Squad:
+```{r box_jump, exercise=TRUE, exercise.lines = 5}
+ggplot(data = SOCCER_FITNESS,...)
+```
+
+```{r box_jump-solution}
 ggplot(data = SOCCER_FITNESS,mapping = aes(x = Squad, y = CMJump)) +
   geom_boxplot() +
   coord_flip()
 ```
 
-Conclusion:  The subjective impression from the plot is that typically CMJ Height is higher in the population of Senior soccer players than in the population of Youth players.  The estimated difference in mean CMJ Height is 6.6 cm in favour of the Senior players.  The higher scores for the Senior players may reflect differences in maturational status and training background.
+```{r box_jump-hint}
+ggplot(data = SOCCER_FITNESS,mapping = aes(x = Squad, y = CMJump)) +
+  geom_boxplot() +
+  coord_flip()
+```
 
+```{r box_jump-check}
+strict_check(success = "Conclusion:  The subjective impression from the plot is that typically CMJ Height is higher in the population of Senior soccer players than in the population of Youth players.  The estimated difference in mean CMJ Height is 6.6 cm in favour of the Senior players.  The higher scores for the Senior players may reflect differences in maturational status and training background.")
+```
 
 ### Relaxation and Running Performance 
 Background:  Relaxation techniques could reduce the oxygen cost of running and lower Heart Rate during exercise.  A reduced oxygen cost has the potential to improve endurance running performance. It is also of interest to examine the effects of relaxation techniques on Exercise Heart Rate.  A reduced Exercise Heart Rate may result in a lower myocardial oxygen consumption which may be of value to some cardiac patient groups. 
@@ -99,19 +127,32 @@ Study Description:  A sample of 28 recreational distance runners were taken and 
 
 Aim: To determine which, if any, of the relaxation methods (Meditation or Progressive Muscular Relaxation) significantly reduce exercise Heart Rate on average compared to Controls over a two week period.
 
-summary statistic:
+Summary statistic:
 ```{r echo = T}
 summary(RELAXATION$Reduction)
 ```
 
-box plot of reduction in heart rate by treatment
-```{r echo = T}
+Plot a box plot of Reduction in heart rate by Treatment
+
+```{r box_reduce, exercise=TRUE, exercise.lines = 5}
+ggplot(data = RELAXATION,...)
+```
+
+```{r box_reduce-solution}
 ggplot(data = RELAXATION,mapping = aes(x = Treatment, y = Reduction)) +
   geom_boxplot() +
   coord_flip()
 ```
 
-Conclusion:  It appears that Meditation tends to reduce, on average, Heart Rate during a standardised running test among recreational distance runners unlike the other two treatments where there is not only virtually no overlap with the Meditation Treatment but also what looks like a random scatter about zero reduction for both these other Treatments.  
+```{r box_reduce-hint}
+ggplot(data = RELAXATION,mapping = aes(x = Treatment, y = Reduction)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r box_reduce-check}
+strict_check(success = "Conclusion:  It appears that Meditation tends to reduce, on average, Heart Rate during a standardised running test among recreational distance runners unlike the other two treatments where there is not only virtually no overlap with the Meditation Treatment but also what looks like a random scatter about zero reduction for both these other Treatments. ")
+```
 
 ## Within Subject Designs (Dependent Data)
 Another common form of design undertaken in Sports and Exercise Science research is to measure the same variable under different conditions (‘levels’) for each individual in a single sample i.e. a Within Subject Design.
@@ -126,20 +167,47 @@ Study Description:  Twelve subjects performed both an Aerobic Dance exercise ses
 Aim:  	To compare Relative Intensity during the Aerobic Dance and Walking sessions.  
 
 Draw a scatter plot of Peak_VO2 vs Exercise_Regime
-```{r echo = T}
+```{r scatter_peak, exercise=TRUE, exercise.lines = 5}
+ggplot(data = WALKDANCE,...)
+```
+
+```{r scatter_peak-solution}
 ggplot(data = WALKDANCE,mapping = aes(x = Aerobic_Dance, y = Walk)) +
   geom_point() +
   geom_smooth(method='lm')
 ```
 
-Box plot of difference in Peak_VO2 
-```{r echo = T}
-ggplot(data = WALKDANCE,mapping = aes(x = 1, y = abs(Walk-Aerobic_Dance))) +
+```{r scatter_peak-hint}
+ggplot(data = WALKDANCE,mapping = aes(x = Aerobic_Dance, y = Walk)) +
+  geom_point() +
+  geom_smooth(method='lm')
+```
+
+```{r scatter_peak-check}
+strict_check(success = "")
+```
+
+Plot a box plot of difference in Peak_VO2 
+```{r box_peak, exercise=TRUE, exercise.lines = 5}
+ggplot(data = WALKDANCE,...)
+```
+
+```{r box_peak-solution}
+ggplot(data = WALKDANCE,mapping = aes(x = 1, y = abs(Walk - Aerobic_Dance))) +
   geom_boxplot() +
   coord_flip()
 ```
 
-Conclusion: The typical Relative Intensity of the population of interest is likely to be higher by about 15% of Peak  VO2 for the Aerobic Dance class compared to a Walking session.   Note that the exercise intensity is sufficiently high in both modes of exercise to maintain or improve aerobic fitness in an elderly population (according to the American College of Sports Medicine aerobic fitness guidelines) if the sessions are carried out on a regular basis.
+```{r box_peak-hint}
+ggplot(data = WALKDANCE,mapping = aes(x = 1, y = abs(Walk - Aerobic_Dance))) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r box_peak-check}
+strict_check(success = "Conclusion: The typical Relative Intensity of the population of interest is likely to be higher by about 15% of Peak  VO2 for the Aerobic Dance class compared to a Walking session.   Note that the exercise intensity is sufficiently high in both modes of exercise to maintain or improve aerobic fitness in an elderly population (according to the American College of Sports Medicine aerobic fitness guidelines) if the sessions are carried out on a regular basis.")
+```
+
 
 ### Deep Water Running
 Background:   Deep water running (DWR) is performed by some athletes who wish to reduce the number of training sessions on land where the high impact of foot strikes may result in injury over time.   Injured athletes who cannot sustain sessions on land due to pain or discomfort sometimes favour DWR.   While DWR is not bio-mechanically exactly the same as running on land, the movements are fairly similar. Despite the fact that Lactate Threshold (LT) is sometimes used to provide training intensity guidance, no comparison has been made between LT in DWR and during track and treadmill running.  As some athletes use DWR, Track and Treadmill training, it would be useful to compare some physiological responses in the three settings. For example, comparing the Heart Rate at LT for DWR and track and treadmill running will help the athlete to adjust his/her training Heart Rate (if necessary) for a given exercise setting.
@@ -148,19 +216,49 @@ Study Description: Eighteen well-trained male endurance runners were recruited t
 
 Aim: To compare typical Heart Rates at Lactate Threshold in deep water running, track running and treadmill running in well-trained male endurance runners.
 
-Plot heart rate at lactate threshold by condition
-```{r}
-
+Plot a scatter plot of HR_at_Lact_Thresh threshold by Condition
+```{r scatter_HR, exercise=TRUE, exercise.lines = 5}
+ggplot(data = POOL_RUNNING,...)
 ```
 
-Plot box plot of heart rate at lactate threshold by condition
-```{r}
-
+```{r scatter_HR-solution}
+ggplot(data = POOL_RUNNING,mapping = aes(x = Condition,y = HR_at_Lact_Thresh)) + 
+  geom_point() +
+  geom_smooth(method='lm')
 ```
 
-Draw summary of heart rate at lactate threahold
-```{r}
+```{r scatter_HR-hint}
+ggplot(data = POOL_RUNNING,mapping = aes(x = Condition,y = HR_at_Lact_Thresh)) + 
+  geom_point() +
+  geom_smooth(method='lm')
+```
 
+```{r scatter_HR-check}
+strict_check(success = "")
+```
+
+Plot a box plot of HR_at_Lact_Thresh by Condition
+```{r box_HR, exercise=TRUE, exercise.lines = 5}
+ggplot(data = POOL_RUNNING,...)
+```
+
+```{r box_HR-solution}
+ggplot(data = POOL_RUNNING,mapping = aes(x = Condition,y = HR_at_Lact_Thresh)) + 
+  geom_boxplot()
+```
+
+```{r box_HR-hint}
+ggplot(data = POOL_RUNNING,mapping = aes(x = Condition,y = HR_at_Lact_Thresh)) + 
+  geom_boxplot()
+```
+
+```{r box_HR-check}
+strict_check(success = "")
+```
+
+Summary of heart rate at lactate threahold
+```{r echo = T}
+summary(POOL_RUNNING$HR_at_Lact_Thresh)
 ```
 
 Conclusion: This study suggests that mean Heart Rate at LT for Well-Trained Male Endurance Runners is much lower in DWR than in Track and Treadmill running.   It could therefore be concluded that the use of the same training Heart Rates for water and land running is inappropriate.
@@ -175,22 +273,52 @@ Study Description: Twenty six overweight (i.e. a Body Mass Index of 25 or more) 
 
 Aim:	To investigate the effect of a 12-week Functional Exercise Programme for overweight women on 20 m Walking Time.
 
-Plot scatter plot of before and after 20m walking time:
-```{r}
-
+Plot scatter plot of 20m walking timea Walk_Pre vs Walk_Post:
+```{r scatter_walk, exercise=TRUE, exercise.lines = 5}
+ggplot(data = WALK_20M,...)
 ```
 
-Draw summary statistic:
-```{r}
-
+```{r scatter_walk-solution}
+ggplot(data = WALK_20M,mapping = aes(x = Walk_Pre,y = Walk_Post, color = Treatment)) + 
+  geom_point() +
+  geom_smooth(method='lm')
 ```
 
-Plot boxplot of difference in walking times by treatment
-```{r}
-
+```{r scatter_walk-hint}
+ggplot(data = WALK_20M,mapping = aes(x = Walk_Pre,y = Walk_Post, color = Treatment)) + 
+  geom_point() +
+  geom_smooth(method='lm')
 ```
 
-Conclusion:  There is a strong suggestion that the Exercise Programme undertaken had a beneficial effect on the typical time taken to walk 20 m in this sample of overweight middle-aged women.  Those who undertook the Exercise Programme had a sample mean improvement of approximately 1 second over the Control sample.  Such an improvement is of the order of magnitude of 6% given the typical 20 m walking times of such women.  
+```{r scatter_walk-check}
+strict_check(success = "")
+```
+
+Summary statistic:
+```{r echo = T}
+summary(WALK_20M)
+```
+
+Plot a box plot of Walk_Difference in times by Treatment
+```{r box_walk, exercise=TRUE, exercise.lines = 5}
+ggplot(data = WALK_20M,...)
+```
+
+```{r box_walk-solution}
+ggplot(data = WALK_20M,mapping = aes(x = Treatment,y = Walk_Difference)) + 
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r box_walk-hint}
+ggplot(data = WALK_20M,mapping = aes(x = Treatment,y = Walk_Difference)) + 
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r box_walk-check}
+strict_check(success = "Conclusion:  There is a strong suggestion that the Exercise Programme undertaken had a beneficial effect on the typical time taken to walk 20 m in this sample of overweight middle-aged women.  Those who undertook the Exercise Programme had a sample mean improvement of approximately 1 second over the Control sample.  Such an improvement is of the order of magnitude of 6% given the typical 20 m walking times of such women.  ")
+```
 
 ## Between Subject Designs incorporating a Covariate.
 In Between Subject Designs there can often be other continuous variables (called Covariates) which are known or thought likely to influence the (response) variable of interest for each subject/observational unit.  For example, in a longitudinal study comparing two different diets (the Between Subject Factor) in terms of increased Basal Metabolic Rate (BMR), such a covariate could be an individual’s body mass at the start of the study period.  If the covariate does influence the response variable, then adjusting for this will improve the comparison of the Between Subject Factor (i.e. improve precision of estimates).
@@ -207,22 +335,52 @@ Study Description:  Independent samples of ten Elite*1 (i.e. have successfully c
 
 Aim:  To compare average Grip Strength of the (dominant) right hand among the three populations of male climbers while adjusting for Body Mass if necessary.
 
-Plot box plot of grip strength by climber type:
-```{r}
-
+Plot a box plot of Grip_Strength by Climber_Type:
+```{r box_grip, exercise=TRUE, exercise.lines = 5}
+ggplot(data = GRIP,...)
 ```
 
-Summarise the data:
-```{r}
-
+```{r box_grip-solution}
+ggplot(data = GRIP,mapping = aes(x = Climber_Type,y = Grip_Strength)) + 
+  geom_boxplot() +
+  coord_flip()
 ```
 
-Plot scatter plot of grip strength vs body mass with laballed climber type:
-```{r}
-
+```{r box_grip-hint}
+ggplot(data = GRIP,mapping = aes(x = Climber_Type,y = Grip_Strength)) + 
+  geom_boxplot() +
+  coord_flip()
 ```
 
-Conclusion: Adjusting Grip Strength for Body Mass seems worthwhile and it appears, on adjustment, that Elite climbers do have considerably greater Grip Strength on average than either of the other two Climber Types who appear similar in Grip Strength profile.    Any formal analysis to decide whether there is sufficient evidence to claim an actual difference in population mean Grip Strength would have to incorporate both Body Mass and Climber Type.   
+```{r box_grip-check}
+strict_check(success = "")
+```
+
+Summary statsitics:
+```{r echo = T}
+summary(GRIP)
+```
+
+Plot a scatter plot of Grip_Strength vs Body_Mass with color laballed Climber_Type:
+```{r scatter_grip, exercise=TRUE, exercise.lines = 5}
+ggplot(data = GRIP,...)
+```
+
+```{r scatter_grip-solution}
+ggplot(data = GRIP,mapping = aes(x = Grip_Strength,y = Body_Mass, color = Climber_Type)) + 
+  geom_point() +
+  geom_smooth(method='lm')
+```
+
+```{r scatter_grip-hint}
+ggplot(data = GRIP,mapping = aes(x = Grip_Strength,y = Body_Mass, color = Climber_Type)) + 
+  geom_point() +
+  geom_smooth(method='lm')
+```
+
+```{r scatter_grip-check}
+strict_check(success = "Conclusion: Adjusting Grip Strength for Body Mass seems worthwhile and it appears, on adjustment, that Elite climbers do have considerably greater Grip Strength on average than either of the other two Climber Types who appear similar in Grip Strength profile.    Any formal analysis to decide whether there is sufficient evidence to claim an actual difference in population mean Grip Strength would have to incorporate both Body Mass and Climber Type. ")
+```
 
 ## Modelling Relationships (Correlation and Regression)
 A common problem in Sports and Exercise Science is to investigate whether two variables measured on the same subject are related in any way.  Relationships between a pair of variables can involve two completely different interpretations.   The first of these is where there is a link between the two variables but there is no causal relationship; a child’s physical activity level mid week may be related to his/her weekend physical activity levels but that his/her mid week activity (barring an accident of course!) should, in general, have no influence on his/her weekend physical activity and vice versa.  Neither variable has a specific ‘role’.   This is called a Correlation problem.
@@ -233,26 +391,26 @@ Study Description: In a study of the PA of modern-day children under 5 years of 
 
 Aim: To examine the relationship, if any, between a child’s PA, as measured by an accelerometer, midweek and at the weekend. 
 
-Plot a scatter plot of midweek vs weekend physical activity in children:
-```{r}
-
+Plot a scatter plot of Midweek_PA vs Weekend_PA (physical activity) in children:
+```{r scatter_activity, exercise=TRUE, exercise.lines = 5}
+ggplot(data = ACTIVITY,...)
 ```
 
-Conclusion:   There appears to be, at best, a moderate positive relationship between Midweek and Weekend physical activity in children, when measured using an accelerometer.  
-
-Background:  Laboratory tests have been used extensively to provide information about the relationship between physiological markers and distance running performance. Sub-maximal blood lactate variables are commonly used as such physiological markers, e.g. the running velocity required to raise the blood lactate to a predetermined concentration such as 4 mmol.L-1. 
-
-Study Description: Sixteen well-trained middle distance runners performed a
-3 km time trial on an indoor 200 m track and an incremental running test on a treadmill from which the running velocity (km.h-1) at a blood lactate concentration of 4 mmol.L-1 (v-4mM) was determined using interpolation.
-
-Aim:  To investigate the dependency, if any, of 3 km track running time on laboratory measured running velocity (v-4mM) among well-trained middle distance runners.
-
-Plot a scatter plot of 3km time vs running velocity
-```{r}
-
+```{r scatter_activity-solution}
+ggplot(data = ACTIVITY,mapping = aes(x = Midweek_PA,y = Weekend_PA)) + 
+  geom_point() +
+  geom_smooth(method='lm')
 ```
 
-Conclusion:  There is evidence of a strong negative linear dependence of 3 km time on blood lactate concentration of 4 mmol.L-1 in the sample of runners provided.   
+```{r scatter_activity-hint}
+ggplot(data = ACTIVITY,mapping = aes(x = Midweek_PA,y = Weekend_PA)) + 
+  geom_point() +
+  geom_smooth(method='lm')
+```
+
+```{r scatter_activity-check}
+strict_check(success = "Conclusion:   There appears to be, at best, a moderate positive relationship between Midweek and Weekend physical activity in children, when measured using an accelerometer.")
+```
 
 Background:   Exercise guidelines suggest that carrying out aerobic exercise for 20 minutes on at least 3 times a week at between 60% and 90% of and individual’s Maximum Heart Rate is likely to maintain or improve aerobic fitness. Maximum Heart Rate of an individual is often estimated as 220 minus the age of an individual. 
 
@@ -261,10 +419,22 @@ Study Description:  A sample of 26 physically active males underwent an incremen
 Aim:  To investigate whether the Maximum Heart Rate of individuals is indeed on average equal to 220 minus the Age of an individual.
 
 Plot a scatter plot of maximum heart rate vs age
-```{r}
-
+```{r scatter_hr_age, exercise=TRUE, exercise.lines = 5}
+ggplot(data = MAX_HEART_RATE,...)
 ```
 
-Conclusion:  The “reputed” relationship that Maximum HR = 220 - Age does not perfectly model Maximum Heart Rate on an individual level.   There is a suggestion that the relationship may be true “on average” but with a reasonably large level of variability of Maximum Heart Rate at any age. 
+```{r scatter_hr_age-solution}
+ggplot(data = MAX_HEART_RATE,mapping = aes(x = Maximum_Heart_Rate,y = Age)) +
+  geom_point() +
+  geom_smooth(method='lm')
+```
 
+```{r scatter_hr_age-hint}
+ggplot(data = MAX_HEART_RATE,mapping = aes(x = Maximum_Heart_Rate,y = Age)) +
+  geom_point() +
+  geom_smooth(method='lm')
+```
 
+```{r scatter_hr_age-check}
+strict_check(success = "Conclusion:  The “reputed” relationship that Maximum HR = 220 - Age does not perfectly model Maximum Heart Rate on an individual level.   There is a suggestion that the relationship may be true “on average” but with a reasonably large level of variability of Maximum Heart Rate at any age. ")
+```

@@ -1,4 +1,4 @@
-Treatment,20M_Walk_Pre,20M_Walk_Post,Walk_Difference,Y,X
+Treatment,Walk_Pre,Walk_Post,Walk_Difference,Y,X
 Control,15.470000267,15.9600000381,-0.4899997711,13,13
 Exercise,15.1499996185,14.4099998474,0.7399997711,27,27
 Exercise,15.8800001144,16.5699996948,-0.6899995804,,
