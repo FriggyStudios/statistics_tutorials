@@ -273,3 +273,162 @@ Background: Asphyxiation is a common cause of death in avalanche burial.  This i
 Study Description:  A sample of 14 healthy subjects performed two blinded trials, one with a Soda Lime canister and one with a Placebo canister acting as a Control.  Subjects breathed through a mouthpiece into a closed-circuit system attached to a Douglas Bag containing 12 litres of 100% O2.  They were instructed to continue for as long as they could tolerate breathing from the system (i.e. their Tolerance Time).  The design was balanced as seven of the subjects used the Soda Lime canister first while the other seven used the Placebo first.
 
 Aim:  	To provide estimates of the likely Tolerance Time for a future person in a laboratory simulated avalanche situation both with and without a Soda Lime canister.
+
+Plot a scatter plot of Control vs Soda Lime
+```{r}
+
+```
+
+he poorest Tolerance Time recorded was under 10 minutes and was for a subject who was not using the Soda Lime canister.  The best Tolerance Time recorded was approximately 45 minutes for a subject using the Soda Lime canister.  What is very clear is that all of the subjects in the study demonstrated increases in Tolerance Time when they used the Soda Lime canister since all of the points lie above the line of equality.   The improvement in Tolerance Time does not appear to be dependent on the Tolerance Times in the Control condition, justifying the use of differences. 
+
+Plot a box plot of change in tolerance times, soda lime - control
+```{r}
+
+```
+
+One-Sample T: Soda Lime-Control
+```{r}
+
+```
+
+Conclusion:  Based on the data provided, it is clear that, in the target population, using a Soda Lime canister is likely to improve the Tolerance Time for any particular individual by between 25 and 47 minutes.  The use of a Soda Lime canister in a real avalanche situation may therefore enhance survival time. This speculation assumes, of course, that the laboratory findings can be transferred to a snow setting.  
+
+## Tolerance Intervals to cover a Proportion of the Population (“Normal” Ranges)   
+A Tolerance Interval is used to investigate whether a particular observed individual is ‘dissimilar’ to the rest of the population.   For example, what would be a range of values covering 95% of individual Ascent Times of Mont Blanc?  If any particular climber’s Ascent Time is not within this range, then he/she can be considered atypical (either fast or slow) of the target population.  Such ranges are commonly used in medical literature and are intended as benchmarks for patient diagnosis where the term ‘Normal Range’ is often applied – this meaning of “Normal” has nothing whatsoever to do with the Normal distribution though!  
+
+When calculating a Tolerance Interval a choice of the confidence attached to the Tolerance Interval has to be made - in addition to the choice of the proportion of the population that this interval is intended to cover.  The conventional choice for both of these is 95%.  
+
+### Mont Blanc Ascent Time (Revisited) 
+Aim: 	To provide an interval estimate for the Ascent Time of 95% of the successful climbers of Mont Blanc in favourable summer conditions.
+
+Tolerance interval with 95% coverage and 95% confidence
+```{r}
+
+```
+
+Conclusion:  It is likely that 95% of the actual Ascent Times in the population of successful climbers of Mont Blanc lie between 2.5 and 6 hours.   A more practical interpretation is that it is unlikely to find a climber making a successful ascent quicker than 2.5 hours or slower than 6 hours. 
+
+## What if the Normality Assumption is Questionable?
+A crucial assumption used in this chapter to calculate a CI for a population mean is that the data arose from a Normal distribution.  The method of production of the CI is quite robust (i.e. not overly influenced) to departures from Normality if the sample is ‘large’ (typically 30 or more).  However, the method does not work well in small samples that are not symmetric (i.e. have a degree of skewness) and/or which have outliers present. 
+
+If the Normality assumption is questionable, there are three possible approaches that can be considered:
+
+1. use a suitable transformation of the data;
+2. use a re-sampling technique that does not assume Normality;
+3. concentrate on the population median rather than mean.
+
+A formal procedure for testing whether a sample was likely to have arisen from a Normal distribution will be presented in the next chapter.    Rather than forcing on an analysis based on an erroneous assumption of normality on data that appear non-Normal, there is no reason whatsoever not to transform the data to ‘achieve’ Normality on a different measurement scale.   The standard Normal distribution based analysis can then be safely undertaken using this ‘new’ transformed variable.
+
+### Walking In to Work Out 
+Background: Walking, some or all of the way, to work is one possible method of increasing physical activity, improving aerobic fitness and health and having a positive influence on the environment. As part of a study to encourage active commuting, a sample of 295 commuters who were interested in taking part in the study filled in a questionnaire about their recent history of walking habits as part of the baseline information for this study.
+Study Description:  Subjects were randomised to receive the Intervention or to act as a Control.  Those on the intervention received the "Walk in to Work Out" pack, which contained written interactive material, local information about distances and routes, and safety information. The Controls did not receive the pack and continued with their usual lifestyle.
+
+Aim:  To estimate the typical time spent walking to work post intervention for those who did not walk to work prior to the study.
+
+Descriptive Statistics: Walking Time 
+```{r}
+
+```
+
+Plot a box plot of time spent walking pre-study
+```{r}
+
+```
+
+One-Sample T: Walking Time
+```{r}
+
+```
+
+The validity of this interval is questionable however due to the evidence of non-symmetry (and hence non-Normality) in the box plot.  When it is unreasonable to assume that the sample has arisen from a Normal Distribution, the first approach to consider is to transform the scale of measurement of the data, so that the transformed variable appears much more reasonably to be Normally distributed.  The most common transformations applied when the data are heavily skewed to the right are to take the logarithm or the square root of the data.  If the resulting transformed variable appears much more likely to be Normally distributed, an interval estimate for the population mean of the transformed variable can be calculated and the resulting interval ‘back-transformed’ to the original scale of the variable of interest.
+
+Plot a box plot of the log of time spent walking pre-study   
+```{r}
+
+```
+
+One-Sample T: log(Walking Time)
+```{r}
+
+```
+
+It is quite likely that the mean log(Walking Time), for the population of interest, is somewhere between 3.87 and 4.95 (log minutes).  Note that the interval reported is calculated on the log scale, while it would be much more informative to report the results in the original units.  The simplest method of achieving this is to back transform each end of the interval.  The appropriate inverse transformation for the log function is the antilog (i.e. the exponential function). Applying this to both ends of the interval gives exp(3.867) = 47.80 minutes and exp(4.953) = 141.603 minutes yielding a 95% CI for the population mean Walking Time of 48 to 142 minutes.  This method has shifted the estimate of the population mean to the left, having ‘accounted’ for the right skew in the data and substantially reduced the width of the interval estimate (i.e. from a range of 198.1 – 52 = 146.1 minutes for the untransformed variable to 141.6 – 47.80 = 93.8 minutes for this approach).
+
+The second approach, if the Normality assumption appears untenable, has the quirky title of the ‘Bootstrap’.  It allows an estimate of a population mean to be made, without requiring any assumptions about the underlying population distribution. As in all inferential methods, the Bootstrap approach is heavily dependent on assuming that the sample collected is representative of the target population.  The ‘Bootstrap’ can be applied to virtually any parameter that needs to be estimated in a population, and makes no formal assumptions regarding the population distribution.  It was first put forward in the late 1970’s but had to await the arrival of substantial computer power before it could be implemented.  That time has now arrived and some claim that the Bootstrap has revolutionised modern statistical inference.
+
+The Bootstrap procedure uses the following argument:  if the data are really a random sample from the target population, then a ‘re-sample’ from the actual data at hand can be considered as a ‘new’ random sample which could have arisen from the population.   The subtlety is that random samples from the original random sample tend to behave as random samples from the population.  The re-samples are used to generate an estimate of the sampling variability in the sample mean (still the best estimate of the population mean) from which an interval estimate for the population mean can be calculated.  
+
+Bootstrap interval for mean Walking Time
+```{r}
+
+```
+
+This “Bootstrap” interval suggests that the population mean Walking Time is likely to be between 56 and 182 minutes which is fairly similar to that produced from the raw data (dubiously) assuming Normality.
+
+The final approach, if the Normality assumption appears untenable, is to concentrate on the median as a ‘more appropriate’ measure of the typical value of the population rather than the mean.  Procedures for providing interval estimates for a population median are available, the most useful, perhaps, being the Wilcoxon procedure.  Techniques that involve estimation of a population median do not require assumptions relating to the Normal distribution and are often termed ‘non-parametric’ procedures – a rather daft term since it is still a population parameter (i.e. the median) that is being estimated!  These techniques use the “order statistic” of the data (i.e. all the data “written down” from smallest to largest) and obtain an interval estimate by moving in an appropriate number of observations from each end of the data.   A natural question to ask is why not therefore focus on such procedures in all scenarios?  The reason against this is that the resulting intervals tend to be wider (i.e. less precise) than the corresponding interval estimate based on Normality, particularly in small samples.  There are always statistical swings and roundabouts!
+
+Wilcoxon Signed Rank CI: Walking Time 
+```{r}
+
+```
+
+The overall conclusion is that the mean may not be the ‘best’ summary of the typical Walking Time in this population of interest.   It could be argued that the ‘best’ estimate of the typical Walking Time is provided by the log transformation as the interval is shifted to the left and was the narrowest (i.e. most precise).  A pragmatic conclusion is that, regardless of the approach taken, the typical amount of time spent walking in the week previous to the study is likely to be somewhere between just under an hour up to around three hours! 
+
+## Comparing Two Population Means
+Normality assumptions also apply in a comparison of two sample means.  The method of production of the Confidence Interval (based on the t distribution) for the difference in the two population means is however quite robust to departures from Normality if each of the samples is ‘large’ (typically 30 or more).  However, the method may not work well in small samples that are not symmetric (i.e. have a degree of skewness) and/or which have outliers present). 
+
+The same approaches introduced for one sample problems are appropriate here, namely 
+1. using a suitable transformation of the data;
+2. use a re-sampling technique that does not assume Normality;  
+3. concentrate on the population medians rather than means.
+
+The following section involves Illustrations initially where a log transformation turns out to be useful followed by one where the log transformation is inappropriate. 
+
+### Walking In to Work Out (Revisited)
+Study Description:  Those individuals that did not walk to work at the start of the study but who now work walk were identified.  In total there were 14 who received the Intervention and 12 Controls. 
+
+Aim:  To compare the typical time spent walking to work Post Study across the Treatments specifically for the cohort identified who now walk two work despite not walking to work prior to the study.
+
+Plot a box plot of time spent walking by treatment
+```{r}
+
+```
+
+It is interesting to note that the sample of 12 Controls claim to spend slightly over an hour on average walking to work despite not walking to work prior to the study and not receiving the Intervention!   This could be due to a change in mindset by virtue of being enrolled in such a study alone.
+
+Two-Sample T-Test and CI: Intervention, Controls 
+```{r}
+
+```
+
+The difference in the sample mean Walking Time between the Treatments is 63.8 minutes however as the 95% CI of -10 to 138 minutes contains zero there is no evidence that the Intervention significantly improves Walking Time in the population of middle-class commuters.  
+
+Plot a box plot of the log of the time spent walking by treatment
+```{r}
+
+```
+
+The log transformation has made the assumption of Normality much more credible for both Treatments than in the original scale of measurement.   So, it is now reasonable to produce a 95% CI for the difference in population mean log Walking Time between the Treatments
+
+Two-sample T for Log(Walking Time)
+```{r}
+
+```
+
+Care must be taken when interpreting this interval, as it is represents an estimate of the difference in mean Walking Time between the Treatments on the log scale.  However, when “back transformed”, this difference translates into an interval estimate for the ratio of population mean Walking Times in the original scale of measurement.
+
+Bootstrap interval for Difference in mean Walking Time
+```{r}
+
+```
+
+As the interval is strictly positive, there is evidence of a significant difference in mean Walking Times with those on the Intervention likely to walk, on average, between 5 and 139 minutes more than Controls.  As the interval is entirely positive there is evidence of a significant difference in mean Walking Time
+
+Mann-Whitney Test and CI: Intervention, Controls 
+```{r}
+
+```
+
+Only the Bootstrap approach identified a significant difference between the Treatments.  This may well be due to the influence of the three possible outliers in the small sample.  As the other approaches (including the log transformation) suggested no difference between the Treatments, then, even although the intervals are heavily “loaded towards the Intervention”, it is probably wise to claim that there is no conclusive evidence of a difference in mean Walking Time Post Study amongst those receiving the Intervention compared to the Controls for those who did not walk to work at all before the study.  
+
+
