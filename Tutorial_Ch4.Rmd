@@ -13,7 +13,13 @@ library(grader)
 knitr::opts_chunk$set(echo = FALSE)
 tutorial_options(exercise.checker = grade_learnr)
 
-WALK_20M <- read_csv("data/chapter_3/20M WALK.CSV")
+AVALANCHE <- read_csv("data/chapter_4/AVALANCHE.CSV")
+OSTEOPOROSIS <- read_csv("data/chapter_4/OSTEOPOROSIS.CSV")
+PAINRELIEF <- read_csv("data/chapter_4/PAINRELIEF.CSV")
+SOCCER_FITNESS <- read_csv("data/chapter_4/SOCCER FITNESS.CSV")
+TRAINING_INTERVENTION <- read_csv("data/chapter_4/TRAINING INTERVENTION.CSV")
+WALKDANCE <- read_csv("data/chapter_4/WALKDANCE.CSV")
+WALK_TO_WORK <- read_csv("data/chapter_4/WALK TO WORK.CSV")
 ```
 
 # Ch4: Estimating Parameters
@@ -53,17 +59,19 @@ Aim: 	To estimate the mean 5 m sprint for the population of professional soccer 
 
 Summary statistic of sprint times
 ```{r echo = T}
-
+summary(SOCCER_FITNESS)
 ```
 
 Plot a box plot of the 5m Sprint Time
 ```{r echo = T}
-
+ggplot(data = SOCCER_FITNESS,mapping = aes(x = 1, y = Sprint5m)) +
+  geom_boxplot() +
+  coord_flip()
 ```
 
-One-Sample 95% Confidence Interval for the population mean 5 m Sprint Time
+One-Sample 95% Confidence Interval for the population mean Sprint5m Time
 ```{r echo = T}
-
+t.test(SOCCER_FITNESS$Sprint5m)
 ```
 
 Conclusion:  On the basis of a 95% Confidence Interval, it is likely that the population mean 5 m Sprint Time for elite soccer players is somewhere between 1.05 and 1.09 seconds.
@@ -82,7 +90,6 @@ The assumptions on which this analysis is based are that the samples are indepen
 ### Soccer Fitness (Revisited)
 Aim:  To compare the mean Counter Movement Jump (CMJ) Height in the populations of Senior and Youth soccer players.
 
-Analysis:	The sample of Senior players had a higher sample mean CMJ than the Youths by about 7 cm (Box 3.4.1).  The box plot presented in Figure 4.3.1 is a slight variation of that in Figure 3.4.1, in that the width of the box is now proportional to the size of the sample to highlight the unequal sample sizes.  
 Plot a box plot CMJump by Squad:
 ```{r box_jump, exercise=TRUE, exercise.lines = 5}
 ggplot(data = SOCCER_FITNESS,...)
@@ -106,8 +113,9 @@ strict_check(success = "The assumption of Normality is questionable for populati
 In order to make a formal comparison between the population of Senior and Youth Elite players a 95% Confidence Interval for the difference in population mean CMJ Height is required")
 ```
 
-One-Sample 95% Confidence Interval for the population mean CMJump
-```{r}
+Two-Sample 95% Confidence Interval for the population mean CMJump
+```{r echo = T}
+t.test(CMJump ~ Squad, data = SOCCER_FITNESS)
 
 ```
 
@@ -124,19 +132,21 @@ Study Description: A sample of 29 young healthy females was taken to investigate
 
 Aim:  To investigate the effect of a mental distraction task on induced ischaemic pain by comparing the difference in population mean Pain Threshold between those on the Intervention (i.e. distracted) and Controls.
 
-Summary statisic of Pain Threshold
+Summary statisic of PAINRELIEF
 ```{r}
-
+summary(PAINRELIEF)
 ```
 
-Plot a box plot of Pain Threshold by Group
+Plot a box plot of Pain_Threshold by Treatment
 ```{r}
-
+ggplot(data = PAINRELIEF,mapping = aes(x = Treatment, y = Pain_Threshold)) +
+  geom_boxplot() +
+  coord_flip()
 ```
 
 Two sample T-Test of Pain Threshold and Treatment
 ```{r}
-
+t.test(Pain_Threshold ~ Treatment, data = PAINRELIEF)
 ```
 
 Conclusion:    In terms of the time to onset of the perception of ischaemic pain, a mental distraction Stroop task can significantly increase this by somewhere between 23 and 90 seconds on average.
@@ -150,22 +160,24 @@ Study Description: A sample of 30 middle-aged osteoporotic women was randomised 
 
 Aim:	To assess whether the Controls and Exercisers were comparable at baseline (i.e. immediately before the study) in terms of this measure of balance.
 
-Summary statistic of balance before
+Summary statistic of Balance Before
 ```{r}
-
+summary((filter(OSTEOPOROSIS,Time=="Before"))$Balance)
 ```
 
-Plot a box plot of balance by group
+Plot a box plot of Balance Before by Regime
 ```{r}
-
+ggplot(data = filter(OSTEOPOROSIS,Time=="Before"),mapping = aes(x = Regime, y = Balance)) +
+  geom_boxplot() +
+  coord_flip()
 ```
 
-Two sample T-Test of balance before and regime
+Two sample T-Test of Balance Before and Regime
 ```{r}
-
+t.test(Balance ~ Regime, data = filter(OSTEOPOROSIS,Time=="Before"))
 ```
 
-he 95% Confidence Interval (highlighted in bold) is for the difference in the population mean Balance for Controls minus the population mean Balance for Exercisers.  This 95% Confidence Interval contains zero and therefore it is plausible that there is no difference between the two population means – especially since zero lies almost exactly in the middle of this interval estimate. 
+The 95% Confidence Interval (highlighted in bold) is for the difference in the population mean Balance for Controls minus the population mean Balance for Exercisers.  This 95% Confidence Interval contains zero and therefore it is plausible that there is no difference between the two population means – especially since zero lies almost exactly in the middle of this interval estimate. 
 
 Conclusion: There is no evidence of a difference in mean Balance for Controls and Exercisers at baseline.  The two samples may not have had identical Balance scores but there is evidence that the populations can be considered comparable at baseline on average.  The difference in the two sample means can therefore be attributed to random sampling.  
 
@@ -179,19 +191,23 @@ Study Description:	  A sample of 18 full-time youth soccer players from a Youth 
 
 Aim: To investigate whether a concurrent high intensity interval-training and neuromuscular strength improves on average the VO2 max of soccer players over a 10-week period.
 
-Plot a scatter plot of Pre vs Post VO2 Max
+Plot a scatter plot of VO2_max_pre vs VO2_max_post
 ```{r}
-
+ggplot(data = TRAINING_INTERVENTION,mapping = aes(x = VO2_max_pre, y = VO2_max_post)) +
+  geom_point() +
+  geom_smooth(method='lm')
 ```
 
 Plot a box plot of improvement in VO2 Max
 ```{r}
-
+ggplot(data = TRAINING_INTERVENTION,mapping = aes(x = 1, y = VO2_max_post - VO2_max_pre)) +
+  geom_boxplot() +
+  coord_flip()
 ```
 
 One-Sample Confidence Interval
 ```{r}
-
+t.test(TRAINING_INTERVENTION$VO2_max_post - TRAINING_INTERVENTION$VO2_max_pre)
 ```
 
 This interval suggests that the actual mean improvement is likely to be between 3.99 and 6.23 ml.kg-1.min-1.   As this interval does not contain zero, there is evidence of a mean improvement in max due to the training intervention.   
@@ -203,57 +219,36 @@ Such a design involves samples of Paired data from two distinct and different po
 
 The same assumptions that apply to two sample comparisons apply here to the two samples of differences. The data are assumed to be random samples and the differences are assumed to have arisen from Normal populations.  Of course, the assumption that the differences are not related to the initial values must be validated also.
 
-### Osteoporosis and Exercise (Revisited)
-Aim:  To investigate whether or not such an exercise regime can significantly improve, on average, the balance of osteoporotic women over a two-month period of exercise over any ‘natural’ improvement of controls.
-
-Plot a scatter plot of Balance before vs balance after, label the group by color
-```{r}
-
-```
-
-Plot a box plot of improvement in balance by regime
-```{r}
-
-```
-
-Two sample T-Test for improvement in balance
-```{r}
-
-```
-
-Interval estimates for the average improvement in this measure of Balance for each Regime separately
-```{r}
-
-```
-
-On the basis of these, it can be seen that, on average, Controls do not significantly improve over the study period (since the interval of –1 to 4 cm does include zero) whereas Exercisers do, in general, improve Balance by between 2 and 6 cm on average.
-
-Conclusion: There is evidence that post-menopausal Osteoporotic women, on average, can significantly improve their Balance (as measured by a Functional Reach test) with a two month physiotherapist-led exercise regime.
-A second illustration of this ‘two sample paired problem’ now follows as such contexts are the most common problem in Sports and Exercise Science and it is well worth looking at the different types of results that can arise here.
-
 ### Exercise and the Elderly (Revisited)
 Aims:  To compare the average difference in Relative Intensity during Aerobic Dance and Walking sessions for each sex separately and then to investigate whether the difference in Relative Intensity (if any) is, on average, similar for Males and Females.
 
-plot a scatter plot of intensity by excercise regime and sex
+plot a scatter plot of intensity of Peak_VO2_Walk vs Peak_VO2_Dance regime label Sex
 ```{r}
-
+ggplot(data = WALKDANCE,mapping = aes(x = Peak_VO2_Walk, y = Peak_VO2_Dance,color = Sex)) +
+  geom_point() +
+  geom_smooth(method='lm')
 ```
 
 Plot a box plot of difference in relative intensity by sex
 ```{r}
-
+ggplot(data = WALKDANCE,mapping = aes(x = Sex, y = Peak_VO2_Dance-Peak_VO2_Walk)) +
+  geom_boxplot() +
+  coord_flip()
 ```
 
 One-Sample T: Dance-Walk(M), Dance-Walk(F) 
 ```{r}
+t.test(filter(WALKDANCE,Sex=="Male")$Peak_VO2_Dance - filter(WALKDANCE,Sex=="Male")$Peak_VO2_Walk)
 
+t.test(filter(WALKDANCE,Sex=="Female")$Peak_VO2_Dance - filter(WALKDANCE,Sex=="Female")$Peak_VO2_Walk)
 ```
 
 The separate intervals provide evidence, that in the elderly population, both Males and Females tend to have a higher mean Relative Intensity when carrying out an Aerobic Dance session than when they take part in an individual Walking session.   
 
 Two-sample T for Dance-Walk(M) vs Dance-Walk(F)
 ```{r}
-
+t.test(filter(WALKDANCE,Sex=="Male")$Peak_VO2_Dance - filter(WALKDANCE,Sex=="Male")$Peak_VO2_Walk,
+         filter(WALKDANCE,Sex=="Female")$Peak_VO2_Dance - filter(WALKDANCE,Sex=="Female")$Peak_VO2_Walk)
 ```
 
 Despite the fact that the sample mean difference was higher for Males, the 95% Confidence Interval for “Males minus Females” contains zero and, therefore, there is not sufficient evidence to claim that such an increase in Relative Intensity is higher in the population of elderly males compared to the population of elderly females.  
@@ -430,5 +425,4 @@ Mann-Whitney Test and CI: Intervention, Controls
 ```
 
 Only the Bootstrap approach identified a significant difference between the Treatments.  This may well be due to the influence of the three possible outliers in the small sample.  As the other approaches (including the log transformation) suggested no difference between the Treatments, then, even although the intervals are heavily “loaded towards the Intervention”, it is probably wise to claim that there is no conclusive evidence of a difference in mean Walking Time Post Study amongst those receiving the Intervention compared to the Controls for those who did not walk to work at all before the study.  
-
 

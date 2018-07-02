@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<meta name="progressive" content="true" />
+<meta name="allow-skip" content="false" />
+
+<title>Summarising and Displaying Data</title>
+
+
+<!-- highlightjs -->
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+</head>
+
+<body>
+
+
+
+<div class="pageContent band">
+<div class="bandContent page">
+
+<div class="topics">
+
+<div id="section-ch4-estimating-parameters" class="section level1">
+<h1>Ch4: Estimating Parameters</h1>
+<p>Statistics is the subject of drawing inferences about some summary aspect of a population (i.e. a population parameter) based on a representative sample of the population. It is very unlikely that the researcher/scientist will ever have the time, enthusiasm and budget to carry out a census study (i.e. collect data on all members of a population) and he/she will instead have to rely on a (hopefully representative) sample of the population on which to base any inference.</p>
+<p>The provision of a clear and useful subjective impression based on appropriate summary statistics and graphs is the first important step in handling any data set. The previous chapter presented illustrations of how best to summarise a sample of data, both numerically and graphically, across a variety of common contexts in Sports and Exercise Science. In each context, the most ‘suitable’ summary statistic was chosen and this depends crucially on the assumed probability model underlying the response variable of interest in the population. Throughout this chapter and indeed much of this text-book, the assumption is made that each population can be adequately represented as a “Normal probability model or Normal distribution” and consequently interest will lie in population means as the relevant population parameters of interest. This assumption will, of course, have to be justified in all cases before any final conclusions can be drawn from any data set.</p>
+<p>Once this Normal model assumption has been justified, formal techniques are required that will allow (sample) estimates of the population means to be made that incorporate the natural variability produced from taking (random) samples. These involve mathematical ideas beyond the scope of this textbook and, in fact, are of little value in aiding understanding of the basic ideas of inference. The only really key aspect is that the assumed model can be used to quantify the likely variability in sample means (of the same sample size as that observed) across potentially different samples and hence the “error” that will accrue from estimating a population mean from the actual observed sample of data from that underlying Normal population. This is the basis of the formal statistical model underlying this and subsequent chapters.</p>
+<div id="section-interval-estimation" class="section level2">
+<h2>Interval Estimation</h2>
+<p>Many of the questions considered in Sports and Exercise Science research involve the estimation of population means. The sample mean is the best estimate of the population mean. If a different sample of the same size were taken, it is virtually certain that the corresponding estimate (sample mean) would be different for this and indeed any other sample (of the same size).</p>
+<p>Every sample statistic involves some aspect of ‘error’ when used as an estimate of a population parameter. This ‘error’ is composed of two elements, namely sampling variability and poor sample design. The second of these can often be controlled and dramatically improved by implementing a sound study design as described in Chapter 2. There is, however, only limited control regarding sampling variability. Statistical theory provides a framework for combining a sample statistic and its sampling variability into a range of values likely to contain the population parameter (i.e. an interval estimate) rather than a single point estimate such as the sample mean. This often involves quantification of the so-called estimated standard error (ese) of the point estimate. Interval estimation will be the most important tool in the researcher’s statistical toolbox. It is crucial that the researcher is able to interpret such interval estimates, understand exactly what information such intervals provide and appreciate the ‘terms and conditions’ that apply to such intervals.</p>
+</div>
+<div id="section-interval-estimation-for-a-population-mean" class="section level2">
+<h2>Interval Estimation for a Population Mean</h2>
+<p>The sample mean is the best ‘point’ estimate available of the population mean of interest - it is however highly unlikely to actually equal the population mean. An extension to a point estimate is an interval estimate, a range of values likely to contain the population parameter. Such an interval, often referred to as a Confidence Interval, is dictated by an arbitrary choice of ‘confidence’ which, by convention, is typically chosen to be 95% (see the Technical Comments at the end of this chapter for more discussion on this).</p>
+<p>For example, a 95% Confidence Interval (CI) for a population mean is of the form Sample Mean +/- 2 ese of the Sample Mean where the ese (i.e. estimated standard error) of the sample mean is calculated by the sample standard deviation divided by the square root of the sample size. The ese provides an estimate as to the precision of the sample statistic, the larger the ese the less precise the statistic (in this case the sample mean) is as an estimate of the corresponding parameter (in this case the population mean).</p>
+<p>A 95% Confidence Interval ensures that, in repeated sampling, 95% of intervals produced by such a method will contain the true (but unknown) population parameter - almost always regardless of the value of this population parameter. Strictly speaking nothing can be said about any actual, observed (95%) Confidence Interval, other than that such a method will often ‘catch’ the true value in the interval.</p>
+<p>When the key question of interest is to estimate a population mean from a single sample of data from a Normal distribution, the full analysis can be summarised as follows:</p>
+<ol style="list-style-type: decimal">
+<li>provide summary statistics and a box plot of the variable of interest;</li>
+<li>investigate whether the variable of interest is likely to have arisen from a Normal distribution;</li>
+<li>provide an interval estimate of the likely values of the population mean;</li>
+<li>make an objective statement regarding the key question of interest given the interval estimate provided.</li>
+</ol>
+<div id="section-m-sprint-time-in-soccer-players" class="section level3">
+<h3>5m Sprint Time in Soccer Players</h3>
+<p>Background: Soccer players are often involved in short duration sprints during a game in order to make a tackle, intercept the ball or receive a pass. Thus, speed over 5 m is deemed to be a very important attribute for soccer players. Regular measurement of 5 m sprint speeds for soccer players will allow the assessment of the efficacy of training programmes and the impact of injuries. Study Description: As part of a fitness test battery in a professional soccer club, a sample of 43 elite soccer players performed a number of 5 m sprints. After a warm-up, the players performed three sprints on an indoor track with a set recovery between each sprint. Times were recorded to one hundredth of a second using electronic time gates. The fastest time from the three trials for each player was used in the analysis outlined below. Source: Sports Performance Unit, Scottish Premier League Club.</p>
+<p>Aim: To estimate the mean 5 m sprint for the population of professional soccer players.</p>
+<p>Summary statistic of sprint times</p>
+<pre class="r"><code>summary(SOCCER_FITNESS)</code></pre>
+<pre><code>##     Squad               CMJump        Bleep_Test       Sprint5m    
+##  Length:56          Min.   :40.13   Min.   :11.03   Min.   :0.910  
+##  Class :character   1st Qu.:47.24   1st Qu.:12.03   1st Qu.:1.025  
+##  Mode  :character   Median :50.04   Median :13.06   Median :1.060  
+##                     Mean   :50.99   Mean   :12.89   Mean   :1.069  
+##                     3rd Qu.:55.88   3rd Qu.:14.00   3rd Qu.:1.100  
+##                     Max.   :65.02   Max.   :16.00   Max.   :1.210  
+##                     NA&#39;s   :19      NA&#39;s   :11      NA&#39;s   :13     
+##     Body_Fat     
+##  Min.   : 5.400  
+##  1st Qu.: 7.925  
+##  Median : 9.850  
+##  Mean   :10.104  
+##  3rd Qu.:11.650  
+##  Max.   :17.800  
+##  NA&#39;s   :2</code></pre>
+<p>Plot a box plot of the 5m Sprint Time</p>
+<pre class="r"><code>ggplot(data = SOCCER_FITNESS,mapping = aes(x = 1, y = Sprint5m)) +
+  geom_boxplot() +
+  coord_flip()</code></pre>
+<pre><code>## Warning: Removed 13 rows containing non-finite values (stat_boxplot).</code></pre>
+<p><img src="Tutorial_Ch4_files/figure-html/unnamed-chunk-2-1.png" width="624" /></p>
+<p>One-Sample 95% Confidence Interval for the population mean Sprint5m Time</p>
+<pre class="r"><code>t.test(SOCCER_FITNESS$Sprint5m)</code></pre>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  SOCCER_FITNESS$Sprint5m
+## t = 113.81, df = 42, p-value &lt; 2.2e-16
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  1.050113 1.088027
+## sample estimates:
+## mean of x 
+##   1.06907</code></pre>
+<p>Conclusion: On the basis of a 95% Confidence Interval, it is likely that the population mean 5 m Sprint Time for elite soccer players is somewhere between 1.05 and 1.09 seconds.</p>
+</div>
+</div>
+<div id="section-comparing-two-population-means-the-simplest-between-subject-design" class="section level2">
+<h2>Comparing Two Population Means (The Simplest Between Subject Design)</h2>
+<p>This can arise from an observational study (two independent samples) or through a designed experiment (a single sample randomised into one of the two levels of a Between Subject Factor). Regardless of the context, the response variable of interest is recorded for each subject in both samples/levels and interest relates to the comparison of the population mean. The parameter of interest is the difference in population means and is estimated naturally by using the difference in the sample means. If the difference in the two population means is zero then the population means are identical; this simple fact is central in interpreting the results from two sample comparisons.</p>
+<p>The formal analysis can be summarised as follows:</p>
+<ol style="list-style-type: decimal">
+<li>provide summary statistics and a box plot of the response variable categorised by the levels of the Between Subject Factor;</li>
+<li>provide and comment on a suitable interval estimate of the likely difference in the population means;</li>
+<li>if appropriate, make an objective statement as to whether zero is a plausible value for the difference in population means.</li>
+</ol>
+<p>The assumptions on which this analysis is based are that the samples are independent, and that the response variable of interest was sampled from underlying Normal distributions.</p>
+<div id="section-soccer-fitness-revisited" class="section level3">
+<h3>Soccer Fitness (Revisited)</h3>
+<p>Aim: To compare the mean Counter Movement Jump (CMJ) Height in the populations of Senior and Youth soccer players.</p>
+Plot a box plot CMJump by Squad:
+<div class="tutorial-exercise" data-label="box_jump" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
+<pre class="text"><code>ggplot(data = SOCCER_FITNESS,...)</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="box_jump-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>ggplot(data = SOCCER_FITNESS,mapping = aes(x = Squad, y = CMJump)) +
+  geom_boxplot() +
+  coord_flip()</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="box_jump-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>ggplot(data = SOCCER_FITNESS,mapping = aes(x = Squad, y = CMJump)) +
+  geom_boxplot() +
+  coord_flip()</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="box_jump-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>strict_check(success = &quot;The assumption of Normality is questionable for population of Seniors as the median is not quite in the centre of the IQR.  The CMJ Height distribution is plausibly Normal in the Youth population however based on the symmetry present in each box plot.  The variability in the CMJ across both samples is reasonably similar.
+
+In order to make a formal comparison between the population of Senior and Youth Elite players a 95% Confidence Interval for the difference in population mean CMJ Height is required&quot;)</code></pre>
+</div>
+<p>Two-Sample 95% Confidence Interval for the population mean CMJump</p>
+<pre class="r"><code>t.test(CMJump ~ Squad, data = SOCCER_FITNESS)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  CMJump by Squad
+## t = 3.8731, df = 21.576, p-value = 0.0008452
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##   3.057239 10.122364
+## sample estimates:
+## mean in group Senior  mean in group Youth 
+##             55.08171             48.49191</code></pre>
+<p>The output presents the sample sizes, means, standard deviations and estimated standard errors for each of the two samples. The estimate of the difference in the population means is given here as Senior Squad mean minus Youth Squad mean (i.e. 55.08 – 48.49 = 6.59 cm). The difference in the sample means therefore is 6.59 cm favouring the Senior players. The 95% Confidence Interval, a two-sample t interval (highlighted in bold in Box 4.3.1), is for the difference in the population mean CMJ Height for the Senior Squad minus the population mean for the Youth Squad. This interval is interpreted in a similar manner as before; the interval provides a credible range for the likely value of the difference between the two population means.</p>
+<p>The key point here is to realise that, if zero does not lie in the interval, there is a significant difference between the two population means. In this example, the 95% Confidence Interval does not contain zero and therefore it is highly likely that there is a difference between the two population means. As the 95% CI for the difference in the population means is strictly positive there is evidence that CMJ Height, on average, is higher in the Senior Players compared to the Youth Players.</p>
+<p>Conclusion: There is convincing evidence of a difference in the mean CMJ Height between the two populations of soccer players. The mean CMJ Height is likely to be higher in Senior players by somewhere between 3 and 10 cm on average, compared to Youth players.</p>
+</div>
+<div id="section-physiotherapy-pain-relief" class="section level3">
+<h3>Physiotherapy Pain Relief</h3>
+<p>Background: Ischaemic pain can be induced by applying a tourniquet to the arm just above the elbow to obstruct blood flow. The subject is asked to flex and relax the forearm muscles continuously for a short period of time (e.g. 1 minute). When the exercise is stopped, pain increases and typically becomes unbearable after about eight minutes. This method is used in experimental studies of pain because it causes no permanent tissue damage.</p>
+<p>Study Description: A sample of 29 young healthy females was taken to investigate the effect of a mental distraction task on induced ischaemic pain. Subjects were randomly allocated to one of two methods of Pain Relief (i.e. control and distraction). A sub-maximal effort tourniquet technique (SETT) was used to induce ischaemic pain on a subject’s non-dominant arm while she performed sets of 20 repetitions of hand gripping exercises at 75% of her maximal grip strength over a 100 second period. The distraction employed was a colour word ‘Stroop’ test and this mental task consists of a pencil and paper ‘Stroop’ task modified to cover 160 words typed in red, yellow, blue or green in a randomised order. Each word did not represent its colour meaning. While the distraction was being carried out, subjects recorded the time when they first felt pain i.e. their perceived pain levels using a Visual Analogue Scale (VAS) from the moment they acknowledged pain (i.e. their Pain Threshold) until they could not can tolerate the pain any longer (i.e. their Pain Tolerance).</p>
+<p>Aim: To investigate the effect of a mental distraction task on induced ischaemic pain by comparing the difference in population mean Pain Threshold between those on the Intervention (i.e. distracted) and Controls.</p>
+<p>Summary statisic of PAINRELIEF</p>
+<pre><code>##   Treatment         Pain_Threshold  
+##  Length:30          Min.   :  3.00  
+##  Class :character   1st Qu.: 25.00  
+##  Mode  :character   Median : 51.00  
+##                     Mean   : 64.52  
+##                     3rd Qu.:102.00  
+##                     Max.   :168.00  
+##                     NA&#39;s   :1</code></pre>
+<p>Plot a box plot of Pain_Threshold by Treatment</p>
+<pre><code>## Warning: Removed 1 rows containing non-finite values (stat_boxplot).</code></pre>
+<p><img src="Tutorial_Ch4_files/figure-html/unnamed-chunk-6-1.png" width="624" /></p>
+<p>Two sample T-Test of Pain Threshold and Treatment</p>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  Pain_Threshold by Treatment
+## t = -3.5864, df = 18.254, p-value = 0.002072
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -89.58770 -23.44087
+## sample estimates:
+##     mean in group Control mean in group Distraction 
+##                  35.28571                  91.80000</code></pre>
+<p>Conclusion: In terms of the time to onset of the perception of ischaemic pain, a mental distraction Stroop task can significantly increase this by somewhere between 23 and 90 seconds on average.</p>
+<p>The next example involves a designed experiment where the analysis is carried out to ‘confirm’ that the randomisation was effective in terms of the two samples being reasonably comparable at baseline (i.e. to check that the two randomised samples look to have arisen from the same population).</p>
+</div>
+<div id="section-osteoporosis-and-exercise" class="section level3">
+<h3>Osteoporosis and Exercise</h3>
+<p>Background: Osteoporosis is a fairly common condition in post-menopausal women. The porous bones in this population are susceptible to fracture. The consequences of a fracture can be very serious. For example, a fracture of the neck of the femur in elderly females is associated with a very poor prognosis and may include physical incapacity and death. Exercise programmes have the potential to increase the well-being of osteoporosis sufferers. For example, if the balance of these subjects could be improved, the subjects would be less likely to fall and therefore less likely to fracture.</p>
+<p>Study Description: A sample of 30 middle-aged osteoporotic women was randomised either to a twice-weekly physiotherapist-led exercise regime or to be a control. Physiological assessments, including a functional reach test measuring balance, were conducted on all women both before and after two months of the ‘intervention’ (i.e. exercise or control).</p>
+<p>Aim: To assess whether the Controls and Exercisers were comparable at baseline (i.e. immediately before the study) in terms of this measure of balance.</p>
+<p>Summary statistic of Balance Before</p>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   12.70   22.86   27.94   27.10   33.02   39.37</code></pre>
+<p>Plot a box plot of Balance Before by Regime <img src="Tutorial_Ch4_files/figure-html/unnamed-chunk-9-1.png" width="624" /></p>
+<p>Two sample T-Test of Balance Before and Regime</p>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  Balance by Regime
+## t = -0.074377, df = 27.68, p-value = 0.9412
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -5.634056  5.239449
+## sample estimates:
+##  mean in group Control mean in group Exercise 
+##               26.99657               27.19387</code></pre>
+<p>The 95% Confidence Interval (highlighted in bold) is for the difference in the population mean Balance for Controls minus the population mean Balance for Exercisers. This 95% Confidence Interval contains zero and therefore it is plausible that there is no difference between the two population means – especially since zero lies almost exactly in the middle of this interval estimate.</p>
+<p>Conclusion: There is no evidence of a difference in mean Balance for Controls and Exercisers at baseline. The two samples may not have had identical Balance scores but there is evidence that the populations can be considered comparable at baseline on average. The difference in the two sample means can therefore be attributed to random sampling.</p>
+</div>
+</div>
+<div id="section-interval-estimation-for-paired-data-the-simplest-within-subject-design" class="section level2">
+<h2>Interval Estimation for Paired data (The Simplest Within Subject Design)</h2>
+<p>Recall that Paired data arise in Within Subject Designs with a single factor at two levels. A pair of measurements is made on the same individual (e.g. VO2 max before and after a training intervention, isokinetic knee extensor strength of dominant and non dominant leg) and are ‘dependent’ upon each other. If a particular individual’s observation at the first level of the Within Subject Factor is high, it is not surprising that his/her observation at the second level will also be high and vice versa. This dependency can often be exploited to reduce the problem to a single sample of differences</p>
+<div id="section-training-intervention" class="section level3">
+<h3>Training Intervention</h3>
+<p>Background: Norwegian studies have shown that high intensity aerobic interval training is effective in enhancing VO2 max in soccer players. This improvement in VO2 max has resulted in the players covering a greater distance during games. Strength training may improve running economy, sprinting and jumping performance.</p>
+<p>Study Description: A sample of 18 full-time youth soccer players from a Youth Academy performed high intensity aerobic interval training and neuromuscular strength training twice-a-week over a 10-week in-season period in addition to usual regime of soccer training and matches.</p>
+<p>Aim: To investigate whether a concurrent high intensity interval-training and neuromuscular strength improves on average the VO2 max of soccer players over a 10-week period.</p>
+<p>Plot a scatter plot of VO2_max_pre vs VO2_max_post <img src="Tutorial_Ch4_files/figure-html/unnamed-chunk-11-1.png" width="624" /></p>
+<p>Plot a box plot of improvement in VO2 Max <img src="Tutorial_Ch4_files/figure-html/unnamed-chunk-12-1.png" width="624" /></p>
+<p>One-Sample Confidence Interval</p>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  TRAINING_INTERVENTION$VO2_max_post - TRAINING_INTERVENTION$VO2_max_pre
+## t = 9.6022, df = 17, p-value = 2.798e-08
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  3.988090 6.234132
+## sample estimates:
+## mean of x 
+##  5.111111</code></pre>
+<p>This interval suggests that the actual mean improvement is likely to be between 3.99 and 6.23 ml.kg-1.min-1. As this interval does not contain zero, there is evidence of a mean improvement in max due to the training intervention.</p>
+<p>Conclusion: There is evidence of a real improvement in mean max among professional soccer players due to this training intervention. The mean improvement in the sample was 5.1 ml.kg-1.min-1, which is nearly an 8% improvement on the typical Pre-study max of around 68 ml.kg-1.min-1.</p>
+</div>
+</div>
+<div id="section-one-between-and-one-within-subject-factor-each-at-2-levels" class="section level2">
+<h2>One Between and One Within Subject Factor (each at 2 levels)</h2>
+<p>Such a design involves samples of Paired data from two distinct and different populations i.e. a design with one Between Subject Factor and one Within Subject Factor both at two levels. The methods needed to analyse such designs are in fact just those already presented in the previous sections of this chapter. The analysis required often reduces to nothing more than a comparison of the mean differences in the two samples.</p>
+<p>The same assumptions that apply to two sample comparisons apply here to the two samples of differences. The data are assumed to be random samples and the differences are assumed to have arisen from Normal populations. Of course, the assumption that the differences are not related to the initial values must be validated also.</p>
+<div id="section-exercise-and-the-elderly-revisited" class="section level3">
+<h3>Exercise and the Elderly (Revisited)</h3>
+<p>Aims: To compare the average difference in Relative Intensity during Aerobic Dance and Walking sessions for each sex separately and then to investigate whether the difference in Relative Intensity (if any) is, on average, similar for Males and Females.</p>
+<p>plot a scatter plot of intensity of Peak_VO2_Walk vs Peak_VO2_Dance regime label Sex <img src="Tutorial_Ch4_files/figure-html/unnamed-chunk-14-1.png" width="624" /></p>
+<p>Plot a box plot of difference in relative intensity by sex <img src="Tutorial_Ch4_files/figure-html/unnamed-chunk-15-1.png" width="624" /></p>
+<p>One-Sample T: Dance-Walk(M), Dance-Walk(F)</p>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  filter(WALKDANCE, Sex == &quot;Male&quot;)$Peak_VO2_Dance - filter(WALKDANCE,     Sex == &quot;Male&quot;)$Peak_VO2_Walk
+## t = 7.6628, df = 5, p-value = 0.0006029
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  12.07473 24.26557
+## sample estimates:
+## mean of x 
+##  18.17015</code></pre>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  filter(WALKDANCE, Sex == &quot;Female&quot;)$Peak_VO2_Dance - filter(WALKDANCE,     Sex == &quot;Female&quot;)$Peak_VO2_Walk
+## t = 3.3171, df = 5, p-value = 0.02107
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##   2.793766 22.032997
+## sample estimates:
+## mean of x 
+##  12.41338</code></pre>
+<p>The separate intervals provide evidence, that in the elderly population, both Males and Females tend to have a higher mean Relative Intensity when carrying out an Aerobic Dance session than when they take part in an individual Walking session.</p>
+<p>Two-sample T for Dance-Walk(M) vs Dance-Walk(F)</p>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  filter(WALKDANCE, Sex == &quot;Male&quot;)$Peak_VO2_Dance - filter(WALKDANCE,  and filter(WALKDANCE, Sex == &quot;Female&quot;)$Peak_VO2_Dance - filter(WALKDANCE,     Sex == &quot;Male&quot;)$Peak_VO2_Walk and     Sex == &quot;Female&quot;)$Peak_VO2_Walk
+## t = 1.2994, df = 8.4577, p-value = 0.2281
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -4.363871 15.877407
+## sample estimates:
+## mean of x mean of y 
+##  18.17015  12.41338</code></pre>
+<p>Despite the fact that the sample mean difference was higher for Males, the 95% Confidence Interval for “Males minus Females” contains zero and, therefore, there is not sufficient evidence to claim that such an increase in Relative Intensity is higher in the population of elderly males compared to the population of elderly females.</p>
+<p>Conclusion: The Relative Intensity was significantly higher on average for the Aerobic Dance session than the Walking session for both Males and Females in this elderly population. There was no evidence however that the typical difference between these types of session is different for the sexes.</p>
+</div>
+</div>
+<div id="section-prediction-and-tolerance-intervals" class="section level2">
+<h2>Prediction and Tolerance intervals</h2>
+<p>One misconception in the interpretation of a Confidence Interval (CI) for a population mean is to consider it as providing an estimate of the likely value of a particular individual in the population. For example, the 95% CI calculated previously for the population mean Ascent Time of Mont Blanc was between 4 hours 10 minutes and 4 hours 20 minutes. This interval provides a likely range of values for the population mean and not a likely range for any future individual. Of course, the sample mean is still the best (point) estimate that could be used when predicting the actual Ascent Time of a future climber, but the corresponding interval estimate should naturally be wider to take into account the considerable variability in Ascent Time from climber to climber. The interval that is appropriate for a future (random) member of the population is called a Prediction Interval (PI). This takes into account not only the uncertainty/error in the estimate of the population mean but also the population variability/standard deviation since the assumption throughout this section is still that the underlying population is Normally distributed.</p>
+<p>Another form of “interval” encountered in Sports and Exercise Science is that of the so-called Tolerance Interval (TI) or “Normal” Ranges as they are referred to particularly in Medicine. These are ranges of values within which it is intended that a fixed proportion of the target population will lie. Such ranges are particularly useful when generating ‘reference ranges’ for acceptable levels of particular substances in drug testing, as a benchmark to detect athletes who may be ‘doping’.</p>
+<p>The difference between Tolerance and Prediction intervals is quite subtle and often causes confusion. The main point to consider is whether the researcher is trying to use the current sample to predict the actual value of a single future observation (i.e. a Prediction Interval) or to estimate the range of the variable covering the vast majority of the population (i.e. a Tolerance Interval).</p>
+<div id="section-avalanche-survival" class="section level3">
+<h3>Avalanche Survival</h3>
+<p>Background: Asphyxiation is a common cause of death in avalanche burial. This is often due to the accumulation of expired CO2 in the immediate air supply, leading to the displacement of available oxygen. Recent studies have indicated that incorporation of a CO2 scrubbing agent into a breathing apparatus may be a successful means of survival enhancement. Soda Lime is one of the most commonly used CO2 removal agents used in anaesthetic practice.</p>
+<p>Study Description: A sample of 14 healthy subjects performed two blinded trials, one with a Soda Lime canister and one with a Placebo canister acting as a Control. Subjects breathed through a mouthpiece into a closed-circuit system attached to a Douglas Bag containing 12 litres of 100% O2. They were instructed to continue for as long as they could tolerate breathing from the system (i.e. their Tolerance Time). The design was balanced as seven of the subjects used the Soda Lime canister first while the other seven used the Placebo first.</p>
+<p>Aim: To provide estimates of the likely Tolerance Time for a future person in a laboratory simulated avalanche situation both with and without a Soda Lime canister.</p>
+<p>Plot a scatter plot of Control vs Soda Lime</p>
+<p>he poorest Tolerance Time recorded was under 10 minutes and was for a subject who was not using the Soda Lime canister. The best Tolerance Time recorded was approximately 45 minutes for a subject using the Soda Lime canister. What is very clear is that all of the subjects in the study demonstrated increases in Tolerance Time when they used the Soda Lime canister since all of the points lie above the line of equality. The improvement in Tolerance Time does not appear to be dependent on the Tolerance Times in the Control condition, justifying the use of differences.</p>
+<p>Plot a box plot of change in tolerance times, soda lime - control</p>
+<p>One-Sample T: Soda Lime-Control</p>
+<p>Conclusion: Based on the data provided, it is clear that, in the target population, using a Soda Lime canister is likely to improve the Tolerance Time for any particular individual by between 25 and 47 minutes. The use of a Soda Lime canister in a real avalanche situation may therefore enhance survival time. This speculation assumes, of course, that the laboratory findings can be transferred to a snow setting.</p>
+</div>
+</div>
+<div id="section-tolerance-intervals-to-cover-a-proportion-of-the-population-normal-ranges" class="section level2">
+<h2>Tolerance Intervals to cover a Proportion of the Population (“Normal” Ranges)</h2>
+<p>A Tolerance Interval is used to investigate whether a particular observed individual is ‘dissimilar’ to the rest of the population. For example, what would be a range of values covering 95% of individual Ascent Times of Mont Blanc? If any particular climber’s Ascent Time is not within this range, then he/she can be considered atypical (either fast or slow) of the target population. Such ranges are commonly used in medical literature and are intended as benchmarks for patient diagnosis where the term ‘Normal Range’ is often applied – this meaning of “Normal” has nothing whatsoever to do with the Normal distribution though!</p>
+<p>When calculating a Tolerance Interval a choice of the confidence attached to the Tolerance Interval has to be made - in addition to the choice of the proportion of the population that this interval is intended to cover. The conventional choice for both of these is 95%.</p>
+<div id="section-mont-blanc-ascent-time-revisited" class="section level3">
+<h3>Mont Blanc Ascent Time (Revisited)</h3>
+<p>Aim: To provide an interval estimate for the Ascent Time of 95% of the successful climbers of Mont Blanc in favourable summer conditions.</p>
+<p>Tolerance interval with 95% coverage and 95% confidence</p>
+<p>Conclusion: It is likely that 95% of the actual Ascent Times in the population of successful climbers of Mont Blanc lie between 2.5 and 6 hours. A more practical interpretation is that it is unlikely to find a climber making a successful ascent quicker than 2.5 hours or slower than 6 hours.</p>
+</div>
+</div>
+<div id="section-what-if-the-normality-assumption-is-questionable" class="section level2">
+<h2>What if the Normality Assumption is Questionable?</h2>
+<p>A crucial assumption used in this chapter to calculate a CI for a population mean is that the data arose from a Normal distribution. The method of production of the CI is quite robust (i.e. not overly influenced) to departures from Normality if the sample is ‘large’ (typically 30 or more). However, the method does not work well in small samples that are not symmetric (i.e. have a degree of skewness) and/or which have outliers present.</p>
+<p>If the Normality assumption is questionable, there are three possible approaches that can be considered:</p>
+<ol style="list-style-type: decimal">
+<li>use a suitable transformation of the data;</li>
+<li>use a re-sampling technique that does not assume Normality;</li>
+<li>concentrate on the population median rather than mean.</li>
+</ol>
+<p>A formal procedure for testing whether a sample was likely to have arisen from a Normal distribution will be presented in the next chapter. Rather than forcing on an analysis based on an erroneous assumption of normality on data that appear non-Normal, there is no reason whatsoever not to transform the data to ‘achieve’ Normality on a different measurement scale. The standard Normal distribution based analysis can then be safely undertaken using this ‘new’ transformed variable.</p>
+<div id="section-walking-in-to-work-out" class="section level3">
+<h3>Walking In to Work Out</h3>
+<p>Background: Walking, some or all of the way, to work is one possible method of increasing physical activity, improving aerobic fitness and health and having a positive influence on the environment. As part of a study to encourage active commuting, a sample of 295 commuters who were interested in taking part in the study filled in a questionnaire about their recent history of walking habits as part of the baseline information for this study. Study Description: Subjects were randomised to receive the Intervention or to act as a Control. Those on the intervention received the “Walk in to Work Out” pack, which contained written interactive material, local information about distances and routes, and safety information. The Controls did not receive the pack and continued with their usual lifestyle.</p>
+<p>Aim: To estimate the typical time spent walking to work post intervention for those who did not walk to work prior to the study.</p>
+<p>Descriptive Statistics: Walking Time</p>
+<p>Plot a box plot of time spent walking pre-study</p>
+<p>One-Sample T: Walking Time</p>
+<p>The validity of this interval is questionable however due to the evidence of non-symmetry (and hence non-Normality) in the box plot. When it is unreasonable to assume that the sample has arisen from a Normal Distribution, the first approach to consider is to transform the scale of measurement of the data, so that the transformed variable appears much more reasonably to be Normally distributed. The most common transformations applied when the data are heavily skewed to the right are to take the logarithm or the square root of the data. If the resulting transformed variable appears much more likely to be Normally distributed, an interval estimate for the population mean of the transformed variable can be calculated and the resulting interval ‘back-transformed’ to the original scale of the variable of interest.</p>
+<p>Plot a box plot of the log of time spent walking pre-study</p>
+<p>One-Sample T: log(Walking Time)</p>
+<p>It is quite likely that the mean log(Walking Time), for the population of interest, is somewhere between 3.87 and 4.95 (log minutes). Note that the interval reported is calculated on the log scale, while it would be much more informative to report the results in the original units. The simplest method of achieving this is to back transform each end of the interval. The appropriate inverse transformation for the log function is the antilog (i.e. the exponential function). Applying this to both ends of the interval gives exp(3.867) = 47.80 minutes and exp(4.953) = 141.603 minutes yielding a 95% CI for the population mean Walking Time of 48 to 142 minutes. This method has shifted the estimate of the population mean to the left, having ‘accounted’ for the right skew in the data and substantially reduced the width of the interval estimate (i.e. from a range of 198.1 – 52 = 146.1 minutes for the untransformed variable to 141.6 – 47.80 = 93.8 minutes for this approach).</p>
+<p>The second approach, if the Normality assumption appears untenable, has the quirky title of the ‘Bootstrap’. It allows an estimate of a population mean to be made, without requiring any assumptions about the underlying population distribution. As in all inferential methods, the Bootstrap approach is heavily dependent on assuming that the sample collected is representative of the target population. The ‘Bootstrap’ can be applied to virtually any parameter that needs to be estimated in a population, and makes no formal assumptions regarding the population distribution. It was first put forward in the late 1970’s but had to await the arrival of substantial computer power before it could be implemented. That time has now arrived and some claim that the Bootstrap has revolutionised modern statistical inference.</p>
+<p>The Bootstrap procedure uses the following argument: if the data are really a random sample from the target population, then a ‘re-sample’ from the actual data at hand can be considered as a ‘new’ random sample which could have arisen from the population. The subtlety is that random samples from the original random sample tend to behave as random samples from the population. The re-samples are used to generate an estimate of the sampling variability in the sample mean (still the best estimate of the population mean) from which an interval estimate for the population mean can be calculated.</p>
+<p>Bootstrap interval for mean Walking Time</p>
+<p>This “Bootstrap” interval suggests that the population mean Walking Time is likely to be between 56 and 182 minutes which is fairly similar to that produced from the raw data (dubiously) assuming Normality.</p>
+<p>The final approach, if the Normality assumption appears untenable, is to concentrate on the median as a ‘more appropriate’ measure of the typical value of the population rather than the mean. Procedures for providing interval estimates for a population median are available, the most useful, perhaps, being the Wilcoxon procedure. Techniques that involve estimation of a population median do not require assumptions relating to the Normal distribution and are often termed ‘non-parametric’ procedures – a rather daft term since it is still a population parameter (i.e. the median) that is being estimated! These techniques use the “order statistic” of the data (i.e. all the data “written down” from smallest to largest) and obtain an interval estimate by moving in an appropriate number of observations from each end of the data. A natural question to ask is why not therefore focus on such procedures in all scenarios? The reason against this is that the resulting intervals tend to be wider (i.e. less precise) than the corresponding interval estimate based on Normality, particularly in small samples. There are always statistical swings and roundabouts!</p>
+<p>Wilcoxon Signed Rank CI: Walking Time</p>
+<p>The overall conclusion is that the mean may not be the ‘best’ summary of the typical Walking Time in this population of interest. It could be argued that the ‘best’ estimate of the typical Walking Time is provided by the log transformation as the interval is shifted to the left and was the narrowest (i.e. most precise). A pragmatic conclusion is that, regardless of the approach taken, the typical amount of time spent walking in the week previous to the study is likely to be somewhere between just under an hour up to around three hours!</p>
+</div>
+</div>
+<div id="section-comparing-two-population-means" class="section level2">
+<h2>Comparing Two Population Means</h2>
+<p>Normality assumptions also apply in a comparison of two sample means. The method of production of the Confidence Interval (based on the t distribution) for the difference in the two population means is however quite robust to departures from Normality if each of the samples is ‘large’ (typically 30 or more). However, the method may not work well in small samples that are not symmetric (i.e. have a degree of skewness) and/or which have outliers present).</p>
+<p>The same approaches introduced for one sample problems are appropriate here, namely 1. using a suitable transformation of the data; 2. use a re-sampling technique that does not assume Normality;<br />
+3. concentrate on the population medians rather than means.</p>
+<p>The following section involves Illustrations initially where a log transformation turns out to be useful followed by one where the log transformation is inappropriate.</p>
+<div id="section-walking-in-to-work-out-revisited" class="section level3">
+<h3>Walking In to Work Out (Revisited)</h3>
+<p>Study Description: Those individuals that did not walk to work at the start of the study but who now work walk were identified. In total there were 14 who received the Intervention and 12 Controls.</p>
+<p>Aim: To compare the typical time spent walking to work Post Study across the Treatments specifically for the cohort identified who now walk two work despite not walking to work prior to the study.</p>
+<p>Plot a box plot of time spent walking by treatment</p>
+<p>It is interesting to note that the sample of 12 Controls claim to spend slightly over an hour on average walking to work despite not walking to work prior to the study and not receiving the Intervention! This could be due to a change in mindset by virtue of being enrolled in such a study alone.</p>
+<p>Two-Sample T-Test and CI: Intervention, Controls</p>
+<p>The difference in the sample mean Walking Time between the Treatments is 63.8 minutes however as the 95% CI of -10 to 138 minutes contains zero there is no evidence that the Intervention significantly improves Walking Time in the population of middle-class commuters.</p>
+<p>Plot a box plot of the log of the time spent walking by treatment</p>
+<p>The log transformation has made the assumption of Normality much more credible for both Treatments than in the original scale of measurement. So, it is now reasonable to produce a 95% CI for the difference in population mean log Walking Time between the Treatments</p>
+<p>Two-sample T for Log(Walking Time)</p>
+<p>Care must be taken when interpreting this interval, as it is represents an estimate of the difference in mean Walking Time between the Treatments on the log scale. However, when “back transformed”, this difference translates into an interval estimate for the ratio of population mean Walking Times in the original scale of measurement.</p>
+<p>Bootstrap interval for Difference in mean Walking Time</p>
+<p>As the interval is strictly positive, there is evidence of a significant difference in mean Walking Times with those on the Intervention likely to walk, on average, between 5 and 139 minutes more than Controls. As the interval is entirely positive there is evidence of a significant difference in mean Walking Time</p>
+<p>Mann-Whitney Test and CI: Intervention, Controls</p>
+<p>Only the Bootstrap approach identified a significant difference between the Treatments. This may well be due to the influence of the three possible outliers in the small sample. As the other approaches (including the log transformation) suggested no difference between the Treatments, then, even although the intervals are heavily “loaded towards the Intervention”, it is probably wise to claim that there is no conclusive evidence of a difference in mean Walking Time Post Study amongst those receiving the Intervention compared to the Controls for those who did not walk to work at all before the study.</p>
+
+<script type="application/shiny-prerendered" data-context="server-start">
+library(learnr)
+library(tidyverse)
+library(grader)
+knitr::opts_chunk$set(echo = FALSE)
+tutorial_options(exercise.checker = grade_learnr)
+
+AVALANCHE <- read_csv("data/chapter_4/AVALANCHE.CSV")
+OSTEOPOROSIS <- read_csv("data/chapter_4/OSTEOPOROSIS.CSV")
+PAINRELIEF <- read_csv("data/chapter_4/PAINRELIEF.CSV")
+SOCCER_FITNESS <- read_csv("data/chapter_4/SOCCER FITNESS.CSV")
+TRAINING_INTERVENTION <- read_csv("data/chapter_4/TRAINING INTERVENTION.CSV")
+WALKDANCE <- read_csv("data/chapter_4/WALKDANCE.CSV")
+WALK_TO_WORK <- read_csv("data/chapter_4/WALK TO WORK.CSV")
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::register_http_handlers(session, metadata = NULL)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-box_jump-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-box_jump-code-editor`)), session)
+output$`tutorial-exercise-box_jump-output` <- renderUI({
+  `tutorial-exercise-box_jump-result`()
+})
+</script>
+ <!--html_preserve-->
+<script type="application/shiny-prerendered" data-context="dependencies">
+{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery-1.11.3"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap-3.3.5"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/cerulean.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["pagedtable"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pagedtable-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/pagedtable.js"]},{"type":"character","attributes":{},"value":["css/pagedtable.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["9.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["textmate.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-format"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmarkdown/templates/tutorial/resources"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-format.js"]},{"type":"character","attributes":{},"value":["tutorial-format.css","rstudio-theme.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery-1.11.3"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["font-awesome"]},{"type":"character","attributes":{},"value":["5.0.13"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/fontawesome"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/fontawesome-all.min.js","js/fa-v4-shims.min.js"]},{"type":"character","attributes":{},"value":["css/fa-svg-with-js.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["4.4.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["localforage"]},{"type":"character","attributes":{},"value":["1.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/localforage"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["localforage.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]}]}
+</script>
+<!--/html_preserve-->
+</div>
+</div>
+</div>
+
+</div> <!-- topics -->
+
+<div class="topicsContainer">
+<div class="topicsPositioner">
+<div class="band">
+<div class="bandContent topicsListContainer">
+
+<!-- begin doc-metadata -->
+<div id="doc-metadata">
+<h2 class="title toc-ignore" style="display:none;">Summarising and Displaying Data</h2>
+</div>
+<!-- end doc-metadata -->
+
+</div> <!-- bandContent.topicsListContainer -->
+</div> <!-- band -->
+</div> <!-- topicsPositioner -->
+</div> <!-- topicsContainer -->
+
+
+</div> <!-- bandContent page -->
+</div> <!-- pageContent band -->
+
+
+
+
+<script>
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+
+</html>
