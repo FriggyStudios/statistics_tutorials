@@ -1,5 +1,5 @@
 ---
-title: "Summarising and Displaying Data"
+title: "Estimating Parameters"
 output: 
       learnr::tutorial:
           progressive: true
@@ -716,12 +716,8 @@ strict_check(success = "As the interval is strictly positive, there is evidence 
 ```
 
 Mann-Whitney Test and CI: Intervention and Controls 
-```{r}
-wilcox.test(..., conf.int=TRUE)
-```
-
 ```{r mann_treatment_walk, exercise=TRUE, exercise.lines = 5}
-wilcox.test(WALK_TO_WORK$Controls,WALK_TO_WORK$Intervention,conf.int=TRUE)
+wilcox.test(..., conf.int=TRUE)
 ```
 
 ```{r mann_treatment_walk-solution}
