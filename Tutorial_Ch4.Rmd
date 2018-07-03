@@ -10,6 +10,8 @@ runtime: shiny_prerendered
 library(learnr)
 library(tidyverse)
 library(grader)
+library(tolerance)
+library(boot)
 knitr::opts_chunk$set(echo = FALSE)
 tutorial_options(exercise.checker = grade_learnr)
 
@@ -20,6 +22,7 @@ SOCCER_FITNESS <- read_csv("data/chapter_4/SOCCER FITNESS.CSV")
 TRAINING_INTERVENTION <- read_csv("data/chapter_4/TRAINING INTERVENTION.CSV")
 WALKDANCE <- read_csv("data/chapter_4/WALKDANCE.CSV")
 WALK_TO_WORK <- read_csv("data/chapter_4/WALK TO WORK.CSV")
+MONT_BLANC <- read_csv("data/chapter_3/MONT BLANC ASCENT.CSV")
 ```
 
 # Ch4: Estimating Parameters
@@ -59,14 +62,28 @@ Aim: 	To estimate the mean 5 m sprint for the population of professional soccer 
 
 Summary statistic of sprint times
 ```{r echo = T}
-summary(SOCCER_FITNESS)
+summary(SOCCER_FITNESS$Sprint5m)
 ```
 
-Plot a box plot of the 5m Sprint Time
-```{r echo = T}
+Plot a box plot of the time to sprint 5m: Sprint5m
+```{r box_sprint, exercise=TRUE, exercise.lines = 5}
+ggplot(data = SOCCER_FITNESS,...)
+```
+
+```{r box_sprint-solution}
 ggplot(data = SOCCER_FITNESS,mapping = aes(x = 1, y = Sprint5m)) +
   geom_boxplot() +
   coord_flip()
+```
+
+```{r box_sprint-hint}
+ggplot(data = SOCCER_FITNESS,mapping = aes(x = 1, y = Sprint5m)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r box_sprint-check}
+strict_check(success = "")
 ```
 
 One-Sample 95% Confidence Interval for the population mean Sprint5m Time
@@ -116,7 +133,6 @@ In order to make a formal comparison between the population of Senior and Youth 
 Two-Sample 95% Confidence Interval for the population mean CMJump
 ```{r echo = T}
 t.test(CMJump ~ Squad, data = SOCCER_FITNESS)
-
 ```
 
 The output presents the sample sizes, means, standard deviations and estimated standard errors for each of the two samples.  The estimate of the difference in the population means is given here as Senior Squad mean minus Youth Squad mean (i.e. 55.08 – 48.49 = 6.59 cm).  The difference in the sample means therefore is 6.59 cm favouring the Senior players.  The 95% Confidence Interval, a two-sample t interval (highlighted in bold in Box 4.3.1), is for the difference in the population mean CMJ Height for the Senior Squad minus the population mean for the Youth Squad.  This interval is interpreted in a similar manner as before; the interval provides a credible range for the likely value of the difference between the two population means. 
@@ -133,19 +149,33 @@ Study Description: A sample of 29 young healthy females was taken to investigate
 Aim:  To investigate the effect of a mental distraction task on induced ischaemic pain by comparing the difference in population mean Pain Threshold between those on the Intervention (i.e. distracted) and Controls.
 
 Summary statisic of PAINRELIEF
-```{r}
+```{r echo = T}
 summary(PAINRELIEF)
 ```
 
 Plot a box plot of Pain_Threshold by Treatment
-```{r}
+```{r box_pain, exercise=TRUE, exercise.lines = 5}
+ggplot(data = PAINRELIEF,...)
+```
+
+```{r box_pain-solution}
 ggplot(data = PAINRELIEF,mapping = aes(x = Treatment, y = Pain_Threshold)) +
   geom_boxplot() +
   coord_flip()
 ```
 
+```{r box_pain-hint}
+ggplot(data = PAINRELIEF,mapping = aes(x = Treatment, y = Pain_Threshold)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r box_pain-check}
+strict_check(success = "")
+```
+
 Two sample T-Test of Pain Threshold and Treatment
-```{r}
+```{r echo = T}
 t.test(Pain_Threshold ~ Treatment, data = PAINRELIEF)
 ```
 
@@ -161,20 +191,35 @@ Study Description: A sample of 30 middle-aged osteoporotic women was randomised 
 Aim:	To assess whether the Controls and Exercisers were comparable at baseline (i.e. immediately before the study) in terms of this measure of balance.
 
 Summary statistic of Balance Before
-```{r}
+```{r echo = T}
 summary((filter(OSTEOPOROSIS,Time=="Before"))$Balance)
 ```
 
 Plot a box plot of Balance Before by Regime
-```{r}
+```{r box_balance, exercise=TRUE, exercise.lines = 5}
+ggplot(data = filter(OSTEOPOROSIS,Time=="Before"),...)
+```
+
+```{r box_balance-solution}
 ggplot(data = filter(OSTEOPOROSIS,Time=="Before"),mapping = aes(x = Regime, y = Balance)) +
   geom_boxplot() +
   coord_flip()
 ```
 
+```{r box_balance-hint}
+ggplot(data = filter(OSTEOPOROSIS,Time=="Before"),mapping = aes(x = Regime, y = Balance)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r box_balance-check}
+strict_check(success = "")
+```
+
 Two sample T-Test of Balance Before and Regime
 ```{r}
-t.test(Balance ~ Regime, data = filter(OSTEOPOROSIS,Time=="Before"))
+before_balance <- filter(OSTEOPOROSIS,Time=="Before")
+t.test(Balance ~ Regime,data = before_balance)
 ```
 
 The 95% Confidence Interval (highlighted in bold) is for the difference in the population mean Balance for Controls minus the population mean Balance for Exercisers.  This 95% Confidence Interval contains zero and therefore it is plausible that there is no difference between the two population means – especially since zero lies almost exactly in the middle of this interval estimate. 
@@ -192,27 +237,65 @@ Study Description:	  A sample of 18 full-time youth soccer players from a Youth 
 Aim: To investigate whether a concurrent high intensity interval-training and neuromuscular strength improves on average the VO2 max of soccer players over a 10-week period.
 
 Plot a scatter plot of VO2_max_pre vs VO2_max_post
-```{r}
+```{r scatter_intervention, exercise=TRUE, exercise.lines = 5}
+ggplot(data = TRAINING_INTERVENTION,...)
+```
+
+```{r scatter_intervention-solution}
 ggplot(data = TRAINING_INTERVENTION,mapping = aes(x = VO2_max_pre, y = VO2_max_post)) +
   geom_point() +
   geom_smooth(method='lm')
 ```
 
+```{r scatter_intervention-hint}
+ggplot(data = TRAINING_INTERVENTION,mapping = aes(x = VO2_max_pre, y = VO2_max_post)) +
+  geom_point() +
+  geom_smooth(method='lm')
+```
+
+```{r scatter_intervention-check}
+strict_check(success = "")
+```
+
 Plot a box plot of improvement in VO2 Max
-```{r}
+```{r box_intervention, exercise=TRUE, exercise.lines = 5}
+ggplot(data = TRAINING_INTERVENTION,...)
+```
+
+```{r box_intervention-solution}
 ggplot(data = TRAINING_INTERVENTION,mapping = aes(x = 1, y = VO2_max_post - VO2_max_pre)) +
   geom_boxplot() +
   coord_flip()
 ```
 
+```{r box_intervention-hint}
+ggplot(data = TRAINING_INTERVENTION,mapping = aes(x = 1, y = VO2_max_post - VO2_max_pre)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r box_intervention-check}
+strict_check(success = "")
+```
+
 One-Sample Confidence Interval
-```{r}
+```{r t_intervention, exercise=TRUE, exercise.lines = 5}
+t.test(...)
+```
+
+```{r t_intervention-solution}
 t.test(TRAINING_INTERVENTION$VO2_max_post - TRAINING_INTERVENTION$VO2_max_pre)
 ```
 
-This interval suggests that the actual mean improvement is likely to be between 3.99 and 6.23 ml.kg-1.min-1.   As this interval does not contain zero, there is evidence of a mean improvement in max due to the training intervention.   
+```{r t_intervention-hint}
+t.test(TRAINING_INTERVENTION$VO2_max_post - TRAINING_INTERVENTION$VO2_max_pre)
+```
 
-Conclusion:  There is evidence of a real improvement in mean max among professional soccer players due to this training intervention.   The mean improvement in the sample was 5.1 ml.kg-1.min-1, which is nearly an 8% improvement on the typical Pre-study max of around 68 ml.kg-1.min-1.
+```{r t_intervention-check}
+strict_check(success = "This interval suggests that the actual mean improvement is likely to be between 3.99 and 6.23 ml.kg-1.min-1.   As this interval does not contain zero, there is evidence of a mean improvement in max due to the training intervention.   
+
+Conclusion:  There is evidence of a real improvement in mean max among professional soccer players due to this training intervention.   The mean improvement in the sample was 5.1 ml.kg-1.min-1, which is nearly an 8% improvement on the typical Pre-study max of around 68 ml.kg-1.min-1.")
+```
 
 ## One Between and One Within Subject Factor (each at 2 levels)
 Such a design involves samples of Paired data from two distinct and different populations i.e. a design with one Between Subject Factor and one Within Subject Factor both at two levels.  The methods needed to analyse such designs are in fact just those already presented in the previous sections of this chapter.  The analysis required often reduces to nothing more than a comparison of the mean differences in the two samples.   
@@ -222,31 +305,84 @@ The same assumptions that apply to two sample comparisons apply here to the two 
 ### Exercise and the Elderly (Revisited)
 Aims:  To compare the average difference in Relative Intensity during Aerobic Dance and Walking sessions for each sex separately and then to investigate whether the difference in Relative Intensity (if any) is, on average, similar for Males and Females.
 
-plot a scatter plot of intensity of Peak_VO2_Walk vs Peak_VO2_Dance regime label Sex
-```{r}
+Plot a scatter plot of intensity of Peak_VO2_Walk vs Peak_VO2_Dance regime label Sex by color
+```{r scatter_dance_walk, exercise=TRUE, exercise.lines = 5}
+ggplot(data = WALKDANCE,...)
+```
+
+```{r scatter_dance_walk-solution}
 ggplot(data = WALKDANCE,mapping = aes(x = Peak_VO2_Walk, y = Peak_VO2_Dance,color = Sex)) +
   geom_point() +
   geom_smooth(method='lm')
 ```
 
+```{r scatter_dance_walk-hint}
+ggplot(data = WALKDANCE,mapping = aes(x = Peak_VO2_Walk, y = Peak_VO2_Dance,color = Sex)) +
+  geom_point() +
+  geom_smooth(method='lm')
+```
+
+```{r scatter_dance_walk-check}
+strict_check(success = "")
+```
+
 Plot a box plot of difference in relative intensity by sex
-```{r}
+```{r box_dance_walk, exercise=TRUE, exercise.lines = 5}
+ggplot(data = WALKDANCE,...)
+```
+
+```{r box_dance_walk-solution}
 ggplot(data = WALKDANCE,mapping = aes(x = Sex, y = Peak_VO2_Dance-Peak_VO2_Walk)) +
   geom_boxplot() +
   coord_flip()
 ```
 
-One-Sample T: Dance-Walk(M), Dance-Walk(F) 
-```{r}
-t.test(filter(WALKDANCE,Sex=="Male")$Peak_VO2_Dance - filter(WALKDANCE,Sex=="Male")$Peak_VO2_Walk)
+```{r box_dance_walk-hint}
+ggplot(data = WALKDANCE,mapping = aes(x = Sex, y = Peak_VO2_Dance-Peak_VO2_Walk)) +
+  geom_boxplot() +
+  coord_flip()
+```
 
+```{r box_dance_walk-check}
+strict_check(success = "")
+```
+
+One-Sample T: Dance-Walk(M),
+```{r t1_dance_walk, exercise=TRUE, exercise.lines = 5}
+t.test(...-...)
+```
+
+```{r t1_dance_walk-solution}
 t.test(filter(WALKDANCE,Sex=="Female")$Peak_VO2_Dance - filter(WALKDANCE,Sex=="Female")$Peak_VO2_Walk)
 ```
 
-The separate intervals provide evidence, that in the elderly population, both Males and Females tend to have a higher mean Relative Intensity when carrying out an Aerobic Dance session than when they take part in an individual Walking session.   
+```{r t1_dance_walk-hint}
+t.test(filter(WALKDANCE,Sex=="Female")$Peak_VO2_Dance - filter(WALKDANCE,Sex=="Female")$Peak_VO2_Walk)
+```
+
+```{r t1_dance_walk-check}
+strict_check(success = "")
+```
+
+One-Sample T: Dance-Walk(F) 
+```{r t2_dance_walk, exercise=TRUE, exercise.lines = 5}
+t.test(...-...)
+```
+
+```{r t2_dance_walk-solution}
+t.test(filter(WALKDANCE,Sex=="Female")$Peak_VO2_Dance - filter(WALKDANCE,Sex=="Female")$Peak_VO2_Walk)
+```
+
+```{r t2_dance_walk-hint}
+t.test(filter(WALKDANCE,Sex=="Female")$Peak_VO2_Dance - filter(WALKDANCE,Sex=="Female")$Peak_VO2_Walk)
+```
+
+```{r t2_dance_walk-check}
+strict_check(success = "The separate intervals provide evidence, that in the elderly population, both Males and Females tend to have a higher mean Relative Intensity when carrying out an Aerobic Dance session than when they take part in an individual Walking session. ")
+```
 
 Two-sample T for Dance-Walk(M) vs Dance-Walk(F)
-```{r}
+```{r echo = T}
 t.test(filter(WALKDANCE,Sex=="Male")$Peak_VO2_Dance - filter(WALKDANCE,Sex=="Male")$Peak_VO2_Walk,
          filter(WALKDANCE,Sex=="Female")$Peak_VO2_Dance - filter(WALKDANCE,Sex=="Female")$Peak_VO2_Walk)
 ```
@@ -269,24 +405,64 @@ Study Description:  A sample of 14 healthy subjects performed two blinded trials
 
 Aim:  	To provide estimates of the likely Tolerance Time for a future person in a laboratory simulated avalanche situation both with and without a Soda Lime canister.
 
-Plot a scatter plot of Control vs Soda Lime
-```{r}
+Plot a scatter plot of Controls vs Soda_Lime
+```{r scatter_lime, exercise=TRUE, exercise.lines = 5}
+ggplot(data = AVALANCHE,...)
+```
+
+```{r scatter_lime-solution}
+ggplot(data = AVALANCHE,mapping = aes(x = Controls, y = Soda_Lime)) +
+  geom_point() +
+  geom_smooth(method='lm')
+```
+
+```{r scatter_lime-hint}
+ggplot(data = AVALANCHE,mapping = aes(x = Controls, y = Soda_Lime)) +
+  geom_point() +
+  geom_smooth(method='lm')
+```
+
+```{r scatter_lime-check}
+strict_check(success = "The poorest Tolerance Time recorded was under 10 minutes and was for a subject who was not using the Soda Lime canister.  The best Tolerance Time recorded was approximately 45 minutes for a subject using the Soda Lime canister.  What is very clear is that all of the subjects in the study demonstrated increases in Tolerance Time when they used the Soda Lime canister since all of the points lie above the line of equality.   The improvement in Tolerance Time does not appear to be dependent on the Tolerance Times in the Control condition, justifying the use of differences. ")
+```
+
+Plot a box plot of change in tolerance times, Soda_LimeMinusControl
+```{r box_lime, exercise=TRUE, exercise.lines = 5}
 
 ```
 
-he poorest Tolerance Time recorded was under 10 minutes and was for a subject who was not using the Soda Lime canister.  The best Tolerance Time recorded was approximately 45 minutes for a subject using the Soda Lime canister.  What is very clear is that all of the subjects in the study demonstrated increases in Tolerance Time when they used the Soda Lime canister since all of the points lie above the line of equality.   The improvement in Tolerance Time does not appear to be dependent on the Tolerance Times in the Control condition, justifying the use of differences. 
+```{r box_lime-solution}
+ggplot(data = AVALANCHE,mapping = aes(x = 1, y = Soda_LimeMinusControl)) +
+  geom_boxplot() +
+  coord_flip()
+```
 
-Plot a box plot of change in tolerance times, soda lime - control
-```{r}
+```{r box_lime-hint}
+ggplot(data = AVALANCHE,mapping = aes(x = 1, y = Soda_LimeMinusControl)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r box_lime-check}
+strict_check(success = "")
+```
+
+One-Sample T: Soda Lime - Control, Soda_LimeMinusControl
+```{r t_lime, exercise=TRUE, exercise.lines = 5}
 
 ```
 
-One-Sample T: Soda Lime-Control
-```{r}
-
+```{r t_lime-solution}
+t.test(AVALANCHE$Soda_LimeMinusControl)
 ```
 
-Conclusion:  Based on the data provided, it is clear that, in the target population, using a Soda Lime canister is likely to improve the Tolerance Time for any particular individual by between 25 and 47 minutes.  The use of a Soda Lime canister in a real avalanche situation may therefore enhance survival time. This speculation assumes, of course, that the laboratory findings can be transferred to a snow setting.  
+```{r t_lime-hint}
+t.test(AVALANCHE$Soda_LimeMinusControl)
+```
+
+```{r t_lime-check}
+strict_check(success = "Conclusion:  Based on the data provided, it is clear that, in the target population, using a Soda Lime canister is likely to improve the Tolerance Time for any particular individual by between 25 and 47 minutes.  The use of a Soda Lime canister in a real avalanche situation may therefore enhance survival time. This speculation assumes, of course, that the laboratory findings can be transferred to a snow setting.  ")
+```
 
 ## Tolerance Intervals to cover a Proportion of the Population (“Normal” Ranges)   
 A Tolerance Interval is used to investigate whether a particular observed individual is ‘dissimilar’ to the rest of the population.   For example, what would be a range of values covering 95% of individual Ascent Times of Mont Blanc?  If any particular climber’s Ascent Time is not within this range, then he/she can be considered atypical (either fast or slow) of the target population.  Such ranges are commonly used in medical literature and are intended as benchmarks for patient diagnosis where the term ‘Normal Range’ is often applied – this meaning of “Normal” has nothing whatsoever to do with the Normal distribution though!  
@@ -298,7 +474,7 @@ Aim: 	To provide an interval estimate for the Ascent Time of 95% of the successf
 
 Tolerance interval with 95% coverage and 95% confidence
 ```{r}
-
+normtol.int(x=MONT_BLANC$Ascent_Time[!is.na(MONT_BLANC$Ascent_Time)],alpha=1-0.95,P=0.95)
 ```
 
 Conclusion:  It is likely that 95% of the actual Ascent Times in the population of successful climbers of Mont Blanc lie between 2.5 and 6 hours.   A more practical interpretation is that it is unlikely to find a climber making a successful ascent quicker than 2.5 hours or slower than 6 hours. 
@@ -320,34 +496,88 @@ Study Description:  Subjects were randomised to receive the Intervention or to a
 
 Aim:  To estimate the typical time spent walking to work post intervention for those who did not walk to work prior to the study.
 
-Descriptive Statistics: Walking Time 
-```{r}
-
+Descriptive Statistics, Walking Time: Controls
+```{r echo = T}
+summary(WALK_TO_WORK$Controls)
 ```
 
-Plot a box plot of time spent walking pre-study
-```{r}
+Plot a box plot of time spent walking pre-study: Controls
+```{r box_walk_to_work, exercise=TRUE, exercise.lines = 5}
+ggplot(data = WALK_TO_WORK, ...)
+```
 
+```{r box_walk_to_work-solution}
+ggplot(data = WALK_TO_WORK,mapping = aes(x = 1, y = Controls)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r box_walk_to_work-hint}
+ggplot(data = WALK_TO_WORK,mapping = aes(x = 1, y = Controls)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r box_walk_to_work-check}
+strict_check(success = "")
 ```
 
 One-Sample T: Walking Time
-```{r}
+```{r t_walk_to_work, exercise=TRUE, exercise.lines = 5}
 
 ```
 
-The validity of this interval is questionable however due to the evidence of non-symmetry (and hence non-Normality) in the box plot.  When it is unreasonable to assume that the sample has arisen from a Normal Distribution, the first approach to consider is to transform the scale of measurement of the data, so that the transformed variable appears much more reasonably to be Normally distributed.  The most common transformations applied when the data are heavily skewed to the right are to take the logarithm or the square root of the data.  If the resulting transformed variable appears much more likely to be Normally distributed, an interval estimate for the population mean of the transformed variable can be calculated and the resulting interval ‘back-transformed’ to the original scale of the variable of interest.
+```{r t_walk_to_work-solution}
+t.test(WALK_TO_WORK$Controls)
+```
 
-Plot a box plot of the log of time spent walking pre-study   
-```{r}
+```{r t_walk_to_work-hint}
+t.test(WALK_TO_WORK$Controls)
+```
+
+```{r t_walk_to_work-check}
+strict_check(success = "Based on the (possibly dubious) assumption that the underlying population of Walking Times follows a Normal distribution, a 95% Confidence Interval for the population mean Walking Time is given in Box 4.7.1.2 and suggests that the population average walking time is likely to be between 52 and 198 minutes per week.
+
+The validity of this interval is questionable however due to the evidence of non-symmetry (and hence non-Normality) in the box plot.  When it is unreasonable to assume that the sample has arisen from a Normal Distribution, the first approach to consider is to transform the scale of measurement of the data, so that the transformed variable appears much more reasonably to be Normally distributed.  The most common transformations applied when the data are heavily skewed to the right are to take the logarithm or the square root of the data.  If the resulting transformed variable appears much more likely to be Normally distributed, an interval estimate for the population mean of the transformed variable can be calculated and the resulting interval ‘back-transformed’ to the original scale of the variable of interest.")
+```
+
+Plot a box plot of the log of time spent walking pre-study: Log_Walking_Time_Controls  
+```{r box_log_walk_to_work, exercise=TRUE, exercise.lines = 5}
+ggplot(data = WALK_TO_WORK, ...)
+```
+
+```{r box_log_walk_to_work-solution}
+ggplot(data = WALK_TO_WORK,mapping = aes(x = 1, y = Log_Walking_Time_Controls)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r box_log_walk_to_work-hint}
+ggplot(data = WALK_TO_WORK,mapping = aes(x = 1, y = Log_Walking_Time_Controls)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r box_log_walk_to_work-check}
+strict_check(success = "")
+```
+
+One-Sample T: Log_Walking_Time_Controls
+```{r t_log_walk_to_work, exercise=TRUE, exercise.lines = 5}
 
 ```
 
-One-Sample T: log(Walking Time)
-```{r}
-
+```{r t_log_walk_to_work-solution}
+t.test(WALK_TO_WORK$Log_Walking_Time_Controls)
 ```
 
-It is quite likely that the mean log(Walking Time), for the population of interest, is somewhere between 3.87 and 4.95 (log minutes).  Note that the interval reported is calculated on the log scale, while it would be much more informative to report the results in the original units.  The simplest method of achieving this is to back transform each end of the interval.  The appropriate inverse transformation for the log function is the antilog (i.e. the exponential function). Applying this to both ends of the interval gives exp(3.867) = 47.80 minutes and exp(4.953) = 141.603 minutes yielding a 95% CI for the population mean Walking Time of 48 to 142 minutes.  This method has shifted the estimate of the population mean to the left, having ‘accounted’ for the right skew in the data and substantially reduced the width of the interval estimate (i.e. from a range of 198.1 – 52 = 146.1 minutes for the untransformed variable to 141.6 – 47.80 = 93.8 minutes for this approach).
+```{r t_log_walk_to_work-hint}
+t.test(WALK_TO_WORK$Log_Walking_Time_Controls)
+```
+
+```{r t_log_walk_to_work-check}
+strict_check(success = "It is quite likely that the mean log(Walking Time), for the population of interest, is somewhere between 3.87 and 4.95 (log minutes).  Note that the interval reported is calculated on the log scale, while it would be much more informative to report the results in the original units.  The simplest method of achieving this is to back transform each end of the interval.  The appropriate inverse transformation for the log function is the antilog (i.e. the exponential function). Applying this to both ends of the interval gives exp(3.867) = 47.80 minutes and exp(4.953) = 141.603 minutes yielding a 95% CI for the population mean Walking Time of 48 to 142 minutes.  This method has shifted the estimate of the population mean to the left, having ‘accounted’ for the right skew in the data and substantially reduced the width of the interval estimate (i.e. from a range of 198.1 – 52 = 146.1 minutes for the untransformed variable to 141.6 – 47.80 = 93.8 minutes for this approach).")
+```
 
 The second approach, if the Normality assumption appears untenable, has the quirky title of the ‘Bootstrap’.  It allows an estimate of a population mean to be made, without requiring any assumptions about the underlying population distribution. As in all inferential methods, the Bootstrap approach is heavily dependent on assuming that the sample collected is representative of the target population.  The ‘Bootstrap’ can be applied to virtually any parameter that needs to be estimated in a population, and makes no formal assumptions regarding the population distribution.  It was first put forward in the late 1970’s but had to await the arrival of substantial computer power before it could be implemented.  That time has now arrived and some claim that the Bootstrap has revolutionised modern statistical inference.
 
@@ -355,16 +585,17 @@ The Bootstrap procedure uses the following argument:  if the data are really a r
 
 Bootstrap interval for mean Walking Time
 ```{r}
-
+b <- boot(WALK_TO_WORK$Controls[!is.na(WALK_TO_WORK$Controls)], function(u,i) mean(u[i]), R = 2000)
+boot.ci(b,type = "norm",conf = 0.95) 
 ```
 
 This “Bootstrap” interval suggests that the population mean Walking Time is likely to be between 56 and 182 minutes which is fairly similar to that produced from the raw data (dubiously) assuming Normality.
 
 The final approach, if the Normality assumption appears untenable, is to concentrate on the median as a ‘more appropriate’ measure of the typical value of the population rather than the mean.  Procedures for providing interval estimates for a population median are available, the most useful, perhaps, being the Wilcoxon procedure.  Techniques that involve estimation of a population median do not require assumptions relating to the Normal distribution and are often termed ‘non-parametric’ procedures – a rather daft term since it is still a population parameter (i.e. the median) that is being estimated!  These techniques use the “order statistic” of the data (i.e. all the data “written down” from smallest to largest) and obtain an interval estimate by moving in an appropriate number of observations from each end of the data.   A natural question to ask is why not therefore focus on such procedures in all scenarios?  The reason against this is that the resulting intervals tend to be wider (i.e. less precise) than the corresponding interval estimate based on Normality, particularly in small samples.  There are always statistical swings and roundabouts!
 
-Wilcoxon Signed Rank CI: Walking Time 
+Wilcoxon Signed Rank CI: Walking Time: Controls
 ```{r}
-
+wilcox.test(WALK_TO_WORK$Controls,conf.int=TRUE)
 ```
 
 The overall conclusion is that the mean may not be the ‘best’ summary of the typical Walking Time in this population of interest.   It could be argued that the ‘best’ estimate of the typical Walking Time is provided by the log transformation as the interval is shifted to the left and was the narrowest (i.e. most precise).  A pragmatic conclusion is that, regardless of the approach taken, the typical amount of time spent walking in the week previous to the study is likely to be somewhere between just under an hour up to around three hours! 
@@ -385,44 +616,125 @@ Study Description:  Those individuals that did not walk to work at the start of 
 Aim:  To compare the typical time spent walking to work Post Study across the Treatments specifically for the cohort identified who now walk two work despite not walking to work prior to the study.
 
 Plot a box plot of time spent walking by treatment
-```{r}
-
+```{r box_treatment_walk, exercise=TRUE, exercise.lines = 5}
+ggplot(data = WALK_TO_WORK,...)
 ```
 
-It is interesting to note that the sample of 12 Controls claim to spend slightly over an hour on average walking to work despite not walking to work prior to the study and not receiving the Intervention!   This could be due to a change in mindset by virtue of being enrolled in such a study alone.
+```{r box_treatment_walk-solution}
+ggplot(data = WALK_TO_WORK,mapping = aes(x = 1, y = Intervention)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r box_treatment_walk-hint}
+ggplot(data = WALK_TO_WORK,mapping = aes(x = 1, y = Intervention)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r box_treatment_walk-check}
+strict_check(success = "It is interesting to note that the sample of 12 Controls claim to spend slightly over an hour on average walking to work despite not walking to work prior to the study and not receiving the Intervention!   This could be due to a change in mindset by virtue of being enrolled in such a study alone.")
+```
 
 Two-Sample T-Test and CI: Intervention, Controls 
-```{r}
+```{r t_treatment_walk, exercise=TRUE, exercise.lines = 5}
 
 ```
 
-The difference in the sample mean Walking Time between the Treatments is 63.8 minutes however as the 95% CI of -10 to 138 minutes contains zero there is no evidence that the Intervention significantly improves Walking Time in the population of middle-class commuters.  
+```{r t_treatment_walk-solution}
+t.test(WALK_TO_WORK$Intervention, WALK_TO_WORK$Controls)
+```
 
+```{r t_treatment_walk-hint}
+t.test(WALK_TO_WORK$Intervention, WALK_TO_WORK$Controls)
+```
+
+```{r t_treatment_walk-check}
+strict_check(success = "The difference in the sample mean Walking Time between the Treatments is 63.8 minutes however as the 95% CI of -10 to 138 minutes contains zero there is no evidence that the Intervention significantly improves Walking Time in the population of middle-class commuters.")
+```
+  
 Plot a box plot of the log of the time spent walking by treatment
-```{r}
+```{r box_log_treatment_walk, exercise=TRUE, exercise.lines = 5}
+ggplot(data = WALK_TO_WORK,...)
+```
+
+```{r box_log_treatment_walk-solution}
+ggplot(data = WALK_TO_WORK,mapping = aes(x = 1, y = Log_Walking_Time_Intervention)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r box_log_treatment_walk-hint}
+ggplot(data = WALK_TO_WORK,mapping = aes(x = 1, y = Log_Walking_Time_Intervention)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r box_log_treatment_walk-check}
+strict_check(success = "The log transformation has made the assumption of Normality much more credible for both Treatments than in the original scale of measurement.   So, it is now reasonable to produce a 95% CI for the difference in population mean log Walking Time between the Treatments")
+```
+
+Two-sample T for Log(Walking Time) Log_Walking_Time_Controls, Log_Walking_Time_Intervention
+
+```{r t_log_treatment_walk, exercise=TRUE, exercise.lines = 5}
 
 ```
 
-The log transformation has made the assumption of Normality much more credible for both Treatments than in the original scale of measurement.   So, it is now reasonable to produce a 95% CI for the difference in population mean log Walking Time between the Treatments
-
-Two-sample T for Log(Walking Time)
-```{r}
-
+```{r t_log_treatment_walk-solution}
+t.test(WALK_TO_WORK$Log_Walking_Time_Controls, WALK_TO_WORK$Log_Walking_Time_Intervention)
 ```
 
-Care must be taken when interpreting this interval, as it is represents an estimate of the difference in mean Walking Time between the Treatments on the log scale.  However, when “back transformed”, this difference translates into an interval estimate for the ratio of population mean Walking Times in the original scale of measurement.
+```{r t_log_treatment_walk-hint}
+t.test(WALK_TO_WORK$Log_Walking_Time_Controls, WALK_TO_WORK$Log_Walking_Time_Intervention)
+```
+
+```{r t_log_treatment_walk-check}
+strict_check(success = "Care must be taken when interpreting this interval, as it is represents an estimate of the difference in mean Walking Time between the Treatments on the log scale.  However, when “back transformed”, this difference translates into an interval estimate for the ratio of population mean Walking Times in the original scale of measurement.")
+```
 
 Bootstrap interval for Difference in mean Walking Time
-```{r}
-
+```{r boot_treatment_walk, exercise=TRUE, exercise.lines = 5}
+b <- boot(...  - 
+            ..., function(u,i) mean(u[i]), R = 2000)
+boot.ci(b,type = "norm",conf = 0.95)
 ```
 
-As the interval is strictly positive, there is evidence of a significant difference in mean Walking Times with those on the Intervention likely to walk, on average, between 5 and 139 minutes more than Controls.  As the interval is entirely positive there is evidence of a significant difference in mean Walking Time
-
-Mann-Whitney Test and CI: Intervention, Controls 
-```{r}
-
+```{r boot_treatment_walk-solution}
+b <- boot(WALK_TO_WORK$Controls[!is.na(WALK_TO_WORK$Controls)] - 
+            WALK_TO_WORK$Intervention[!is.na(WALK_TO_WORK$Intervention)], function(u,i) mean(u[i]), R = 2000)
+boot.ci(b,type = "norm",conf = 0.95)
 ```
 
-Only the Bootstrap approach identified a significant difference between the Treatments.  This may well be due to the influence of the three possible outliers in the small sample.  As the other approaches (including the log transformation) suggested no difference between the Treatments, then, even although the intervals are heavily “loaded towards the Intervention”, it is probably wise to claim that there is no conclusive evidence of a difference in mean Walking Time Post Study amongst those receiving the Intervention compared to the Controls for those who did not walk to work at all before the study.  
+```{r boot_treatment_walk-hint}
+b <- boot(WALK_TO_WORK$Controls[!is.na(WALK_TO_WORK$Controls)] - 
+            WALK_TO_WORK$Intervention[!is.na(WALK_TO_WORK$Intervention)], function(u,i) mean(u[i]), R = 2000)
+boot.ci(b,type = "norm",conf = 0.95)
+```
+
+```{r boot_treatment_walk-check}
+strict_check(success = "As the interval is strictly positive, there is evidence of a significant difference in mean Walking Times with those on the Intervention likely to walk, on average, between 5 and 139 minutes more than Controls.  As the interval is entirely positive there is evidence of a significant difference in mean Walking Time")
+```
+
+Mann-Whitney Test and CI: Intervention and Controls 
+```{r}
+wilcox.test(..., conf.int=TRUE)
+```
+
+```{r mann_treatment_walk, exercise=TRUE, exercise.lines = 5}
+wilcox.test(WALK_TO_WORK$Controls,WALK_TO_WORK$Intervention,conf.int=TRUE)
+```
+
+```{r mann_treatment_walk-solution}
+wilcox.test(WALK_TO_WORK$Controls,WALK_TO_WORK$Intervention,conf.int=TRUE)
+```
+
+```{r mann_treatment_walk-hint}
+wilcox.test(WALK_TO_WORK$Controls,WALK_TO_WORK$Intervention,conf.int=TRUE)
+```
+
+```{r mann_treatment_walk-check}
+strict_check(success = "Only the Bootstrap approach identified a significant difference between the Treatments.  This may well be due to the influence of the three possible outliers in the small sample.  As the other approaches (including the log transformation) suggested no difference between the Treatments, then, even although the intervals are heavily “loaded towards the Intervention”, it is probably wise to claim that there is no conclusive evidence of a difference in mean Walking Time Post Study amongst those receiving the Intervention compared to the Controls for those who did not walk to work at all before the study.  ")
+```
+
+
 
