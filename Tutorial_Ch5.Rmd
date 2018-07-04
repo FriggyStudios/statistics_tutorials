@@ -12,16 +12,21 @@ library(tidyverse)
 library(grader)
 library(tolerance)
 library(boot)
+library(nortest)
+library(e1071)
 knitr::opts_chunk$set(echo = FALSE)
 tutorial_options(exercise.checker = grade_learnr)
 
 SOCCER_FITNESS <- read_csv("data/chapter_4/SOCCER FITNESS.CSV")
+OSTEOPOROSIS <- read_csv("data/chapter_4/OSTEOPOROSIS.CSV")
+WALKDANCE <- read_csv("data/chapter_4/WALKDANCE.CSV")
+TRAINING_INTERVENTION <- read_csv("data/chapter_4/TRAINING INTERVENTION.CSV")
+WALK_TO_WORK <- read_csv("data/chapter_4/WALK TO WORK.CSV")
 ```
 
 # Ch5: Testing Hypotheses
 
 ##Introduction
-
 The previous chapter illustrated the use of Interval Estimation techniques to provide a range of plausible values for a population parameter based on the corresponding sample statistic and its estimated standard error.  The resulting interval allowed statements to be made regarding the likely value of parameters (in particular the mean and median) in the population. 
 
 This chapter introduces hypothesis testing as a different option (and complement) to interval estimation.  Several of the Illustrations analysed in the previous chapter will be reanalysed using this different approach and the benefits (and lack there of) of hypothesis testing discussed.
@@ -49,7 +54,7 @@ $$t = \displaystyle\frac{difference\quad in\quad sample\quad means}{ese\quad of\
 Numerical values of the t-test statistic distant (i.e. either negatively or positively) from zero suggest that the difference in sample means is large, relative to the combined variability in their estimates; small values close to zero suggest that the sample means were quite close and that their difference is indistinguishable from the variability in their estimates.  
 A probability (of an event of interest) is always evaluated on a scale from 0 to 1 where the chances of the event of interest happening become more likely as the probability approaches 1 and less and less likely as it approaches 0. An equivalent way of looking at the test statistic above is to consider the probability of observing a more “extreme” value than that actually observed from the data if the samples did arise from populations with the same population mean (i.e. if the Null Hypothesis was true).  This probability is referred to as the P-value (‘P’ for probability) and is central in the decision making process in hypothesis testing.
 
-Statistical Significance
+### Statistical Significance
 
 The notion of Statistical Significance represents an observed effect that was ‘unlikely to have occurred by chance’.   This is formalised in the hypothesis testing paradigm by determining when a P-value is small enough to warrant rejecting the Null Hypothesis.  The choice of such a “small enough value” is known as the Significance Level and is traditionally set at 0.05, so that a P-value less than or equal to 0.05 is thought to provide enough evidence to reject the Null Hypothesis.  In such a case, then the data are said to have produced a ‘statistically significant’ conclusion and a decision is made to reject the Null Hypothesis.
 
@@ -68,30 +73,74 @@ Analysis:	The purpose of the analysis is to decide whether there is enough evide
 H0:  	The difference in population mean CMJ Height for Youth and Senior soccer players is zero;
 H1: 	The difference in population mean CMJ Height for Youth and Senior soccer players is not zero.
 
-Two-sample T for CMJ(cm)
-```{r}
-
+Two-sample T for SOCCER_FITNESS$CMJump by Squad: Youth and Senior
+```{r t_jump, exercise=TRUE, exercise.lines = 5}
+t.test((filter(SOCCER_FITNESS,...))$CMJump,
+       (filter(SOCCER_FITNESS,...))$CMJump)
 ```
 
-The value of the test statistic (referred to as T-Value in the output) is 3.87 which is not directly interpretable.  The more useful measure is the P-value (highlighted in bold in Box 5.2.1) which is reported as 0.001 and hence it can be claimed that, if the two populations had the same mean, the chances of observing a difference (at least as extreme) as in the actual two sample means is less than one in a thousand.   Since this P-value is much less than the conventional significance level of 0.05, the Null Hypothesis can therefore be rejected and hence the Alternative Hypothesis that the difference in the two population means is not zero is assumed to be true.
+```{r t_jump-solution}
+t.test((filter(SOCCER_FITNESS,Squad == 'Youth'))$CMJump,
+       (filter(SOCCER_FITNESS,Squad == 'Senior'))$CMJump)
+```
 
-Conclusion: There is convincing evidence of a significant difference in mean CMJ Height in the population of Senior and Youth soccer players (P=0.001).
+```{r t_jump-hint}
+t.test((filter(SOCCER_FITNESS,Squad == 'Youth'))$CMJump,
+       (filter(SOCCER_FITNESS,Squad == 'Senior'))$CMJump)
+```
+
+```{r t_jump-check}
+strict_check(success = "The value of the test statistic (referred to as T-Value in the output) is 3.87 which is not directly interpretable.  The more useful measure is the P-value (highlighted in bold in Box 5.2.1) which is reported as 0.001 and hence it can be claimed that, if the two populations had the same mean, the chances of observing a difference (at least as extreme) as in the actual two sample means is less than one in a thousand.   Since this P-value is much less than the conventional significance level of 0.05, the Null Hypothesis can therefore be rejected and hence the Alternative Hypothesis that the difference in the two population means is not zero is assumed to be true.
+
+Conclusion: There is convincing evidence of a significant difference in mean CMJ Height in the population of Senior and Youth soccer players (P=0.001).")
+```
 
 ### Osteoporosis and Exercise (Revisited)
 Aim:	To assess whether the Controls and Exercisers were comparable at baseline in terms of this measure of Balance.
 
 Plot a box plot of pre study balance by regime
-```{r}
+```{r box_balance, exercise=TRUE, exercise.lines = 5}
+ggplot(data = filter(OSTEOPOROSIS,Time=="Before"),...)
+```
 
+```{r box_balance-solution}
+ggplot(data = filter(OSTEOPOROSIS,Time=="Before"),mapping = aes(x = Regime, y = Balance)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r box_balance-hint}
+ggplot(data = filter(OSTEOPOROSIS,Time=="Before"),mapping = aes(x = Regime, y = Balance)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r box_balance-check}
+strict_check(success = "")
 ```
 
 The Null and Alternative Hypothesis for this example are
-H0:  	The difference in population mean Balance for Exercisers and Controls (before the study) is zero;
-H1: 	The difference in population mean Balance for Exercisers and Controls (before the study) is not zero.
+H0:  	The difference in population mean Balance for Exercise and Control (before the study) is zero;
+H1: 	The difference in population mean Balance for Exercise and Control (before the study) is not zero.
 
-Two-sample T for Balance (cm) Before Study
-```{r}
+Two-sample T for Balance (cm) Time == Before, Regime == Exercise and Control
+```{r t_balance, exercise=TRUE, exercise.lines = 5}
+t.test((filter(OSTEOPOROSIS,...))$Balance,
+       (filter(OSTEOPOROSIS,...))$Balance)
+```
 
+```{r t_balance-solution}
+t.test((filter(OSTEOPOROSIS,Time=="Before",Regime == "Exercise"))$Balance,
+       (filter(OSTEOPOROSIS,Time=="Before",Regime == "Control"))$Balance)
+```
+
+```{r t_balance-hint}
+t.test((filter(OSTEOPOROSIS,Time=="Before",Regime == "Exercise"))$Balance,
+       (filter(OSTEOPOROSIS,Time=="Before",Regime == "Control"))$Balance)
+```
+
+```{r t_balance-check}
+strict_check(success = "")
 ```
 
 The P-value of 0.941 is (much) larger than 0.05 and hence there is no significant difference in mean Balance for the Exercise and Control Regimes.  The P-value indicates that there is approximately a 94% chance of seeing at least as much a difference in sample means as observed due to sampling variability alone if the populations from which they were chosen had equal means.  The data are thus “very consistent” with the Null Hypothesis and there is no convincing evidence in the sample to suggest that the populations are different at baseline in terms of mean Balance.
@@ -106,11 +155,23 @@ The interval estimation strategy, employed in Chapter 4 for Paired-Sample proble
 The corresponding Hypothesis needed for analysing paired data is aptly called the Paired t-test.  The Null Hypothesis in this case is that the population mean difference is zero, where the Alternative Hypothesis is that the population mean difference is not zero.    Once again the hypothesis test offers little, if any, improvement on the information already provided by the corresponding Confidence Interval for a mean difference.  This is demonstrated in the following illustration.
 
 ### Training Intervention (Revisited)
-Aim: To investigate whether a concurrent strength and high intensity interval-training intervention has improved the VO2 max of the soccer players during the10-week study period, by comparing the VO2 max at the start and the end of the intervention. 
+Aim: To investigate whether a concurrent strength and high intensity interval-training intervention has improved the VO2 max of the soccer players during the 10-week study period, by comparing the VO2 max at the start and the end of the intervention. 
 
-Paired T for vo2 Max Post - vo2 MaxPre
-```{r}
+Paired T for TRAINING_INTERVENTION VO2_max_post - VO2_max_pre
+```{r t_intervention, exercise=TRUE, exercise.lines = 5}
+t.test(... - ...)
+```
 
+```{r t_intervention-solution}
+t.test(TRAINING_INTERVENTION$VO2_max_post - TRAINING_INTERVENTION$VO2_max_pre)
+```
+
+```{r t_intervention-hint}
+t.test(TRAINING_INTERVENTION$VO2_max_post - TRAINING_INTERVENTION$VO2_max_pre)
+```
+
+```{r t_intervention-check}
+strict_check(success = "")
 ```
 
 The P-value is given as 0.000.  Be careful here as statistical software tends to round P-values off to three decimals.  The actual P-value for this analysis is actually less than one in a billion!  The convention is to round it to the level of the last decimal provided by the software i.e. <0.001 here.  The result provides convincing evidence of a significant mean difference in max over the 10-week study period since the P-value is (much) less than 0.05.
@@ -128,12 +189,29 @@ Analysis: 	The Null and Alternative Hypotheses needed in a hypothesis test to co
 H0:  	The difference in mean improvement in Balance for Exercisers and Controls in the population is zero; 
 H1: 	The difference in mean improvement in Balance for Exercisers and Controls in the population is not zero. 
 
-Two-sample T for Imp Bal (A-B)
-```{r}
-
+Two-sample T in OSTEOPOROSIS data for Improvement in Balance Time (After-Before) by Regime == Exercise and Control
+```{r t_osteoporosis, exercise=TRUE, exercise.lines = 5}
+t.test(... - ...,
+       ... - ...)
 ```
 
-Since the P-value is (just) less than 0.05 the mean improvement is deemed significantly different.   To make any meaningful comment from this statement it is necessary to look at the 95% CI for the population mean difference in improvement (as in Illustration 4.61 previously).  The interval is strictly positive (i.e. a significant result has been identified) however the direction and magnitude are available (i.e. the mean improvement is higher for the Exercisers). 
+```{r t_osteoporosis-solution}
+t.test((filter(OSTEOPOROSIS,Time == "After",Regime == "Exercise"))$Balance -
+         (filter(OSTEOPOROSIS,Time == "Before",Regime == "Exercise"))$Balance,
+       (filter(OSTEOPOROSIS,Time == "After",Regime == 'Control'))$Balance -
+         (filter(OSTEOPOROSIS,Time == "Before",Regime == 'Control'))$Balance)
+```
+
+```{r t_osteoporosis-hint}
+t.test((filter(OSTEOPOROSIS,Time == "After",Regime == "Exercise"))$Balance -
+         (filter(OSTEOPOROSIS,Time == "Before",Regime == "Exercise"))$Balance,
+       (filter(OSTEOPOROSIS,Time == "After",Regime == 'Control'))$Balance -
+         (filter(OSTEOPOROSIS,Time == "Before",Regime == 'Control'))$Balance)
+```
+
+```{r t_osteoporosis-check}
+strict_check(success = "Since the P-value is (just) less than 0.05 the mean improvement is deemed significantly different.   To make any meaningful comment from this statement it is necessary to look at the 95% CI for the population mean difference in improvement (as in Illustration 4.61 previously).  The interval is strictly positive (i.e. a significant result has been identified) however the direction and magnitude are available (i.e. the mean improvement is higher for the Exercisers). ")
+```
 
 In such scenarios, it is often thought interesting to investigate whether there was evidence of a significant mean improvement separately in each of the two Regimes i.e. separately for Controls and Exercisers.   The appropriate Null and Alternative Hypotheses needed for such a hypothesis test involving the Controls would be
   
@@ -142,14 +220,42 @@ H1: 	The mean improvement in Balance for the Control population is not zero.
 
 The P-value from the corresponding One-Sample t-test output (Box 5.4.1.2) is returned as 0.272 which is interpreted as insufficient evidence of a significant mean improvement in Balance in the Control population across the study.
 
-One-Sample T: Imp Bal (A-B)_Control, 
-```{r}
-
+One-Sample T in OSTEOPOROSIS data for Improvement in Balance (After-Before) by Control
+```{r t2_intervention, exercise=TRUE, exercise.lines = 5}
+t.test(... - ...)
 ```
 
-One-Sample T: Imp Bal (A-B)_Control, Imp Bal (A-B)_Exercise 
-```{r}
+```{r t2_intervention-solution}
+t.test((filter(OSTEOPOROSIS,Time=="After",Regime == 'Control'))$Balance -
+         (filter(OSTEOPOROSIS,Time=="Before",Regime == 'Control'))$Balance)
+```
 
+```{r t2_intervention-hint}
+t.test((filter(OSTEOPOROSIS,Time=="After",Regime == 'Control'))$Balance -
+         (filter(OSTEOPOROSIS,Time=="Before",Regime == 'Control'))$Balance)
+```
+
+```{r t2_intervention-check}
+strict_check(success = "")
+```
+
+One-Sample T in OSTEOPOROSIS data for Improvement in Balance (After-Before) by Exercise
+```{r t3_intervention, exercise=TRUE, exercise.lines = 5}
+t.test(... - ...)
+```
+
+```{r t3_intervention-solution}
+t.test((filter(OSTEOPOROSIS,Time=="After",Regime=="Exercise"))$Balance -
+         (filter(OSTEOPOROSIS,Time=="Before",Regime=="Exercise"))$Balance)
+```
+
+```{r t3_intervention-hint}
+t.test((filter(OSTEOPOROSIS,Time=="After",Regime=="Exercise"))$Balance -
+         (filter(OSTEOPOROSIS,Time=="Before",Regime=="Exercise"))$Balance)
+```
+
+```{r t3_intervention-check}
+strict_check(success = "")
 ```
 
 Conclusions:   There was evidence of a significant difference in the mean improvement (P=0.046) in Balance between Controls and Exercisers over the two-month intervention period.  Furthermore, when considering the Controls and Exercisers separately, there was no evidence of a significant mean improvement for the Controls (P=0.272) while there was convincing evidence for the Exercisers (P<0.001).  
@@ -157,19 +263,75 @@ Conclusions:   There was evidence of a significant difference in the mean improv
 ### Exercise and the Elderly (Revisited)
 Aims:  To compare Relative Intensity during the Aerobic Dance and Walking sessions overall and then separately for Males and Females.
 
-One-Sample T: Dance-Walk(M), Dance-Walk(F)
-```{r}
-
+One-Sample T in WALKDANCE data for male Peak_VO2_Dance - Peak_VO2_Walk (Sex==Male)
+```{r t1_dance, exercise=TRUE, exercise.lines = 5}
+t.test(... - ...)
 ```
 
-When reporting such analyses in a paper or a presentation it has become common practice to present the P-value without quoting the relevant Null and Alternative hypothesis.    It is ‘assumed’ that the hypotheses are obvious from the context!   For example, the results given in Box 5.4.2.1 tend to be presented as ‘there was a significant difference in Relative Intensity when carrying out an Aerobic Dance class compared to a Walking session separately for both Males (P=0.001) and Females (P=0.021)’.   Hypothesis testing has a language of its own which typically says very little in practical terms!
-
-Two-sample T for Dance-Walk(M) vs Dance-Walk(F)
-```{r}
-
+```{r t1_dance-solution}
+t.test(filter(WALKDANCE,Sex=='Male')$Peak_VO2_Dance -
+         filter(WALKDANCE,Sex=='Male')$Peak_VO2_Walk)
 ```
 
-Similarly to the conclusion reached through the appropriate interval estimate, this hypothesis test confirms that there was no evidence of a significant difference in the average Aerobic Dance Relative Intensity over the Walking sessions between Males and Females $(P=0.230)$. 
+```{r t1_dance-hint}
+t.test(filter(WALKDANCE,Sex=='Male')$Peak_VO2_Dance -
+         filter(WALKDANCE,Sex=='Male')$Peak_VO2_Walk)
+```
+
+```{r t1_dance-check}
+strict_check(success = "")
+```
+
+One-Sample T: Peak_VO2_Dance - Peak_VO2_Walk (Sex==Female)
+```{r t2_dance, exercise=TRUE, exercise.lines = 5}
+t.test(... - ...)
+```
+
+```{r t2_dance-solution}
+t.test(filter(WALKDANCE,Sex=='Female')$Peak_VO2_Dance -
+         filter(WALKDANCE,Sex=='Female')$Peak_VO2_Walk)
+```
+
+```{r t2_dance-hint}
+t.test(filter(WALKDANCE,Sex=='Female')$Peak_VO2_Dance -
+         filter(WALKDANCE,Sex=='Female')$Peak_VO2_Walk)
+```
+
+```{r t2_dance-check}
+strict_check(success = "When reporting such analyses in a paper or a presentation it has become common practice to present the P-value without quoting the relevant Null and Alternative hypothesis.    It is ‘assumed’ that the hypotheses are obvious from the context!   For example, the results tend to be presented as ‘there was a significant difference in Relative Intensity when carrying out an Aerobic Dance class compared to a Walking session separately for both Males (P=0.001) and Females (P=0.021)’.   Hypothesis testing has a language of its own which typically says very little in practical terms!")
+```
+
+Two-sample T in WALKDANCE data for Peak_VO2_Dance - Peak_VO2_Walk (Sex==Male) vs
+Peak_VO2_Dance - Peak_VO2_Walk (Sex==Female)
+```{r}
+t.test(filter(WALKDANCE,Sex=='Male')$Peak_VO2_Dance -
+         filter(WALKDANCE,Sex=='Male')$Peak_VO2_Walk,
+       filter(WALKDANCE,Sex=='Female')$Peak_VO2_Dance -
+         filter(WALKDANCE,Sex=='Female')$Peak_VO2_Walk)
+```
+
+```{r t3_dance, exercise=TRUE, exercise.lines = 5}
+t.test(... - ...,
+       ... - ...)
+```
+
+```{r t3_dance-solution}
+t.test(filter(WALKDANCE,Sex=='Male')$Peak_VO2_Dance -
+         filter(WALKDANCE,Sex=='Male')$Peak_VO2_Walk,
+       filter(WALKDANCE,Sex=='Female')$Peak_VO2_Dance -
+         filter(WALKDANCE,Sex=='Female')$Peak_VO2_Walk)
+```
+
+```{r t3_dance-hint}
+t.test(filter(WALKDANCE,Sex=='Male')$Peak_VO2_Dance -
+         filter(WALKDANCE,Sex=='Male')$Peak_VO2_Walk,
+       filter(WALKDANCE,Sex=='Female')$Peak_VO2_Dance -
+         filter(WALKDANCE,Sex=='Female')$Peak_VO2_Walk)
+```
+
+```{r t3_dance-check}
+strict_check(success = "Similarly to the conclusion reached through the appropriate interval estimate, this hypothesis test confirms that there was no evidence of a significant difference in the average Aerobic Dance Relative Intensity over the Walking sessions between Males and Females (P=0.230).")
+```
 
 Conclusion: There was evidence that mean Relative Intensity was significantly higher when carrying out an Aerobic Dance session compared to a Walking session for both Males $(P=0.001)$ and Females $(P=0.021)$ in the targeted elderly population targeted.   There was no evidence however that the typical higher Relative Intensity was different across the sexes $(P=0.230)$.
 
@@ -179,8 +341,14 @@ Several hypothesis tests exist for formally testing whether a variable of intere
 In addition, a Normal Probability plot provides graphical evidence as to whether the Normality assumption is valid.   The observed data, in ascending order, are compared to what values would be ‘expected’ if indeed the data were generated from a Normal distribution.   This procedure typically carried out by looking at a plot of the sample percentiles (the value of a variable below which a certain percent of observations lie, e.g. there are 10% of observations in a sample less than the 10th percentile) against those ‘expected’.  The pattern of points in this plot of “observed against expected from  Normal distribution” should approximate a straight line if the Normal distribution is plausible for the variable of interest. 
 
 Normality Probability Plots and Anderson-Darling Normality Test
-```{r}
+```{r echo = T}
+var <- sample(1:10)
 
+p<-probplot(qnorm(pretty(c(0.01,0.99),1000),mean=mean(var,na.rm=T),sd(var,na.rm=T)))
+probplot(var,line=F)
+lines(p)
+
+ad.test(var)
 ```
 
 n general the points are randomly scattered in a linear manner about the ‘reference’ line representing where the data should appear if they were indeed a sample from a Normal population.  The level of agreement, although not perfect, is quite good especially for the larger sample sizes.  There are a few departures from a linear pattern evident in the plot for the smallest sample size, highlighting that such patterns are plausible under Normality.   
@@ -190,14 +358,82 @@ In instances involving small samples it becomes more difficult to assess Normali
 ### Walking In to Work Out (Revisited)
 Aim:  	To formally investigate whether the response variable Walking Time arose from a Normal distribution.
 
-Boxplot and Normality Probability Test of time spent walking and time spent walking log scale
-```{r}
+Boxplot Test of time spent walking (Intervention) and time spent walking log scale (Log_Walking_Time_Intervention)
+```{r walk_box, exercise=TRUE, exercise.lines = 5}
+ggplot(data = WALK_TO_WORK) +
+  ... +
+  coord_flip()
 
+ggplot(data = WALK_TO_WORK) +
+  ... +
+  coord_flip()
 ```
 
-The skew in the raw data is noticeable in the plots of Walking Time on the original scale where the median is positioned quite to the left in the IQR in the box plot and the ‘smaller’ Walking Times tend to fall below what would be expected under a Normal distribution.  The log transformation appears successful as the box plot here appears reasonably symmetric and the Normal Probability plot of “observed against expected values from a Normal distribution” follow more or less a straight line. 
+```{r walk_box-solution}
+ggplot(data = WALK_TO_WORK) +
+  geom_boxplot(mapping = aes(x = 1, y = Intervention)) +
+  coord_flip()
 
-The P-value for the Anderson-Darling Normality Test for the original data is given as being less than 0.005, and therefore the assumption of Normality can easily be rejected for the raw data.  The P-value for the same test carried out using the log transformed data is 0.662 and hence the Null Hypothesis is not rejected suggesting that the Normality assumption may be valid in the log scale.  
+ggplot(data = WALK_TO_WORK) +
+  geom_boxplot(mapping = aes(x = 1, y = Log_Walking_Time_Intervention)) +
+  coord_flip()
+```
+
+```{r walk_box-hint}
+ggplot(data = WALK_TO_WORK) +
+  geom_boxplot(mapping = aes(x = 1, y = Intervention)) +
+  coord_flip()
+
+ggplot(data = WALK_TO_WORK) +
+  geom_boxplot(mapping = aes(x = 1, y = Log_Walking_Time_Intervention)) +
+  coord_flip()
+```
+
+```{r walk_box-check}
+strict_check(success = "")
+```
+
+Normality Probability Test of time spent walking and time spent walking log scale
+
+```{r walk_norm, exercise=TRUE, exercise.lines = 5}
+var<- ...
+p<-probplot(qnorm(pretty(c(0.01,0.99),1000),mean=mean(var,na.rm=T),sd(var,na.rm=T)))
+probplot(var,line=F)
+lines(p)
+ad.test(var)
+
+var<- ...
+p<-probplot(qnorm(pretty(c(0.01,0.99),1000),mean=mean(var,na.rm=T),sd(var,na.rm=T)))
+probplot(var,line=F)
+lines(p)
+ad.test(var)
+```
+
+```{r walk_norm-solution}
+var<-WALK_TO_WORK$Intervention
+p<-probplot(qnorm(pretty(c(0.01,0.99),1000),mean=mean(var,na.rm=T),sd(var,na.rm=T)))
+probplot(var,line=F)
+lines(p)
+ad.test(var)
+
+var<-WALK_TO_WORK$Log_Walking_Time_Intervention
+p<-probplot(qnorm(pretty(c(0.01,0.99),1000),mean=mean(var,na.rm=T),sd(var,na.rm=T)))
+probplot(var,line=F)
+lines(p)
+ad.test(var)
+```
+
+```{r walk_norm-hint}
+var<-WALK_TO_WORK$Intervention
+...
+var<-WALK_TO_WORK$Log_Walking_Time_Intervention
+```
+
+```{r walk_norm-check}
+strict_check(success = "The skew in the raw data is noticeable in the plots of Walking Time on the original scale where the median is positioned quite to the left in the IQR in the box plot and the ‘smaller’ Walking Times tend to fall below what would be expected under a Normal distribution.  The log transformation appears successful as the box plot here appears reasonably symmetric and the Normal Probability plot of “observed against expected values from a Normal distribution” follow more or less a straight line. 
+
+The P-value for the Anderson-Darling Normality Test for the original data is given as being less than 0.005, and therefore the assumption of Normality can easily be rejected for the raw data.  The P-value for the same test carried out using the log transformed data is 0.662 and hence the Null Hypothesis is not rejected suggesting that the Normality assumption may be valid in the log scale.  ")
+```
 
 Conclusion: The box plots, Normal Probability plots and P-values suggest that the Normality assumption is not justified for Walking Time on the original scale of measurement (i.e. minutes) but may well be justified on the log transformed scale.  Any analysis that has Normality as an assumption should therefore be carried out on the log transformed data. 
 

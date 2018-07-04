@@ -177,7 +177,7 @@ ggplot(data = bechdel) +
   geom_bar(mapping = aes(x = test))
 ```
 
-###Fill
+### Fill
 Bars are filled by proportion of how many bechdel test questions the films passed.
 ```{r}
 ggplot(data = bechdel) +
