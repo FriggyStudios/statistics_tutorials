@@ -56,9 +56,12 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>Study Description: In August 2002, physiological tests were performed on 285 climbers passing through the Gouter Hut as they prepared to climb Mont Blanc and the Ascent Times of 197 climbers, known to have succeeded, were recorded.</p>
 <p>Aim: To provide adequate graphical summaries of the sample of 197 Ascent Times and to estimate the typical Ascent Time for successful climbers of Mont Blanc (at this time of year).</p>
 <p>Summary statistics for the Ascent_Time variable</p>
-<pre class="r"><code>summary(MONT_BLANC$Ascent_Time)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
-##   2.833   3.500   4.250   4.259   4.750   6.670      13</code></pre>
+<pre class="r"><code>basicStats(MONT_BLANC$Ascent_Time)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["X..MONT_BLANC.Ascent_Time"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"210.000000","_rn_":"nobs"},{"1":"13.000000","_rn_":"NAs"},{"1":"2.833000","_rn_":"Minimum"},{"1":"6.670000","_rn_":"Maximum"},{"1":"3.500000","_rn_":"1. Quartile"},{"1":"4.750000","_rn_":"3. Quartile"},{"1":"4.258919","_rn_":"Mean"},{"1":"4.250000","_rn_":"Median"},{"1":"839.007000","_rn_":"Sum"},{"1":"0.058488","_rn_":"SE Mean"},{"1":"4.143572","_rn_":"LCL Mean"},{"1":"4.374266","_rn_":"UCL Mean"},{"1":"0.673910","_rn_":"Variance"},{"1":"0.820920","_rn_":"Stdev"},{"1":"0.635782","_rn_":"Skewness"},{"1":"0.124214","_rn_":"Kurtosis"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 <p>The spread in Ascent Times can be summarised by the sample quartiles (3.50 and 4.75 hours). Although this information is interesting, a clearer view is provided by plotting the data.</p>
 <p>The box plot highlights the ‘middle half’ of the sample and places less weight on each of the end quartiles.</p>
 <p>Draw a boxplot of the Ascent_Time classed by Reached_Summit for the sample of Mont Blanc climbers.</p>
@@ -95,23 +98,12 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>Study Description: As part of a fitness test battery in a Scottish professional soccer club, 37 elite Senior and Youth soccer players performed a Counter Movement Jump (CMJ) Test. This test is similar to some jumping movements carried out in a game. Counter Movement Jump Height was measured using a contact mat and the highest value from 3 attempts (after familiarisation) was recorded.</p>
 <p>Aims: To provide numerical and graphical summaries to compare CMJ Height across the populations of Senior and Youth professional soccer players.</p>
 <p>The summary statistic</p>
-<pre class="r"><code>summary(SOCCER_FITNESS)</code></pre>
-<pre><code>##     Squad               CMJump        Bleep_Test       Sprint5m    
-##  Length:56          Min.   :40.13   Min.   :11.03   Min.   :0.910  
-##  Class :character   1st Qu.:47.24   1st Qu.:12.03   1st Qu.:1.025  
-##  Mode  :character   Median :50.04   Median :13.06   Median :1.060  
-##                     Mean   :50.99   Mean   :12.89   Mean   :1.069  
-##                     3rd Qu.:55.88   3rd Qu.:14.00   3rd Qu.:1.100  
-##                     Max.   :65.02   Max.   :16.00   Max.   :1.210  
-##                     NA&#39;s   :19      NA&#39;s   :11      NA&#39;s   :13     
-##     Body Fat     
-##  Min.   : 5.400  
-##  1st Qu.: 7.925  
-##  Median : 9.850  
-##  Mean   :10.104  
-##  3rd Qu.:11.650  
-##  Max.   :17.800  
-##  NA&#39;s   :2</code></pre>
+<pre class="r"><code>basicStats(SOCCER_FITNESS$CMJump)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["X..SOCCER_FITNESS.CMJump"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"56.000000","_rn_":"nobs"},{"1":"19.000000","_rn_":"NAs"},{"1":"40.132000","_rn_":"Minimum"},{"1":"65.024000","_rn_":"Maximum"},{"1":"47.244000","_rn_":"1. Quartile"},{"1":"55.880000","_rn_":"3. Quartile"},{"1":"50.985351","_rn_":"Mean"},{"1":"50.038000","_rn_":"Median"},{"1":"1886.458000","_rn_":"Sum"},{"1":"0.923848","_rn_":"SE Mean"},{"1":"49.111701","_rn_":"LCL Mean"},{"1":"52.859002","_rn_":"UCL Mean"},{"1":"31.579323","_rn_":"Variance"},{"1":"5.619548","_rn_":"Stdev"},{"1":"0.399285","_rn_":"Skewness"},{"1":"-0.416995","_rn_":"Kurtosis"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 Plot a box plot CMJump by Squad:
 <div class="tutorial-exercise" data-label="box_jump" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
 <pre class="text"><code>ggplot(data = SOCCER_FITNESS,...)</code></pre>
@@ -137,9 +129,12 @@ Plot a box plot CMJump by Squad:
 <p>Study Description: A sample of 28 recreational distance runners were taken and randomised into one of three Treatments (Control, Meditation or Progressive Muscular Relaxation (PMR) as a potential means of reducing their Heart Rates during exercise. The Heart Rates at the end of a standardised running test of all 28 athletes (13 Controls, 8 on Meditation and 7 on PMR) were taken both before and after two weeks of ‘treatment’ where the appropriate Treatment was adhered to by each runner for a two-week period. The reduction in this Heart Rate over this two week period (i.e. Pre-Study Heart Rate – Post-Study Heart Rate) was taken as the response variable.</p>
 <p>Aim: To determine which, if any, of the relaxation methods (Meditation or Progressive Muscular Relaxation) significantly reduce exercise Heart Rate on average compared to Controls over a two week period.</p>
 <p>Summary statistic:</p>
-<pre class="r"><code>summary(RELAXATION$Reduction)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   -9.00   -3.00    3.00    3.00    7.25   16.00</code></pre>
+<pre class="r"><code>basicStats(RELAXATION$Reduction)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["X..RELAXATION.Reduction"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"28.000000","_rn_":"nobs"},{"1":"0.000000","_rn_":"NAs"},{"1":"-9.000000","_rn_":"Minimum"},{"1":"16.000000","_rn_":"Maximum"},{"1":"-3.000000","_rn_":"1. Quartile"},{"1":"7.250000","_rn_":"3. Quartile"},{"1":"3.000000","_rn_":"Mean"},{"1":"3.000000","_rn_":"Median"},{"1":"84.000000","_rn_":"Sum"},{"1":"1.179633","_rn_":"SE Mean"},{"1":"0.579593","_rn_":"LCL Mean"},{"1":"5.420407","_rn_":"UCL Mean"},{"1":"38.962963","_rn_":"Variance"},{"1":"6.242032","_rn_":"Stdev"},{"1":"0.167405","_rn_":"Skewness"},{"1":"-0.878286","_rn_":"Kurtosis"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 <p>Plot a box plot of Reduction in heart rate by Treatment</p>
 <div class="tutorial-exercise" data-label="box_reduce" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
 <pre class="text"><code>ggplot(data = RELAXATION,...)</code></pre>
@@ -246,9 +241,12 @@ Plot a box plot of HR_at_Lact_Thresh by Condition
 <pre class="text"><code>strict_check(success = &quot;&quot;)</code></pre>
 </div>
 <p>Summary of heart rate at lactate threahold</p>
-<pre class="r"><code>summary(POOL_RUNNING$HR_at_Lact_Thresh)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   110.7   146.6   160.5   154.3   167.5   181.8</code></pre>
+<pre class="r"><code>basicStats(POOL_RUNNING$HR_at_Lact_Thresh)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["X..POOL_RUNNING.HR_at_Lact_Thresh"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"45.000000","_rn_":"nobs"},{"1":"0.000000","_rn_":"NAs"},{"1":"110.709999","_rn_":"Minimum"},{"1":"181.779999","_rn_":"Maximum"},{"1":"146.559998","_rn_":"1. Quartile"},{"1":"167.520004","_rn_":"3. Quartile"},{"1":"154.265778","_rn_":"Mean"},{"1":"160.520004","_rn_":"Median"},{"1":"6941.960030","_rn_":"Sum"},{"1":"2.939522","_rn_":"SE Mean"},{"1":"148.341560","_rn_":"LCL Mean"},{"1":"160.189996","_rn_":"UCL Mean"},{"1":"388.835629","_rn_":"Variance"},{"1":"19.718916","_rn_":"Stdev"},{"1":"-0.819081","_rn_":"Skewness"},{"1":"-0.418055","_rn_":"Kurtosis"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 <p>Conclusion: This study suggests that mean Heart Rate at LT for Well-Trained Male Endurance Runners is much lower in DWR than in Track and Treadmill running. It could therefore be concluded that the use of the same training Heart Rates for water and land running is inappropriate.</p>
 </div>
 </div>
@@ -279,23 +277,12 @@ Plot scatter plot of 20m walking timea Walk_Pre vs Walk_Post:
 <pre class="text"><code>strict_check(success = &quot;&quot;)</code></pre>
 </div>
 <p>Summary statistic:</p>
-<pre class="r"><code>summary(WALK_20M)</code></pre>
-<pre><code>##   Treatment            Walk_Pre       Walk_Post     Walk_Difference 
-##  Length:26          Min.   :14.41   Min.   :13.15   Min.   :-2.540  
-##  Class :character   1st Qu.:15.27   1st Qu.:14.81   1st Qu.:-0.335  
-##  Mode  :character   Median :16.08   Median :15.69   Median : 0.730  
-##                     Mean   :17.46   Mean   :16.33   Mean   : 1.130  
-##                     3rd Qu.:18.41   3rd Qu.:17.69   3rd Qu.: 1.635  
-##                     Max.   :27.56   Max.   :23.97   Max.   : 9.750  
-##                                                                     
-##        Y              X       
-##  Min.   :13.0   Min.   :13.0  
-##  1st Qu.:16.5   1st Qu.:16.5  
-##  Median :20.0   Median :20.0  
-##  Mean   :20.0   Mean   :20.0  
-##  3rd Qu.:23.5   3rd Qu.:23.5  
-##  Max.   :27.0   Max.   :27.0  
-##  NA&#39;s   :24     NA&#39;s   :24</code></pre>
+<pre class="r"><code>basicStats(WALK_20M$Walk_Difference)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["X..WALK_20M.Walk_Difference"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"26.000000","_rn_":"nobs"},{"1":"0.000000","_rn_":"NAs"},{"1":"-2.539999","_rn_":"Minimum"},{"1":"9.750000","_rn_":"Maximum"},{"1":"-0.335000","_rn_":"1. Quartile"},{"1":"1.635000","_rn_":"3. Quartile"},{"1":"1.130000","_rn_":"Mean"},{"1":"0.730000","_rn_":"Median"},{"1":"29.379998","_rn_":"Sum"},{"1":"0.521729","_rn_":"SE Mean"},{"1":"0.055479","_rn_":"LCL Mean"},{"1":"2.204520","_rn_":"UCL Mean"},{"1":"7.077223","_rn_":"Variance"},{"1":"2.660305","_rn_":"Stdev"},{"1":"1.823608","_rn_":"Skewness"},{"1":"3.577133","_rn_":"Kurtosis"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 Plot a box plot of Walk_Difference in times by Treatment
 <div class="tutorial-exercise" data-label="box_walk" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
 <pre class="text"><code>ggplot(data = WALK_20M,...)</code></pre>
@@ -348,14 +335,18 @@ Plot a box plot of Grip_Strength by Climber_Type:
 <pre class="text"><code>strict_check(success = &quot;&quot;)</code></pre>
 </div>
 <p>Summary statsitics:</p>
-<pre class="r"><code>summary(GRIP)</code></pre>
-<pre><code>##  Grip_Strength   Climber_Type         Body_Mass         Type1  
-##  Min.   :353.0   Length:30          Min.   :56.40   Min.   :1  
-##  1st Qu.:438.8   Class :character   1st Qu.:65.85   1st Qu.:1  
-##  Median :517.3   Mode  :character   Median :72.40   Median :2  
-##  Mean   :507.0                      Mean   :72.53   Mean   :2  
-##  3rd Qu.:585.9                      3rd Qu.:79.35   3rd Qu.:3  
-##  Max.   :661.9                      Max.   :88.80   Max.   :3</code></pre>
+<pre class="r"><code>basicStats(GRIP$Grip_Strength)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["X..GRIP.Grip_Strength"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"30.000000","_rn_":"nobs"},{"1":"0.000000","_rn_":"NAs"},{"1":"353.039400","_rn_":"Minimum"},{"1":"661.948875","_rn_":"Maximum"},{"1":"438.847587","_rn_":"1. Quartile"},{"1":"585.947338","_rn_":"3. Quartile"},{"1":"507.003805","_rn_":"Mean"},{"1":"517.300787","_rn_":"Median"},{"1":"15210.114150","_rn_":"Sum"},{"1":"15.918303","_rn_":"SE Mean"},{"1":"474.447219","_rn_":"LCL Mean"},{"1":"539.560391","_rn_":"UCL Mean"},{"1":"7601.771440","_rn_":"Variance"},{"1":"87.188138","_rn_":"Stdev"},{"1":"-0.059841","_rn_":"Skewness"},{"1":"-1.234969","_rn_":"Kurtosis"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>basicStats(GRIP$Body_Mass)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["X..GRIP.Body_Mass"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"30.000000","_rn_":"nobs"},{"1":"0.000000","_rn_":"NAs"},{"1":"56.400000","_rn_":"Minimum"},{"1":"88.800000","_rn_":"Maximum"},{"1":"65.850000","_rn_":"1. Quartile"},{"1":"79.350000","_rn_":"3. Quartile"},{"1":"72.526667","_rn_":"Mean"},{"1":"72.400000","_rn_":"Median"},{"1":"2175.800000","_rn_":"Sum"},{"1":"1.591485","_rn_":"SE Mean"},{"1":"69.271713","_rn_":"LCL Mean"},{"1":"75.781620","_rn_":"UCL Mean"},{"1":"75.984782","_rn_":"Variance"},{"1":"8.716925","_rn_":"Stdev"},{"1":"0.007583","_rn_":"Skewness"},{"1":"-0.834097","_rn_":"Kurtosis"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 Plot a scatter plot of Grip_Strength vs Body_Mass with color laballed Climber_Type:
 <div class="tutorial-exercise" data-label="scatter_grip" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
 <pre class="text"><code>ggplot(data = GRIP,...)</code></pre>
@@ -426,6 +417,7 @@ Plot a scatter plot of maximum heart rate vs age
 library(learnr)
 library(tidyverse)
 library(grader)
+library(fBasics)
 knitr::opts_chunk$set(echo = FALSE)
 tutorial_options(exercise.checker = grade_learnr)
 

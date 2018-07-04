@@ -10,6 +10,7 @@ runtime: shiny_prerendered
 library(learnr)
 library(tidyverse)
 library(grader)
+library(fBasics)
 knitr::opts_chunk$set(echo = FALSE)
 tutorial_options(exercise.checker = grade_learnr)
 
@@ -46,7 +47,7 @@ Aim: 	To provide adequate graphical summaries of the sample of 197 Ascent Times 
 
 Summary statistics for the Ascent_Time variable 
 ```{r echo = T}
-summary(MONT_BLANC$Ascent_Time)
+basicStats(MONT_BLANC$Ascent_Time)
 ```
 
 The spread in Ascent Times can be summarised by the sample quartiles (3.50 and 4.75 hours).    Although this information is interesting, a clearer view is provided by plotting the data.
@@ -96,7 +97,7 @@ Aims:  To provide numerical and graphical summaries to compare CMJ Height across
 
 The summary statistic
 ```{r echo = T}
-summary(SOCCER_FITNESS)
+basicStats(SOCCER_FITNESS$CMJump)
 ```
 
 Plot a box plot CMJump by Squad:
@@ -129,7 +130,7 @@ Aim: To determine which, if any, of the relaxation methods (Meditation or Progre
 
 Summary statistic:
 ```{r echo = T}
-summary(RELAXATION$Reduction)
+basicStats(RELAXATION$Reduction)
 ```
 
 Plot a box plot of Reduction in heart rate by Treatment
@@ -258,7 +259,7 @@ strict_check(success = "")
 
 Summary of heart rate at lactate threahold
 ```{r echo = T}
-summary(POOL_RUNNING$HR_at_Lact_Thresh)
+basicStats(POOL_RUNNING$HR_at_Lact_Thresh)
 ```
 
 Conclusion: This study suggests that mean Heart Rate at LT for Well-Trained Male Endurance Runners is much lower in DWR than in Track and Treadmill running.   It could therefore be concluded that the use of the same training Heart Rates for water and land running is inappropriate.
@@ -296,7 +297,7 @@ strict_check(success = "")
 
 Summary statistic:
 ```{r echo = T}
-summary(WALK_20M)
+basicStats(WALK_20M$Walk_Difference)
 ```
 
 Plot a box plot of Walk_Difference in times by Treatment
@@ -358,7 +359,8 @@ strict_check(success = "")
 
 Summary statsitics:
 ```{r echo = T}
-summary(GRIP)
+basicStats(GRIP$Grip_Strength)
+basicStats(GRIP$Body_Mass)
 ```
 
 Plot a scatter plot of Grip_Strength vs Body_Mass with color laballed Climber_Type:

@@ -13,7 +13,7 @@
 <meta name="progressive" content="true" />
 <meta name="allow-skip" content="false" />
 
-<title>Summarising and Displaying Data</title>
+<title>Estimating Parameters</title>
 
 
 <!-- highlightjs -->
@@ -46,8 +46,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="section-ch4-estimating-parameters" class="section level1">
 <h1>Ch4: Estimating Parameters</h1>
-<p>Statistics is the subject of drawing inferences about some summary aspect of a population (i.e. a population parameter) based on a representative sample of the population. It is very unlikely that the researcher/scientist will ever have the time, enthusiasm and budget to carry out a census study (i.e. collect data on all members of a population) and he/she will instead have to rely on a (hopefully representative) sample of the population on which to base any inference.</p>
-<p>The provision of a clear and useful subjective impression based on appropriate summary statistics and graphs is the first important step in handling any data set. The previous chapter presented illustrations of how best to summarise a sample of data, both numerically and graphically, across a variety of common contexts in Sports and Exercise Science. In each context, the most ‘suitable’ summary statistic was chosen and this depends crucially on the assumed probability model underlying the response variable of interest in the population. Throughout this chapter and indeed much of this text-book, the assumption is made that each population can be adequately represented as a “Normal probability model or Normal distribution” and consequently interest will lie in population means as the relevant population parameters of interest. This assumption will, of course, have to be justified in all cases before any final conclusions can be drawn from any data set.</p>
+<p>Statistics is the subject of drawing inferences about some summaryaspect of a population (i.e. a population parameter) based on a representative sample of the population. It is very unlikely that the researcher/scientist will ever have the time, enthusiasm and budget to carry out a census study (i.e. collect data on all members of a population) and he/she will instead have to rely on a (hopefully representative) sample of the population on which to base any inference.</p>
+<p>The provision of a clear and useful subjective impression based on appropriate summarystatistics and graphs is the first important step in handling any data set. The previous chapter presented illustrations of how best to summarise a sample of data, both numerically and graphically, across a variety of common contexts in Sports and Exercise Science. In each context, the most ‘suitable’ summarystatistic was chosen and this depends crucially on the assumed probability model underlying the response variable of interest in the population. Throughout this chapter and indeed much of this text-book, the assumption is made that each population can be adequately represented as a “Normal probability model or Normal distribution” and consequently interest will lie in population means as the relevant population parameters of interest. This assumption will, of course, have to be justified in all cases before any final conclusions can be drawn from any data set.</p>
 <p>Once this Normal model assumption has been justified, formal techniques are required that will allow (sample) estimates of the population means to be made that incorporate the natural variability produced from taking (random) samples. These involve mathematical ideas beyond the scope of this textbook and, in fact, are of little value in aiding understanding of the basic ideas of inference. The only really key aspect is that the assumed model can be used to quantify the likely variability in sample means (of the same sample size as that observed) across potentially different samples and hence the “error” that will accrue from estimating a population mean from the actual observed sample of data from that underlying Normal population. This is the basis of the formal statistical model underlying this and subsequent chapters.</p>
 <div id="section-interval-estimation" class="section level2">
 <h2>Interval Estimation</h2>
@@ -61,7 +61,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>A 95% Confidence Interval ensures that, in repeated sampling, 95% of intervals produced by such a method will contain the true (but unknown) population parameter - almost always regardless of the value of this population parameter. Strictly speaking nothing can be said about any actual, observed (95%) Confidence Interval, other than that such a method will often ‘catch’ the true value in the interval.</p>
 <p>When the key question of interest is to estimate a population mean from a single sample of data from a Normal distribution, the full analysis can be summarised as follows:</p>
 <ol style="list-style-type: decimal">
-<li>provide summary statistics and a box plot of the variable of interest;</li>
+<li>provide summarystatistics and a box plot of the variable of interest;</li>
 <li>investigate whether the variable of interest is likely to have arisen from a Normal distribution;</li>
 <li>provide an interval estimate of the likely values of the population mean;</li>
 <li>make an objective statement regarding the key question of interest given the interval estimate provided.</li>
@@ -70,10 +70,13 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h3>5m Sprint Time in Soccer Players</h3>
 <p>Background: Soccer players are often involved in short duration sprints during a game in order to make a tackle, intercept the ball or receive a pass. Thus, speed over 5 m is deemed to be a very important attribute for soccer players. Regular measurement of 5 m sprint speeds for soccer players will allow the assessment of the efficacy of training programmes and the impact of injuries. Study Description: As part of a fitness test battery in a professional soccer club, a sample of 43 elite soccer players performed a number of 5 m sprints. After a warm-up, the players performed three sprints on an indoor track with a set recovery between each sprint. Times were recorded to one hundredth of a second using electronic time gates. The fastest time from the three trials for each player was used in the analysis outlined below. Source: Sports Performance Unit, Scottish Premier League Club.</p>
 <p>Aim: To estimate the mean 5 m sprint for the population of professional soccer players.</p>
-<p>Summary statistic of sprint times</p>
-<pre class="r"><code>summary(SOCCER_FITNESS$Sprint5m)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
-##   0.910   1.025   1.060   1.069   1.100   1.210      13</code></pre>
+<p>summarystatistic of sprint times</p>
+<pre class="r"><code>basicStats(SOCCER_FITNESS$Sprint5m)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["X..SOCCER_FITNESS.Sprint5m"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"56.000000","_rn_":"nobs"},{"1":"13.000000","_rn_":"NAs"},{"1":"0.910000","_rn_":"Minimum"},{"1":"1.210000","_rn_":"Maximum"},{"1":"1.025000","_rn_":"1. Quartile"},{"1":"1.100000","_rn_":"3. Quartile"},{"1":"1.069070","_rn_":"Mean"},{"1":"1.060000","_rn_":"Median"},{"1":"45.970000","_rn_":"Sum"},{"1":"0.009394","_rn_":"SE Mean"},{"1":"1.050113","_rn_":"LCL Mean"},{"1":"1.088027","_rn_":"UCL Mean"},{"1":"0.003794","_rn_":"Variance"},{"1":"0.061598","_rn_":"Stdev"},{"1":"0.218181","_rn_":"Skewness"},{"1":"0.106812","_rn_":"Kurtosis"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 Plot a box plot of the time to sprint 5m: Sprint5m
 <div class="tutorial-exercise" data-label="box_sprint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
 <pre class="text"><code>ggplot(data = SOCCER_FITNESS,...)</code></pre>
@@ -113,7 +116,7 @@ Plot a box plot of the time to sprint 5m: Sprint5m
 <p>This can arise from an observational study (two independent samples) or through a designed experiment (a single sample randomised into one of the two levels of a Between Subject Factor). Regardless of the context, the response variable of interest is recorded for each subject in both samples/levels and interest relates to the comparison of the population mean. The parameter of interest is the difference in population means and is estimated naturally by using the difference in the sample means. If the difference in the two population means is zero then the population means are identical; this simple fact is central in interpreting the results from two sample comparisons.</p>
 <p>The formal analysis can be summarised as follows:</p>
 <ol style="list-style-type: decimal">
-<li>provide summary statistics and a box plot of the response variable categorised by the levels of the Between Subject Factor;</li>
+<li>provide summarystatistics and a box plot of the response variable categorised by the levels of the Between Subject Factor;</li>
 <li>provide and comment on a suitable interval estimate of the likely difference in the population means;</li>
 <li>if appropriate, make an objective statement as to whether zero is a plausible value for the difference in population means.</li>
 </ol>
@@ -163,16 +166,13 @@ In order to make a formal comparison between the population of Senior and Youth 
 <p>Background: Ischaemic pain can be induced by applying a tourniquet to the arm just above the elbow to obstruct blood flow. The subject is asked to flex and relax the forearm muscles continuously for a short period of time (e.g. 1 minute). When the exercise is stopped, pain increases and typically becomes unbearable after about eight minutes. This method is used in experimental studies of pain because it causes no permanent tissue damage.</p>
 <p>Study Description: A sample of 29 young healthy females was taken to investigate the effect of a mental distraction task on induced ischaemic pain. Subjects were randomly allocated to one of two methods of Pain Relief (i.e. control and distraction). A sub-maximal effort tourniquet technique (SETT) was used to induce ischaemic pain on a subject’s non-dominant arm while she performed sets of 20 repetitions of hand gripping exercises at 75% of her maximal grip strength over a 100 second period. The distraction employed was a colour word ‘Stroop’ test and this mental task consists of a pencil and paper ‘Stroop’ task modified to cover 160 words typed in red, yellow, blue or green in a randomised order. Each word did not represent its colour meaning. While the distraction was being carried out, subjects recorded the time when they first felt pain i.e. their perceived pain levels using a Visual Analogue Scale (VAS) from the moment they acknowledged pain (i.e. their Pain Threshold) until they could not can tolerate the pain any longer (i.e. their Pain Tolerance).</p>
 <p>Aim: To investigate the effect of a mental distraction task on induced ischaemic pain by comparing the difference in population mean Pain Threshold between those on the Intervention (i.e. distracted) and Controls.</p>
-<p>Summary statisic of PAINRELIEF</p>
-<pre class="r"><code>summary(PAINRELIEF)</code></pre>
-<pre><code>##   Treatment         Pain_Threshold  
-##  Length:30          Min.   :  3.00  
-##  Class :character   1st Qu.: 25.00  
-##  Mode  :character   Median : 51.00  
-##                     Mean   : 64.52  
-##                     3rd Qu.:102.00  
-##                     Max.   :168.00  
-##                     NA&#39;s   :1</code></pre>
+<p>summarystatisic of PAINRELIEF</p>
+<pre class="r"><code>basicStats(PAINRELIEF$Pain_Threshold)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["X..PAINRELIEF.Pain_Threshold"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"30.000000","_rn_":"nobs"},{"1":"1.000000","_rn_":"NAs"},{"1":"3.000000","_rn_":"Minimum"},{"1":"168.000000","_rn_":"Maximum"},{"1":"25.000000","_rn_":"1. Quartile"},{"1":"102.000000","_rn_":"3. Quartile"},{"1":"64.517241","_rn_":"Mean"},{"1":"51.000000","_rn_":"Median"},{"1":"1871.000000","_rn_":"Sum"},{"1":"9.567703","_rn_":"SE Mean"},{"1":"44.918691","_rn_":"LCL Mean"},{"1":"84.115792","_rn_":"UCL Mean"},{"1":"2654.687192","_rn_":"Variance"},{"1":"51.523657","_rn_":"Stdev"},{"1":"0.634173","_rn_":"Skewness"},{"1":"-0.983059","_rn_":"Kurtosis"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 Plot a box plot of Pain_Threshold by Treatment
 <div class="tutorial-exercise" data-label="box_pain" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
 <pre class="text"><code>ggplot(data = PAINRELIEF,...)</code></pre>
@@ -212,10 +212,13 @@ Plot a box plot of Pain_Threshold by Treatment
 <p>Background: Osteoporosis is a fairly common condition in post-menopausal women. The porous bones in this population are susceptible to fracture. The consequences of a fracture can be very serious. For example, a fracture of the neck of the femur in elderly females is associated with a very poor prognosis and may include physical incapacity and death. Exercise programmes have the potential to increase the well-being of osteoporosis sufferers. For example, if the balance of these subjects could be improved, the subjects would be less likely to fall and therefore less likely to fracture.</p>
 <p>Study Description: A sample of 30 middle-aged osteoporotic women was randomised either to a twice-weekly physiotherapist-led exercise regime or to be a control. Physiological assessments, including a functional reach test measuring balance, were conducted on all women both before and after two months of the ‘intervention’ (i.e. exercise or control).</p>
 <p>Aim: To assess whether the Controls and Exercisers were comparable at baseline (i.e. immediately before the study) in terms of this measure of balance.</p>
-<p>Summary statistic of Balance Before</p>
-<pre class="r"><code>summary((filter(OSTEOPOROSIS,Time==&quot;Before&quot;))$Balance)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   12.70   22.86   27.94   27.10   33.02   39.37</code></pre>
+<p>summarystatistic of Balance Before</p>
+<pre class="r"><code>basicStats((filter(OSTEOPOROSIS,Time==&quot;Before&quot;))$Balance)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["X...filter.OSTEOPOROSIS..Time.....Before....Balance"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"30.000000","_rn_":"nobs"},{"1":"0.000000","_rn_":"NAs"},{"1":"12.700000","_rn_":"Minimum"},{"1":"39.369999","_rn_":"Maximum"},{"1":"22.860001","_rn_":"1. Quartile"},{"1":"33.020000","_rn_":"3. Quartile"},{"1":"27.101800","_rn_":"Mean"},{"1":"27.940001","_rn_":"Median"},{"1":"813.054002","_rn_":"Sum"},{"1":"1.303321","_rn_":"SE Mean"},{"1":"24.436208","_rn_":"LCL Mean"},{"1":"29.767392","_rn_":"UCL Mean"},{"1":"50.959408","_rn_":"Variance"},{"1":"7.138586","_rn_":"Stdev"},{"1":"-0.247068","_rn_":"Skewness"},{"1":"-0.957474","_rn_":"Kurtosis"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 Plot a box plot of Balance Before by Regime
 <div class="tutorial-exercise" data-label="box_balance" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
 <pre class="text"><code>ggplot(data = filter(OSTEOPOROSIS,Time==&quot;Before&quot;),...)</code></pre>
@@ -492,9 +495,12 @@ Tolerance interval with 95% coverage and 95% confidence
 <p>Background: Walking, some or all of the way, to work is one possible method of increasing physical activity, improving aerobic fitness and health and having a positive influence on the environment. As part of a study to encourage active commuting, a sample of 295 commuters who were interested in taking part in the study filled in a questionnaire about their recent history of walking habits as part of the baseline information for this study. Study Description: Subjects were randomised to receive the Intervention or to act as a Control. Those on the intervention received the “Walk in to Work Out” pack, which contained written interactive material, local information about distances and routes, and safety information. The Controls did not receive the pack and continued with their usual lifestyle.</p>
 <p>Aim: To estimate the typical time spent walking to work post intervention for those who did not walk to work prior to the study.</p>
 <p>Descriptive Statistics, Walking Time: Controls</p>
-<pre class="r"><code>summary(WALK_TO_WORK$Controls)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
-##   35.00   40.00   50.00   61.25   76.25  105.00       2</code></pre>
+<pre class="r"><code>basicStats(WALK_TO_WORK$Controls)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["X..WALK_TO_WORK.Controls"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"14.000000","_rn_":"nobs"},{"1":"2.000000","_rn_":"NAs"},{"1":"35.000000","_rn_":"Minimum"},{"1":"105.000000","_rn_":"Maximum"},{"1":"40.000000","_rn_":"1. Quartile"},{"1":"76.250000","_rn_":"3. Quartile"},{"1":"61.250000","_rn_":"Mean"},{"1":"50.000000","_rn_":"Median"},{"1":"735.000000","_rn_":"Sum"},{"1":"6.993639","_rn_":"SE Mean"},{"1":"45.857105","_rn_":"LCL Mean"},{"1":"76.642895","_rn_":"UCL Mean"},{"1":"586.931818","_rn_":"Variance"},{"1":"24.226676","_rn_":"Stdev"},{"1":"0.589808","_rn_":"Skewness"},{"1":"-1.253907","_rn_":"Kurtosis"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 Plot a box plot of time spent walking pre-study: Controls
 <div class="tutorial-exercise" data-label="box_walk_to_work" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
 <pre class="text"><code>ggplot(data = WALK_TO_WORK, ...)</code></pre>
@@ -571,7 +577,7 @@ One-Sample T: Log_Walking_Time_Controls
 ## 
 ## Intervals : 
 ## Level      Normal        
-## 95%   (47.86, 74.52 )  
+## 95%   (48.57, 74.34 )  
 ## Calculations and Intervals on Original Scale</code></pre>
 <p>This “Bootstrap” interval suggests that the population mean Walking Time is likely to be between 56 and 182 minutes which is fairly similar to that produced from the raw data (dubiously) assuming Normality.</p>
 <p>The final approach, if the Normality assumption appears untenable, is to concentrate on the median as a ‘more appropriate’ measure of the typical value of the population rather than the mean. Procedures for providing interval estimates for a population median are available, the most useful, perhaps, being the Wilcoxon procedure. Techniques that involve estimation of a population median do not require assumptions relating to the Normal distribution and are often termed ‘non-parametric’ procedures – a rather daft term since it is still a population parameter (i.e. the median) that is being estimated! These techniques use the “order statistic” of the data (i.e. all the data “written down” from smallest to largest) and obtain an interval estimate by moving in an appropriate number of observations from each end of the data. A natural question to ask is why not therefore focus on such procedures in all scenarios? The reason against this is that the resulting intervals tend to be wider (i.e. less precise) than the corresponding interval estimate based on Normality, particularly in small samples. There are always statistical swings and roundabouts!</p>
@@ -591,7 +597,7 @@ One-Sample T: Log_Walking_Time_Controls
 ## sample estimates:
 ## (pseudo)median 
 ##       59.99995</code></pre>
-<p>The overall conclusion is that the mean may not be the ‘best’ summary of the typical Walking Time in this population of interest. It could be argued that the ‘best’ estimate of the typical Walking Time is provided by the log transformation as the interval is shifted to the left and was the narrowest (i.e. most precise). A pragmatic conclusion is that, regardless of the approach taken, the typical amount of time spent walking in the week previous to the study is likely to be somewhere between just under an hour up to around three hours!</p>
+<p>The overall conclusion is that the mean may not be the ‘best’ summaryof the typical Walking Time in this population of interest. It could be argued that the ‘best’ estimate of the typical Walking Time is provided by the log transformation as the interval is shifted to the left and was the narrowest (i.e. most precise). A pragmatic conclusion is that, regardless of the approach taken, the typical amount of time spent walking in the week previous to the study is likely to be somewhere between just under an hour up to around three hours!</p>
 </div>
 </div>
 <div id="section-comparing-two-population-means" class="section level2">
@@ -703,6 +709,7 @@ Mann-Whitney Test and CI: Intervention and Controls
 
 <script type="application/shiny-prerendered" data-context="server-start">
 library(learnr)
+library(fBasics)
 library(tidyverse)
 library(grader)
 library(tolerance)
@@ -909,7 +916,7 @@ output$`tutorial-exercise-mann_treatment_walk-output` <- renderUI({
 
 <!-- begin doc-metadata -->
 <div id="doc-metadata">
-<h2 class="title toc-ignore" style="display:none;">Summarising and Displaying Data</h2>
+<h2 class="title toc-ignore" style="display:none;">Estimating Parameters</h2>
 </div>
 <!-- end doc-metadata -->
 

@@ -8,6 +8,7 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(fBasics)
 library(tidyverse)
 library(grader)
 library(tolerance)
@@ -26,9 +27,9 @@ MONT_BLANC <- read_csv("data/chapter_3/MONT BLANC ASCENT.CSV")
 ```
 
 # Ch4: Estimating Parameters
-Statistics is the subject of drawing inferences about some summary aspect of a population (i.e. a population parameter) based on a representative sample of the population.   It is very unlikely that the researcher/scientist will ever have the time, enthusiasm and budget to carry out a census study (i.e. collect data on all members of a population) and he/she will instead have to rely on a (hopefully representative) sample of the population on which to base any inference.  
+Statistics is the subject of drawing inferences about some summaryaspect of a population (i.e. a population parameter) based on a representative sample of the population.   It is very unlikely that the researcher/scientist will ever have the time, enthusiasm and budget to carry out a census study (i.e. collect data on all members of a population) and he/she will instead have to rely on a (hopefully representative) sample of the population on which to base any inference.  
 
-The provision of a clear and useful subjective impression based on appropriate summary statistics and graphs is the first important step in handling any data set.   The previous chapter presented illustrations of how best to summarise a sample of data, both numerically and graphically, across a variety of common contexts in Sports and Exercise Science.   In each context, the most ‘suitable’ summary statistic was chosen and this depends crucially on the assumed probability model underlying the response variable of interest in the population.   Throughout this chapter and indeed much of this text-book, the assumption is made that each population can be adequately represented as a “Normal probability model or Normal distribution” and consequently interest will lie in population means as the relevant population parameters of interest.   This assumption will, of course, have to be justified in all cases before any final conclusions can be drawn from any data set.
+The provision of a clear and useful subjective impression based on appropriate summarystatistics and graphs is the first important step in handling any data set.   The previous chapter presented illustrations of how best to summarise a sample of data, both numerically and graphically, across a variety of common contexts in Sports and Exercise Science.   In each context, the most ‘suitable’ summarystatistic was chosen and this depends crucially on the assumed probability model underlying the response variable of interest in the population.   Throughout this chapter and indeed much of this text-book, the assumption is made that each population can be adequately represented as a “Normal probability model or Normal distribution” and consequently interest will lie in population means as the relevant population parameters of interest.   This assumption will, of course, have to be justified in all cases before any final conclusions can be drawn from any data set.
 
 Once this Normal model assumption has been justified, formal techniques are required that will allow (sample) estimates of the population means to be made that incorporate the natural variability produced from taking (random) samples.   These involve mathematical ideas beyond the scope of this textbook and, in fact, are of little value in aiding understanding of the basic ideas of inference.   The only really key aspect is that the assumed model can be used to quantify the likely variability in sample means (of the same sample size as that observed) across potentially different samples and hence the “error” that will accrue from estimating a population mean from the actual observed sample of data from that underlying Normal population. This is the basis of the formal statistical model underlying this and subsequent chapters.
 
@@ -48,7 +49,7 @@ A 95% Confidence Interval ensures that, in repeated sampling, 95% of intervals p
 
 When the key question of interest is to estimate a population mean from a single sample of data from a Normal distribution, the full analysis can be summarised as follows:
 
-1. provide summary statistics and a box plot of the variable of interest;
+1. provide summarystatistics and a box plot of the variable of interest;
 2. investigate whether the variable of interest is likely to have arisen from a Normal distribution;
 3. provide an interval estimate of the likely values of the population mean;
 4.	make an objective statement regarding the key question of interest given the interval estimate provided.
@@ -60,9 +61,9 @@ Source:  Sports Performance Unit, Scottish Premier League Club.
 
 Aim: 	To estimate the mean 5 m sprint for the population of professional soccer players.
 
-Summary statistic of sprint times
+summarystatistic of sprint times
 ```{r echo = T}
-summary(SOCCER_FITNESS$Sprint5m)
+basicStats(SOCCER_FITNESS$Sprint5m)
 ```
 
 Plot a box plot of the time to sprint 5m: Sprint5m
@@ -98,7 +99,7 @@ This can arise from an observational study (two independent samples) or through 
 
 The formal analysis can be summarised as follows:
 
-1. provide summary statistics and a box plot of the response variable categorised by the levels of the Between Subject Factor;
+1. provide summarystatistics and a box plot of the response variable categorised by the levels of the Between Subject Factor;
 2. provide and comment on a suitable interval estimate of the likely difference in the population means;
 3. if appropriate, make an objective statement as to whether zero is a plausible value for the difference in population means.  
 
@@ -148,9 +149,9 @@ Study Description: A sample of 29 young healthy females was taken to investigate
 
 Aim:  To investigate the effect of a mental distraction task on induced ischaemic pain by comparing the difference in population mean Pain Threshold between those on the Intervention (i.e. distracted) and Controls.
 
-Summary statisic of PAINRELIEF
+summarystatisic of PAINRELIEF
 ```{r echo = T}
-summary(PAINRELIEF)
+basicStats(PAINRELIEF$Pain_Threshold)
 ```
 
 Plot a box plot of Pain_Threshold by Treatment
@@ -190,9 +191,9 @@ Study Description: A sample of 30 middle-aged osteoporotic women was randomised 
 
 Aim:	To assess whether the Controls and Exercisers were comparable at baseline (i.e. immediately before the study) in terms of this measure of balance.
 
-Summary statistic of Balance Before
+summarystatistic of Balance Before
 ```{r echo = T}
-summary((filter(OSTEOPOROSIS,Time=="Before"))$Balance)
+basicStats((filter(OSTEOPOROSIS,Time=="Before"))$Balance)
 ```
 
 Plot a box plot of Balance Before by Regime
@@ -498,7 +499,7 @@ Aim:  To estimate the typical time spent walking to work post intervention for t
 
 Descriptive Statistics, Walking Time: Controls
 ```{r echo = T}
-summary(WALK_TO_WORK$Controls)
+basicStats(WALK_TO_WORK$Controls)
 ```
 
 Plot a box plot of time spent walking pre-study: Controls
@@ -598,7 +599,7 @@ Wilcoxon Signed Rank CI: Walking Time: Controls
 wilcox.test(WALK_TO_WORK$Controls,conf.int=TRUE)
 ```
 
-The overall conclusion is that the mean may not be the ‘best’ summary of the typical Walking Time in this population of interest.   It could be argued that the ‘best’ estimate of the typical Walking Time is provided by the log transformation as the interval is shifted to the left and was the narrowest (i.e. most precise).  A pragmatic conclusion is that, regardless of the approach taken, the typical amount of time spent walking in the week previous to the study is likely to be somewhere between just under an hour up to around three hours! 
+The overall conclusion is that the mean may not be the ‘best’ summaryof the typical Walking Time in this population of interest.   It could be argued that the ‘best’ estimate of the typical Walking Time is provided by the log transformation as the interval is shifted to the left and was the narrowest (i.e. most precise).  A pragmatic conclusion is that, regardless of the approach taken, the typical amount of time spent walking in the week previous to the study is likely to be somewhere between just under an hour up to around three hours! 
 
 ## Comparing Two Population Means
 Normality assumptions also apply in a comparison of two sample means.  The method of production of the Confidence Interval (based on the t distribution) for the difference in the two population means is however quite robust to departures from Normality if each of the samples is ‘large’ (typically 30 or more).  However, the method may not work well in small samples that are not symmetric (i.e. have a degree of skewness) and/or which have outliers present). 
