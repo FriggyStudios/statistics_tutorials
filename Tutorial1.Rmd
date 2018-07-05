@@ -36,7 +36,7 @@ ggplot(data = pokemon) +
 ```
 
 ### A graphing workflow
-Our code follows the common workflow for making graphs with ggplot2. To make a graph, you:
+Our code follows the common workflow for making graphs with ggplot2. To make a graph:
 
 Start the graph with ggplot()
 Add elements to the graph with a geom_ function
@@ -65,9 +65,9 @@ aes(x = attack, y = defense, color = generation)
 ```{r ggplot_color-check}
 strict_check(success = "Nice colors!")
 ```
+
 ### Shape
 Shape the points by the generation of each pokemon by inserting shape = generation to the paramaters in aes. To assign shapes to a continuous variable add + scale_shape_identity() to the ggplot
-
 ```{r ggplot_shape, exercise=TRUE, exercise.lines = 5}
 ggplot(data = pokemon) +
   geom_point(mapping = aes(x = attack, y = defense))
@@ -140,7 +140,9 @@ strict_check(success = "Nice smooth curve!")
 ### Overlay Graphs
 How can we overly the two previous graphics on defense vs hp?
 
-Add the geom_smooth to the ggplot using the + operator
+Add +
+  geom_point(mapping = aes(x = hp, y = defense))
+after the first geom_point function
 ```{r ggplot_overlay, exercise=TRUE, exercise.lines = 5}
 ggplot(data = pokemon) +
   geom_point(mapping = aes(x = hp, y = defense))
@@ -163,8 +165,9 @@ strict_check(success = "Nice overlay!")
 
 ## Bar Charts
 The Bechdel Test tests the representation of women in films.
+
 The test asks 3 questions in order:
-1. Are there women?
+1. Are there women in the film?
 2. Do the women talk to each other?
 3. Do the women talk about something other than men?
 ```{r echo = T}

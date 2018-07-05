@@ -163,11 +163,11 @@ t.test(... - ...)
 ```
 
 ```{r t_intervention-solution}
-t.test(TRAINING_INTERVENTION$VO2_max_post - TRAINING_INTERVENTION$VO2_max_pre)
+t.test(TRAINING_INTERVENTION$VO2_max_post - TRAINING_INTERVENTION$VO2_max_pre,paired = TRUE)
 ```
 
 ```{r t_intervention-hint}
-t.test(TRAINING_INTERVENTION$VO2_max_post - TRAINING_INTERVENTION$VO2_max_pre)
+t.test(TRAINING_INTERVENTION$VO2_max_post - TRAINING_INTERVENTION$VO2_max_pre,paired = TRUE)
 ```
 
 ```{r t_intervention-check}

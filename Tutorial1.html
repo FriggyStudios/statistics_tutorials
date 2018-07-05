@@ -58,7 +58,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>Here is a simple ggplot of pokemon defense vs attack <img src="Tutorial1_files/figure-html/ggplot_simple-1.png" width="624" /></p>
 <div id="section-a-graphing-workflow" class="section level3">
 <h3>A graphing workflow</h3>
-<p>Our code follows the common workflow for making graphs with ggplot2. To make a graph, you:</p>
+<p>Our code follows the common workflow for making graphs with ggplot2. To make a graph:</p>
 <p>Start the graph with ggplot() Add elements to the graph with a geom_ function Select variables with the mapping = aes() argument</p>
 <p>ggplot template: ggplot(data = <DATA>) + <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))</p>
 </div>
@@ -83,7 +83,7 @@ Color the points by the type of each pokemon by inserting color = generation to 
 </div>
 <div id="section-shape" class="section level3">
 <h3>Shape</h3>
-<p>Shape the points by the generation of each pokemon by inserting shape = generation to the paramaters in aes. To assign shapes to a continuous variable add + scale_shape_identity() to the ggplot</p>
+Shape the points by the generation of each pokemon by inserting shape = generation to the paramaters in aes. To assign shapes to a continuous variable add + scale_shape_identity() to the ggplot
 <div class="tutorial-exercise" data-label="ggplot_shape" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
 <pre class="text"><code>ggplot(data = pokemon) +
   geom_point(mapping = aes(x = attack, y = defense))</code></pre>
@@ -146,7 +146,7 @@ Change geom_point to geom_smooth with paramter methos = ‘loess’
 <div id="section-overlay-graphs" class="section level3">
 <h3>Overlay Graphs</h3>
 <p>How can we overly the two previous graphics on defense vs hp?</p>
-Add the geom_smooth to the ggplot using the + operator
+Add + geom_point(mapping = aes(x = hp, y = defense)) after the first geom_point function
 <div class="tutorial-exercise" data-label="ggplot_overlay" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
 <pre class="text"><code>ggplot(data = pokemon) +
   geom_point(mapping = aes(x = hp, y = defense))</code></pre>
@@ -168,7 +168,8 @@ Add the geom_smooth to the ggplot using the + operator
 </div>
 <div id="section-bar-charts" class="section level2">
 <h2>Bar Charts</h2>
-<p>The Bechdel Test tests the representation of women in films. The test asks 3 questions in order: 1. Are there women? 2. Do the women talk to each other? 3. Do the women talk about something other than men?</p>
+<p>The Bechdel Test tests the representation of women in films.</p>
+<p>The test asks 3 questions in order: 1. Are there women in the film? 2. Do the women talk to each other? 3. Do the women talk about something other than men?</p>
 <pre class="r"><code>bechdel</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
