@@ -1,4 +1,4 @@
-"2000m Rowing Time","5000m Rowing Time","Height (cm)","Body Mass (kg)","Sit & Reach (cm)","Peak Power (W)","Stroke Length (m)"
+Rowing_Time_2000m,Rowing_Time_5000m,Height,Body_Mass,Sit_and_Reach,Peak_Power,Stroke_Length
 412,1077,177.8,80.7,16,731,1.77
 417,1107,173,78,8,721,1.62
 380,1017,195.5,101.6,49,889,1.71

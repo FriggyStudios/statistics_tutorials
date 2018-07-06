@@ -186,14 +186,40 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>Background: Studies have reported that high levels of strength, power production, sound rowing technique and certain anthropometrical characteristics are all beneficial to rowing performance. The use of laboratory tests to determine the relationship between sporting performance and physiological variables is widespread. This information could be of value for training and testing of oarsmen.</p>
 <p>Study Description: Eighteen experienced male club and university rowers had their time recorded to complete a 5000 m standard course under simulated conditions. In addition each oarsman had his Peak Power measured on an ergometer.</p>
 <p>Aim: To investigate the dependency of 5000 m rowing performance on Peak Power in order to predict likely 5000 m time for a future oarsman with a specific value of Peak Power.</p>
-<p>Plot a scatter plot of 5000m Rowing times vs Peak power with smoother</p>
-<p>Regression Analysis: 5000m time versus Peak Power (W)</p>
-<p>The estimated regression equation is Average 5000 m Time = 1518– 0.593<em>Peak Power allowing a prediction of 5000 m Rowing Time to be made by multiplying Peak Power by 0.593 and subtracting this from 1518. For example, it is predicted that any oarsman of the same standard as those in the sample with a Peak Power of 800 watts will have an average Rowing Time of 1518– 0.593</em>800 = 1043.6 seconds (i.e. 17.4 minutes).</p>
+<p>Plot a scatter plot of Rowing_Time_5000m vs Peak_Power with smoother <img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-12-1.png" width="624" /></p>
+<p>Regression Analysis: Rowing_Time_5000m versus Peak_Power (W) and Stroke_Length (m)</p>
+<pre><code>## 
+## Call:
+## lm(formula = Rowing_Time_5000m ~ Peak_Power + Stroke_Length, 
+##     data = ROWING5000M)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -29.269  -5.828   3.740   8.871  27.293 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   1646.69635   66.80274  24.650 1.50e-13 ***
+## Peak_Power      -0.44100    0.08189  -5.385 7.58e-05 ***
+## Stroke_Length -141.77311   46.55663  -3.045  0.00818 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 16.04 on 15 degrees of freedom
+## Multiple R-squared:  0.8606, Adjusted R-squared:  0.842 
+## F-statistic:  46.3 on 2 and 15 DF,  p-value: 3.818e-07</code></pre>
+<p><img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-13-1.png" width="624" /></p>
+<p>The estimated regression equation is Average 5000 m Time = 1518– 0.593<em>Peak_Power allowing a prediction of 5000 m Rowing Time to be made by multiplying Peak Power by 0.593 and subtracting this from 1518. For example, it is predicted that any oarsman of the same standard as those in the sample with a Peak Power of 800 watts will have an average Rowing Time of 1518– 0.593</em>800 = 1043.6 seconds (i.e. 17.4 minutes).</p>
 <p>The R2 statistic of 77% suggests that the predictive power of the model is quite good. One oarsman was identified as having a (standardised) residual that may be worthy of attention. This standardised residual is negative suggesting that this oarsman’s Rowing Time is notably lower than those with an identical Peak Power.</p>
-<p>Normal probability plot of standarised residuals</p>
-<p>Plot of standarised residuals vs fitted values</p>
+<p>Normal probability plot of standarised residuals <img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-14-1.png" width="624" /><img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-14-2.png" width="624" /></p>
+<pre><code>## 
+##  Anderson-Darling normality test
+## 
+## data:  var
+## A = 1.1333, p-value = 0.004233</code></pre>
+<p>Plot of standarised residuals vs fitted values <img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-15-1.png" width="624" /></p>
 <p>It is often of interest to make a prediction of the likely value of the response for a particular individual with a specific value of the explanatory variable. If this is the case a Prediction Interval is appropriate as, in this Illustration, it provides an estimate of the likely Rowing Time for a single future oarsmen with a particular Peak Power reading.</p>
-<p>Plot scatter plot of 5000m rowing times versus peak power with 96% PI</p>
+<p>Plot scatter plot of 5000m rowing times versus peak power with 95% PI <img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-16-1.png" width="624" /></p>
 <p>he width of the Prediction Interval is 86 seconds which is quite wide given the sample range of Rowing Times recorded. Hence, even though the regression model is appropriate and the R2 statistic is quite high, the model still lacks precision when predicting at the individual level.</p>
 <p>Conclusion: There was convincing evidence that the dependency of 5000 m Rowing Time on Peak Power could be adequately modelled using a straight line. It is estimated that nearly 80% of the variability in 5000 m Rowing Time can be explained by its dependency on Peak Power. 95% Prediction Intervals for future oarsmen of given Peak Power however are quite wide (with respect to the range of 5000 m Rowing Times recorded).</p>
 </div>
@@ -210,11 +236,97 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>Study Description: Eighteen experienced male club and university rowers had their finishing time recorded having completed a 5000 m race in addition to their Peak Power and Stroke Length (using video analysis).</p>
 <p>Aim: To investigate whether 5000 m rowing performance depends on Peak Power and/or Stroke Length.</p>
 <p>Analysis: As in simple linear regression it is important to examine the relationships among all the variables involved by providing scatter plots and sample correlation coefficients for each pair of variables before any formal analysis is undertaken. Pairwise scatter plots are useful graphical summaries for multiple regression analyses as they provide a starting point for assessing the likely relationship between all variables (i.e. response and explanatory variables)</p>
-<p>Matrix Scatter Plot of 5000m rowing times, peak power, and stroke length</p>
+<p>Matrix Scatter Plot of Rowing_Time_5000m, Peak_Power, and Stroke_Length <img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-17-1.png" width="624" /></p>
+<pre><code>##                   Rowing_Time_5000m Peak_Power Stroke_Length
+## Rowing_Time_5000m         1.0000000 -0.8800186    -0.7688264
+## Peak_Power               -0.8800186  1.0000000     0.6090869
+## Stroke_Length            -0.7688264  0.6090869     1.0000000</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Rowing_Time_5000m ~ Peak_Power + Stroke_Length, 
+##     data = ROWING5000M)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -29.269  -5.828   3.740   8.871  27.293 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   1646.69635   66.80274  24.650 1.50e-13 ***
+## Peak_Power      -0.44100    0.08189  -5.385 7.58e-05 ***
+## Stroke_Length -141.77311   46.55663  -3.045  0.00818 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 16.04 on 15 degrees of freedom
+## Multiple R-squared:  0.8606, Adjusted R-squared:  0.842 
+## F-statistic:  46.3 on 2 and 15 DF,  p-value: 3.818e-07</code></pre>
+<pre><code>##               Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## Peak_Power     1  21429   21429  83.336 1.63e-07 ***
+## Stroke_Length  1   2384    2384   9.273  0.00818 ** 
+## Residuals     15   3857     257                     
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>##    Peak_Power Stroke_Length 
+##      1.589792      1.589792</code></pre>
 <p>he plot labelled A has Peak Power on the horizontal axis while in plot B Stroke Length is on the horizontal axis. These plots suggest a negative relationship between 5000 m Rowing Time and both Peak Power and Stroke Length where increasing values of Peak Power and Stroke Length are associated with better (i.e. lower) Rowing Times. The remaining plot (C) is a plot of the two explanatory variables, with Peak Power on the vertical axis and Stroke Length on the horizontal axis. This plot provides a visual impression as to whether the two explanatory variables are correlated which indeed seems to be the case here.</p>
-<p>P value test for 5000m Rowing Time vs Peak Power</p>
+<p>P value test for Rowing_Time_5000m vs Peak_Power, Stroke_Length vs Peak_Power, Rowing_Time_5000m vs Stroke_Length</p>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  ROWING5000M$Rowing_Time_5000m and ROWING5000M$Peak_Power
+## t = -7.4116, df = 16, p-value = 1.472e-06
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  -0.9546617 -0.7012672
+## sample estimates:
+##        cor 
+## -0.8800186</code></pre>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  ROWING5000M$Stroke_Length and ROWING5000M$Peak_Power
+## t = 3.0719, df = 16, p-value = 0.007297
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.1987280 0.8377349
+## sample estimates:
+##       cor 
+## 0.6090869</code></pre>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  ROWING5000M$Rowing_Time_5000m and ROWING5000M$Stroke_Length
+## t = -4.8092, df = 16, p-value = 0.0001927
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  -0.9093077 -0.4710281
+## sample estimates:
+##        cor 
+## -0.7688264</code></pre>
 <p>There is evidence of a significant correlation between the response variable 5000 m Rowing Time and each of Peak Power (r=-0.88, p&lt;0.001) and Stroke Length (r=-0.77, p&lt;0.001). This suggests each explanatory variable may be a useful predictor of 5000 m Time in its own right in a regression model but the significant correlation between the two explanatory variables (r=0.61, p=0.007) suggests that either one of these variables may not be given additional information about 5000 m Time to that from the other variable. The next step is to use multiple regression to model the dependency of the response on both explanatory variables</p>
-<p>Regression of rowing time vs peak power</p>
+<p>Regression of Rowing_Time_5000m vs Peak_Power and Stroke_Length</p>
+<pre><code>## 
+## Call:
+## lm(formula = Rowing_Time_5000m ~ Peak_Power + Stroke_Length, 
+##     data = ROWING5000M)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -29.269  -5.828   3.740   8.871  27.293 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   1646.69635   66.80274  24.650 1.50e-13 ***
+## Peak_Power      -0.44100    0.08189  -5.385 7.58e-05 ***
+## Stroke_Length -141.77311   46.55663  -3.045  0.00818 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 16.04 on 15 degrees of freedom
+## Multiple R-squared:  0.8606, Adjusted R-squared:  0.842 
+## F-statistic:  46.3 on 2 and 15 DF,  p-value: 3.818e-07</code></pre>
+<p><img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-19-1.png" width="624" /></p>
 <p>The output is quite similar to that generated when fitting a simple linear regression except that the regression equation now has three terms; an intercept and regression coefficients for each of the two explanatory variables.</p>
 <p>The estimated regression equation is given as Average 5000 m Rowing Time = 1664.43– 0.44 Peak Power – 152.5*Stroke Length</p>
 <p>Note “Average” here denotes the population average for any individual with specific values of Peak Power and Stroke Length. There is an important difference as to how the regression coefficients are interpreted compared to simple linear regression. The first term in the regression equation is an estimate of the intercept i.e.1664 here (a good year for Beer?). It represents the average 5000 m Rowing Time when both Peak Power and Stroke Length are equal to zero and despite being of no practical interest it is essential to the model, is significant and should be retained in the model. The regression coefficients for the two explanatory variables are of primary interest as they represent the change in the “average” 5000 m Rowing Time per unit increase in the corresponding explanatory variable corrected for the other explanatory variable. The regression coefficient for Peak Power for example states that for every 1 watt increase in Peak Power 5000 m Rowing Time decreases on average by 0.44 seconds, if Stroke Length is held constant. This ‘effect’ of Peak Power is assumed to be the same for every Stroke Length value. In a similar manner, the regression coefficient for Stroke Length is an estimate of the likely effect of Stroke Length on 5000 m Rowing Time in the population of oarsmen. The regression coefficient states that for every 1 m increase in Stroke Length, 5000 m Rowing Time decreases, on average, by 153 seconds if Peak Power is held constant. An increase of 1 m in Stroke Length is of course massive and a more sensible interpretation might be that for every 1 cm increase in Stroke Length 5000 m Rowing Time decreases, on average, by 1.53 seconds if Peak Power is held constant.</p>
@@ -254,9 +366,67 @@ The independence assumption appears justified as there is no reason to believe t
 <p>Background: Densitometry is a standard approach used to ‘measure’ (percentage) Body Fat and involves the use of underwater weighing. It is of interest to determine if other variables, Body Mass, Height and Age are of some use in the ‘measurement’ of (percentage) Body Fat.</p>
 <p>Study Description: As part of a PhD study at Glasgow University, a student obtained a representative sample of seventy-eight West of Scotland males, aged between 18 and 30 years, and ‘measured’ their percentage Body Fat (by Densitometry), Body Mass, Height and Age. Reference: Espinosa-Zepeda, Maria T. (1995). Metabolic rate related to body composition in lean muscular humans: a thesis submitted for the degree of Doctor of Philosophy in the Faculty of Medicine. Ph.D. Thesis 10159, Glasgow University (Supervisor:- Durnin, J.V.G.A.).</p>
 <p>Aim: To model the dependency, if any, of % Body Fat on Body Mass, Height and Age in males.</p>
-<p>Matrix scatter plot of % body fat by age body mass, and height</p>
+<p>Matrix scatter plot of Body_Fat by Age Body_Mass, and Height <img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-20-1.png" width="624" /></p>
+<pre><code>##           Body_Fat Age Body_Mass Height
+## Body_Fat         1  NA        NA     NA
+## Age             NA   1        NA     NA
+## Body_Mass       NA  NA         1     NA
+## Height          NA  NA        NA      1</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Body_Fat ~ Body_Mass + Age + Height, data = BODY_FAT_MALE)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -7.4796 -2.6197 -0.4153  3.0576  7.9829 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept) 19.95691   10.63817   1.876   0.0646 .
+## Body_Mass    0.13130    0.05740   2.288   0.0250 *
+## Age          0.11959    0.05182   2.308   0.0238 *
+## Height      -0.11935    0.06496  -1.837   0.0702 .
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.582 on 74 degrees of freedom
+##   (78 observations deleted due to missingness)
+## Multiple R-squared:  0.1619, Adjusted R-squared:  0.1279 
+## F-statistic: 4.763 on 3 and 74 DF,  p-value: 0.004319</code></pre>
+<pre><code>##             Df Sum Sq Mean Sq F value  Pr(&gt;F)   
+## Body_Mass    1   43.4   43.43   3.384 0.06985 . 
+## Age          1   96.6   96.64   7.530 0.00761 **
+## Height       1   43.3   43.33   3.376 0.07016 . 
+## Residuals   74  949.7   12.83                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 78 observations deleted due to missingness</code></pre>
+<pre><code>## Body_Mass       Age    Height 
+##  1.328381  1.052359  1.343930</code></pre>
 <p>The main plots of interest are labelled as A, B and C representing the scatter plots of the response variable (on the vertical axis) against the three explanatory variables. It appears that there is a slight positive dependency of % Body Fat on Body Mass and Age and a possible negative dependency of % Body Fat on Height. An (anticipated) positive relationship is noticed between Height and Body Mass with little or no relationship between Age and Body Mass nor between Age and Height.</p>
-<p>Regression of body fat vs age, body mass, and height</p>
+<p>Regression of Body_Fat vs Age, Body_Mass, and Height</p>
+<pre><code>## 
+## Call:
+## lm(formula = Body_Fat ~ Age + Body_Mass + Height, data = BODY_FAT_MALE)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -7.4796 -2.6197 -0.4153  3.0576  7.9829 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept) 19.95691   10.63817   1.876   0.0646 .
+## Age          0.11959    0.05182   2.308   0.0238 *
+## Body_Mass    0.13130    0.05740   2.288   0.0250 *
+## Height      -0.11935    0.06496  -1.837   0.0702 .
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.582 on 74 degrees of freedom
+##   (78 observations deleted due to missingness)
+## Multiple R-squared:  0.1619, Adjusted R-squared:  0.1279 
+## F-statistic: 4.763 on 3 and 74 DF,  p-value: 0.004319</code></pre>
+<p><img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-21-1.png" width="624" /></p>
 <p>The P-value from the F-test provided evidence that at least one of the explanatory variables is significant and, on examining the appropriate P-values, Age and Body Mass are identified as the only significant explanatory variables responsible. It appears that knowing a person’s height is not providing any additional information, in terms of explaining the variability in % Body Fat as measured by Densitometry amongst males in the West of Scotland, once information on a person’s Age and Body Mass is available.</p>
 <p>Conclusion: In the West of Scotland at least, a male’s Age and Body Mass were identified as being significant explanatory variables (P=0.02 in both cases) of a male’s % Body Fat. Despite identifying two useful explanatory variables the R2-adjusted for this two variable model is only 13% suggesting that these variables alone explain a very small amount of variability in % Body Fat</p>
 </div>
@@ -267,8 +437,59 @@ The independence assumption appears justified as there is no reason to believe t
 <div id="section-km-running-times-revisited-1" class="section level3">
 <h3>3km Running Times (Revisited)</h3>
 <p>Aim: To examine if an individual’s running velocity at Lactate Threshold (v-Tlac) is a useful predictor in addition to v-4mM when predicting 3 km Running Time.</p>
-<p>Matrix scatter plot of 3km running time, v-Tlac and v-4mM</p>
-<p>Regression of 3ktime vs v-Tlac and v-4mM</p>
+<p>Matrix scatter plot of 3km running Time, v_Tlac and v_4mM <img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-22-1.png" width="624" /></p>
+<pre><code>##              Time     v_Tlac      v_4mM
+## Time    1.0000000 -0.9308349 -0.9258570
+## v_Tlac -0.9308349  1.0000000  0.9865341
+## v_4mM  -0.9258570  0.9865341  1.0000000</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Time ~ v_Tlac + v_4mM, data = RUNNING)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.57342 -0.19798  0.02974  0.17134  0.46894 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  15.7596     0.6974  22.598 8.09e-12 ***
+## v_Tlac       -0.2733     0.2576  -1.061    0.308    
+## v_4mM        -0.1138     0.2476  -0.460    0.653    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.2898 on 13 degrees of freedom
+## Multiple R-squared:  0.8686, Adjusted R-squared:  0.8484 
+## F-statistic: 42.96 on 2 and 13 DF,  p-value: 1.867e-06</code></pre>
+<pre><code>##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## v_Tlac       1  7.199   7.199  85.715 4.37e-07 ***
+## v_4mM        1  0.018   0.018   0.211    0.653    
+## Residuals   13  1.092   0.084                     
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>##  v_Tlac   v_4mM 
+## 37.3825 37.3825</code></pre>
+<p>Regression of 3k Time vs v_Tlac and v_4mM</p>
+<pre><code>## 
+## Call:
+## lm(formula = Time ~ v_Tlac + v_4mM, data = RUNNING)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.57342 -0.19798  0.02974  0.17134  0.46894 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  15.7596     0.6974  22.598 8.09e-12 ***
+## v_Tlac       -0.2733     0.2576  -1.061    0.308    
+## v_4mM        -0.1138     0.2476  -0.460    0.653    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.2898 on 13 degrees of freedom
+## Multiple R-squared:  0.8686, Adjusted R-squared:  0.8484 
+## F-statistic: 42.96 on 2 and 13 DF,  p-value: 1.867e-06</code></pre>
+<p><img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-23-1.png" width="624" /></p>
 <p>In the F test (Analysis of Variance output), the Null Hypothesis that both population regression coefficients are zero is rejected with a P-value &lt;0.001 providing evidence that at least one of the explanatory variables is significant and useful. However, when examining the separate tests for the regression coefficients, neither that for v-Tlac (P = 0.308) nor for v-4mM (P = 0.653) are significant. In addition the R2-adjusted value is 84.8% - so that the overall regression model appears to be worthwhile while the separate tests have failed to identify any significant predictor. How can this be?</p>
 <p>The usefulness of an explanatory variable in a multiple regression model may be ‘masked’ or hidden by the inclusion of another explanatory variable highly correlated to it. If there is no correlation between any pair of explanatory variables, the estimated regression coefficient for any possible explanatory variable will not depend on those for the other explanatory variables in the model. If some of the explanatory variables are correlated with each other, the estimated regression coefficients may depend on which other explanatory variables are included in the model.</p>
 <p>Problems of this type involving highly correlated explanatory variables are very common in human studies. It is relatively easy to spot this problem when there are only two explanatory variables. In the case where there are more than two:</p>
@@ -292,27 +513,158 @@ The independence assumption appears justified as there is no reason to believe t
 <p>Background: Blood lactate endurance markers are often used for predicting endurance performance, typically using performance data obtained in a time trial. The identification of any significant markers for a given population will help coaches and athletes decide which markers might be used to evaluate changes in performance.</p>
 <p>Study Description: Twenty-four trained female cyclists completed an incremental exercise test on a cycle ergometer. Finger-tip capillary blood was sampled within 30 seconds of the end of each 3-minute stage for analysis of plasma lactate. The following blood lactate endurance markers were calculated: Lactate Threshold (P-Tlac), DMax (DMax), LT-log-log (P-Tlac.ll), P-4Mmom mmol.L-1 (P-4mM) and workrate corresponding to a 1 mM rise from baseline (Rise.1.PB). Endurance performance was assessed 7 days later using a 1 hour cycle test in which subjects were directed to achieve the highest possible average power output (AV Power).</p>
 <p>Aim: Use Stepwise Regression and Best Subsets to identify the essential subset of these plasma lactate markers needed to predict Power Output.</p>
-<p>Matrix scatter plot of Average Power vs P-Tlac, P-Tlac.ll, P-4mM, DMax, and Rise.1.PB</p>
+<p>Matrix scatter plot of AV_Power vs P_Tlac, P_Tlac.ll, P_4mM, DMax, and Rise.1.PB <img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-24-1.png" width="624" /></p>
+<pre><code>##            AV_Power    P_Tlac P_Tlac.ll     P_4mM     P_4mM      DMax
+## AV_Power  1.0000000 0.7653382 0.6152129 0.8032742 0.8032742 0.7750019
+## P_Tlac    0.7653382 1.0000000 0.8350936 0.8744550 0.8744550 0.9517118
+## P_Tlac.ll 0.6152129 0.8350936 1.0000000 0.8327163 0.8327163 0.8329463
+## P_4mM     0.8032742 0.8744550 0.8327163 1.0000000 1.0000000 0.8474488
+## P_4mM     0.8032742 0.8744550 0.8327163 1.0000000 1.0000000 0.8474488
+## DMax      0.7750019 0.9517118 0.8329463 0.8474488 0.8474488 1.0000000
+## Rise.1.PB 0.8184975 0.8985261 0.8387308 0.9613636 0.9613636 0.8683771
+##           Rise.1.PB
+## AV_Power  0.8184975
+## P_Tlac    0.8985261
+## P_Tlac.ll 0.8387308
+## P_4mM     0.9613636
+## P_4mM     0.9613636
+## DMax      0.8683771
+## Rise.1.PB 1.0000000</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = AV_Power ~ P_Tlac + P_Tlac.ll + P_4mM + DMax + Rise.1.PB, 
+##     data = CYCLINGPOWER)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -17.735  -5.414  -2.152   6.520  27.028 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  76.2853    18.5154   4.120 0.000643 ***
+## P_Tlac       -0.1017     0.2812  -0.362 0.721795    
+## P_Tlac.ll    -0.1995     0.1195  -1.669 0.112345    
+## P_4mM         0.1553     0.2380   0.653 0.522303    
+## DMax          0.4112     0.3132   1.313 0.205688    
+## Rise.1.PB     0.3043     0.2662   1.143 0.267964    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 11.02 on 18 degrees of freedom
+## Multiple R-squared:  0.7334, Adjusted R-squared:  0.6594 
+## F-statistic: 9.905 on 5 and 18 DF,  p-value: 0.0001111</code></pre>
+<pre><code>##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## P_Tlac       1   4800    4800  39.553 6.27e-06 ***
+## P_Tlac.ll    1     15      15   0.128   0.7251    
+## P_4mM        1    825     825   6.798   0.0178 *  
+## DMax         1    211     211   1.741   0.2035    
+## Rise.1.PB    1    159     159   1.307   0.2680    
+## Residuals   18   2184     121                     
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>##    P_Tlac P_Tlac.ll     P_4mM      DMax Rise.1.PB 
+## 13.734312  4.077177 13.631183 11.185796 16.392180</code></pre>
 <p>The top row of plots consists of the scatter plots of the response variable (on the Y axis) against each of the Plasma Lactate Marker explanatory variables in turn. All of the Plasma Lactate Markers look like they may indeed be (singly) useful predictors of Power Output. However, a closer look at the plots of the explanatory variables against each other highlights the fact that many of them are strongly correlated with each other. For example, the scatter plot labelled A is a plot of the P-4 mM and Rise.1.PB markers with the sample correlation between these two variables being 0.96. All the markers are clearly highly correlated.</p>
-<p>Regression of Average Power vs P-Tlac, P-Tlac.ll, P-4mM, DMax, and Rise.1.PB</p>
-<p>Best Subsets regression analysis</p>
+<p>Regression of AV_Power vs P_Tlac, P_Tlac.ll, P_4mM, DMax, and Rise.1.PB</p>
+<pre><code>## 
+## Call:
+## lm(formula = AV_Power ~ P_Tlac + P_Tlac.ll + P_4mM + DMax + Rise.1.PB, 
+##     data = CYCLINGPOWER)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -17.735  -5.414  -2.152   6.520  27.028 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  76.2853    18.5154   4.120 0.000643 ***
+## P_Tlac       -0.1017     0.2812  -0.362 0.721795    
+## P_Tlac.ll    -0.1995     0.1195  -1.669 0.112345    
+## P_4mM         0.1553     0.2380   0.653 0.522303    
+## DMax          0.4112     0.3132   1.313 0.205688    
+## Rise.1.PB     0.3043     0.2662   1.143 0.267964    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 11.02 on 18 degrees of freedom
+## Multiple R-squared:  0.7334, Adjusted R-squared:  0.6594 
+## F-statistic: 9.905 on 5 and 18 DF,  p-value: 0.0001111</code></pre>
+<p><img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-25-1.png" width="624" /></p>
+<p>Best Subsets regression analysis of AV_Power vs P_Tlac, P_Tlac.ll, P_4mM, DMax, and Rise.1.PB</p>
+<pre><code>## Subset selection object
+## Call: regsubsets.formula(AV_Power ~ P_Tlac + P_Tlac.ll + P_4mM + DMax + 
+##     Rise.1.PB, data = CYCLINGPOWER)
+## 5 Variables  (and intercept)
+##           Forced in Forced out
+## P_Tlac        FALSE      FALSE
+## P_Tlac.ll     FALSE      FALSE
+## P_4mM         FALSE      FALSE
+## DMax          FALSE      FALSE
+## Rise.1.PB     FALSE      FALSE
+## 1 subsets of each size up to 5
+## Selection Algorithm: exhaustive
+##          P_Tlac P_Tlac.ll P_4mM DMax Rise.1.PB
+## 1  ( 1 ) &quot; &quot;    &quot; &quot;       &quot; &quot;   &quot; &quot;  &quot;*&quot;      
+## 2  ( 1 ) &quot; &quot;    &quot;*&quot;       &quot; &quot;   &quot; &quot;  &quot;*&quot;      
+## 3  ( 1 ) &quot; &quot;    &quot;*&quot;       &quot; &quot;   &quot;*&quot;  &quot;*&quot;      
+## 4  ( 1 ) &quot; &quot;    &quot;*&quot;       &quot;*&quot;   &quot;*&quot;  &quot;*&quot;      
+## 5  ( 1 ) &quot;*&quot;    &quot;*&quot;       &quot;*&quot;   &quot;*&quot;  &quot;*&quot;</code></pre>
 <p>Conclusion: There is evidence that Power Output in female cyclists is dependent on several Plasma Lactate endurance markers. There is also evidence that several of these explanatory variables are strongly correlated with each other and are in essence providing the same ‘information’ as each other. On the basis of the results when using Best Subsets and Stepwise regression techniques, the most useful regression model involved a single explanatory variable, namely the work rate corresponding to a 1 mM Rise post baseline (P&lt;0.001) which explained 67% of the variability in the Power Output.</p>
 <p>##Incorporating Categorical Explanatory Variables in a Multiple Regression Model As a first example, data are presented from an observational study to investigate whether an individual’s Body Mass is a useful predictor of Anaerobic Power. In particular does it appear that Sex, in addition to Body Mass, may be a useful additional explanatory variable?</p>
 </div>
 <div id="section-power-and-body-mass-revisited" class="section level3">
 <h3>Power and Body Mass (Revisited)</h3>
 <p>Aim: To investigate whether Anaerobic Power (as assessed by the Wingate test) is dependent upon the Body Mass and Sex of an individual.</p>
-<p>Scatter plot of anaerboc power vs body mass</p>
+<p>Scatter plot of anaerboc power: Body_Mass vs Wingate, with seperate smoothers by gender <img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-27-1.png" width="624" /></p>
 <p>The suggestion from this plot is that there is a reasonable dependency of Anaerobic Power on Body Mass in Males but really not so in Females. The formal analysis should start by fitting a multiple regression model including both Body Mass and Sex as explanatory variables (a so-called Additive model for Body Mass and Sex). Care must be taken with regard to the categorical variable in order to create an explanatory variable to represent a person’s Sex. This can be achieved quite easily by use of an indicator variable – a variable that takes the value 0 or 1 e.g. 1 to represent a Male and 0 to represent a Female (or if you are so inclined 1 for Females and 0 for Males although the authors strongly recommend that the baseline level (corresponding to zero) is that with the lower sample mean of the Response, in this case as chosen).</p>
-<p>Regresssion of Power vs body mass and gender</p>
+<p>Regresssion of Power vs Body_Mass and Sex</p>
+<pre><code>## 
+## Call:
+## lm(formula = Wingate ~ Body_Mass + Sex, data = POWER)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -113.91  -52.89  -13.80   51.22  157.36 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   84.979    126.451   0.672  0.50727    
+## Body_Mass      6.926      2.219   3.121  0.00427 ** 
+## SexMale      199.549     43.160   4.623 8.38e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 71.38 on 27 degrees of freedom
+## Multiple R-squared:  0.846,  Adjusted R-squared:  0.8346 
+## F-statistic: 74.18 on 2 and 27 DF,  p-value: 1.072e-11</code></pre>
+<p><img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-28-1.png" width="624" /></p>
 <p>The F-test in the Analysis of Variance Table provides evidence that at least one of the explanatory variables is significant and indeed the separate tests suggest that Sex and Body Mass are both significant. The Body Mass regression coefficient estimates that Anaerobic Power increases by 6.93 Watts on average per kilogram increase in Body Mass while the Sex regression coefficient estimates that Males have an Anaerobic Power that is, on average, 200 Watts greater than that of Females for any given value of Body Mass.</p>
 <p>The regression equation for Females is Wingate = 85 + 6.93<em>Body Mass + 200</em>0 = 85 + 6.93 Body Mass as Females correspond to the indicator variable being equal to zero. This model suggests that for every unit increase in Body Mass Anaerobic Power increases by 6.93 watts on average in Females.</p>
 <p>What is the regression equation for Males? Males correspond to the indicator variable taking the value 1 and applying this to the regression equation yields Wingate = 85 + 6.93 Body Mass + 200*1 = 285 + 6.93 Body Mass so that for every kilogram increase in Body Mass Anaerobic Power increases by 6.93 watts on average in Males.</p>
 <p>Note that the model assumes that the effect (i.e. regression coefficient) of Body Mass on Anaerobic Power is the same for both Males and Females (i.e. a parallel lines model) and that the only difference is in the intercept, which estimates the difference in mean Anaerobic Power between Males and Females assumed constant over the full range of Body Mass in this data set.</p>
-<p>Scatter plot of anaerboc power vs body mass with parallel lines model</p>
+<p>Scatter plot of Wingate power vs Body_Mass with parallel lines model <img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-29-1.png" width="624" /></p>
 <p>Do the data support this assumption? The smoothers suggested that the dependency of Anaerobic Power on Body Mass may differ for Males and Females and there may be a need for separate slopes. One simple way to test this is to extend the regression model to allow for separate slopes thereby allowing the dependency of Anaerobic Power on Body Mass to differ for Males and Females.</p>
 <p>To fit a separate slopes multiple regression model a separate slopes term is needed which is formed by creating a new variable to represent the interaction by simply multiplying the two explanatory variables in question, in this instance Body Mass and the indicator variable Sex(M=1/F=0).</p>
-<p>Regresssion of Power vs body mass, gender and Sex(M/F)*BodyMass</p>
+<p>Regresssion of Power Wingate vs Body_Mass, Sex and Sex(M/F)*Body_Mass</p>
+<pre><code>## 
+## Call:
+## lm(formula = Wingate ~ Body_Mass + Sex + Sex * Body_Mass, data = POWER)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -110.816  -50.892   -8.741   46.641  147.703 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)        314.993    206.014   1.529    0.138
+## Body_Mass            2.845      3.641   0.781    0.442
+## SexMale           -194.614    284.761  -0.683    0.500
+## Body_Mass:SexMale    6.365      4.547   1.400    0.173
+## 
+## Residual standard error: 70.15 on 26 degrees of freedom
+## Multiple R-squared:  0.8568, Adjusted R-squared:  0.8403 
+## F-statistic: 51.87 on 3 and 26 DF,  p-value: 4.138e-11</code></pre>
+<p><img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-30-1.png" width="624" /></p>
 <p>The regression coefficient for the interaction term is not significant (P=0.173) suggesting that separate slopes are not necessary after all. The simpler parallel slopes model is justified i.e. the effect of Sex is additive. Note that neither of the explanatory variables (i.e. Body Mass or Sex) now appears significant even though they both were in the simpler parallel lines model (i.e. the effect of Sex is simply added to the linear effect of Body Mass). This is an example of model over-fitting: too many explanatory variables have been included when a simpler model without the interaction term (Box 6.5.1.1) is more appropriate and hence real significant effects are submerged by this over-fitting. The model must now be refitted without the interaction term</p>
 <p>Conclusion: There is evidence that Anaerobic Power, as measured by the Wingate test, is significantly related to both Body Mass (P=0.004) and Sex (P&lt;0.001) where the effect of Sex is additive. The R2-adjusted for the parallel lines model is 83.5% suggesting that a considerable amount of the variation in Anaerobic Power is explained by its dependency on Body Mass and Sex.</p>
 <p>If a similar analysis is performed, this time using Anaerobic Power (as measured by the Margaria test) as the response, there is evidence of a significant interaction between Body Mass and Sex i.e. a separate slopes model is justified.</p>
@@ -320,14 +672,36 @@ The independence assumption appears justified as there is no reason to believe t
 <div id="section-power-and-body-mass-revisited-1" class="section level3">
 <h3>Power and Body Mass (Revisited)</h3>
 <p>Aim: To investigate whether Anaerobic Power (as assessed by the Margaria Test) is dependent upon the Body Mass and Sex of an individual.</p>
-<p>Plot a scatter plot of anaerobic power vs body mass with smoother</p>
-<p>Regression of Margaria vs Body Mass, Sex(M/F), and Sex(M/F)*BodyMass</p>
+<p>Plot a scatter plot of anaerobic power: AP_Margaria vs Body_Mass with separate smoother by Sex <img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-31-1.png" width="624" /></p>
+<p>Regression of AP_Margaria vs Body_Mass, Sex(M/F), and Sex(M/F)*Body_Mass</p>
+<pre><code>## 
+## Call:
+## lm(formula = AP_Margaria ~ Body_Mass + Sex + Sex * Body_Mass, 
+##     data = POWER)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -81.732 -16.814  -4.115  17.027 112.075 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)        248.641    143.694   1.730   0.0954 .
+## Body_Mass            3.543      2.539   1.395   0.1747  
+## SexMale           -229.054    198.620  -1.153   0.2593  
+## Body_Mass:SexMale    6.304      3.171   1.988   0.0575 .
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 48.93 on 26 degrees of freedom
+## Multiple R-squared:  0.9129, Adjusted R-squared:  0.9028 
+## F-statistic: 90.83 on 3 and 26 DF,  p-value: 6.664e-14</code></pre>
+<p><img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-32-1.png" width="624" /></p>
 <p>Estimates of the separate regression equations for Males and Females can be calculated by substituting in the relevant values for indicator variable as before. For example, the regression equation for Females is: Margaria = 265 + 3.26<em>Body Mass – 245</em>0 + 6.58<em>0</em>BodyMass</p>
 <pre><code>= 265 + 3.26*Body Mass </code></pre>
 <p>and hence in Females, Anaerobic Power rises by 3.26 Watts on average per kilogram increase in Body Mass. The estimated regression equation for Males is calculated by inserting a 1 for the value of Sex(M/F) in the regression equation: Margaria = 265 + 3.26<em>Body Mass – 245</em>1 + 6.58<em>1</em>BodyMass = (265-245) + (3.26+6.58) Body Mass</p>
 <pre><code>            = 20 + 6.84*Body Mass           </code></pre>
 <p>and hence Anaerobic Power in Males rises by 6.84 Watts on average per kilogram increase in Body Mass.</p>
-<p>Scatter plot of anaerobic power vs body mass with seperate slopes for gender model</p>
+<p>Scatter plot of anaerobic power AP_Margaria vs Body_Mass with seperate lines of best fit for Sex <img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-33-1.png" width="624" /></p>
 <p>Conclusion: The dependency of Anaerobic Power, as measured by the Margaria test, on Body Mass differs for Males and Females. It is estimated that Anaerobic Power increase by 6.84 Watts, on average, per unit increase in Body Mass in Males while in Females this average increase is estimated to be 3.26 Watts.</p>
 </div>
 </div>
@@ -339,6 +713,12 @@ The independence assumption appears justified as there is no reason to believe t
 <p>Study Description: In August 2002, 285 climbers passing through the Gouter Hut as they prepared to climb Mont Blanc completed a questionnaire which included questions on subject characteristics and the maximum altitude reached over the past 14 days (maxL14).</p>
 <p>Aim: To determine what are the best predictors of Mont Blanc summer Ascent Time for 194 successful climbers on whom all these variables were recorded.</p>
 <p>Regression tree for ascent time of mont blanc</p>
+<pre><code>## 
+## Attaching package: &#39;rpart&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:faraway&#39;:
+## 
+##     solder</code></pre>
+<p><img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-34-1.png" width="624" /></p>
 <p>The tree involves a series of simple 2 level rules (i.e. splitting rules) for the explanatory variables that ultimately lead to a predicted value for the response. At each decision point (i.e. node) the most useful explanatory variable – for predicting Ascent Time - and its corresponding ‘split (for continuous explanatory) or level (for categorical explanatory variables) is given. An individual ‘drops’ down the tree to the left at any node where the split condition is true or to the right where the split condition is not true. For example, the most useful split amongst all the explanatory variables was Age with a split of Age at 57 years. Those climbers aged 57 years or younger ‘drop’ down the left hand side of the tree where the next useful predictor identified for this particular subset is whether they have climbed over 4000 m or not in the last fortnight. Those sixty climbers that have made such a climb drop left and meet a ‘terminal’ node (i.e. no other variable was found to be a useful predictor for this subset). The predicted mean Ascent Time for climbers aged 57 years or younger and who have climbed over 4000 m in the last fortnight is estimated to be 3.97 hours which is simply the sample mean of the 60 subjects in this subset. In addition, it is useful to note that these 60 subjects have a sample standard deviation of 0.64 hours.</p>
 <p>The remaining climbers (who are over 57 or younger and have not climbed over 4000 m in the last fortnight) are next split by Sex where the Female climbers had a predicted mean Ascent Time of 4.57 hours. Additional information is needed for the Males before a prediction can be made. Maximum Altitude re-enters the tree for this specific subset of Male climbers but only for those that had climbed between 3000 m and 4000 in the last fortnight with a predicted mean Ascent Time of 4.05 hours and for those who climbed less than 3000 m with a predicted Ascent Time of 4.42 hours.</p>
 <p>Notice also that the tree has been drawn with increasing average Ascent Time from left to right in order to suggest the “pecking order” of climbing ability subsets. Those climbers aged 57 and over had the highest predicted Ascent Time where no other explanatory variable but Age was deemed useful for this subset.</p>
@@ -352,6 +732,8 @@ library(boot)
 library(nortest)
 library(e1071)
 library(ggpubr)
+library(faraway)
+library(leaps)
 knitr::opts_chunk$set(echo = FALSE)
 tutorial_options(exercise.checker = grade_learnr)
 
@@ -361,6 +743,7 @@ CYCLINGPOWER <- read_csv("data/chapter_6/CYCLINGPOWER.CSV")
 POWER <- read_csv("data/chapter_6/POWER.CSV")
 ROWING5000M <- read_csv("data/chapter_6/ROWING5000M.CSV")
 V02_MAX_AND_BODY_MASS <- read_csv("data/chapter_6/VO2 MAX AND BODY MASS.CSV")
+MONT_BLANC <- read_csv("data/chapter_3/MONT BLANC ASCENT.CSV")
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
