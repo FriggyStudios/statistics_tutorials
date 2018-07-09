@@ -1,5 +1,5 @@
 ---
-title: "Testing Hypotheses"
+title: "Modelling Relationships - Regression"
 output: 
       learnr::tutorial:
           progressive: true
