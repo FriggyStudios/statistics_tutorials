@@ -25,7 +25,7 @@ RUNNING <- read_csv("data/chapter_6/3KRUNNING.CSV")
 CYCLINGPOWER <- read_csv("data/chapter_6/CYCLINGPOWER.CSV")
 POWER <- read_csv("data/chapter_6/POWER.CSV")
 ROWING5000M <- read_csv("data/chapter_6/ROWING5000M.CSV")
-V02_MAX_AND_BODY_MASS <- read_csv("data/chapter_6/VO2 MAX AND BODY MASS.CSV")
+VO2_MAX_AND_BODY_MASS <- read_csv("data/chapter_6/VO2 MAX AND BODY MASS.CSV")
 MONT_BLANC <- read_csv("data/chapter_3/MONT BLANC ASCENT.CSV")
 ```
 
@@ -61,35 +61,81 @@ Study Description: Sixteen male well-trained middle and long distance runners pe
 Aims:  To investigate whether there is sufficient evidence of a dependency of 3 km running time on v-4mM in the population of male runners of heterogeneous ability from which the samples arose.
 
 Scatter plot of 3km runnning time: Time vs VO2 MAx: v_Vo2Max with smoother
-```{r}
+```{r scatter_running, exercise=TRUE, exercise.lines = 5}
+ggplot(data = RUNNING,...) +
+  geom_point() +
+  geom_smooth(method='loess',level = 0)
+```
+
+```{r scatter_running-solution}
 ggplot(data = RUNNING,mapping = aes(x = Time, y = v_Vo2Max)) +
   geom_point() +
   geom_smooth(method='loess',level = 0)
 ```
 
-The “obvious” subjective impression is that faster 3 km Times are achieved by individuals with higher v-4mM scores.  Further to this the smoother suggests that the overall trend is plausibly linear.
+```{r scatter_running-hint}
+ggplot(data = RUNNING,mapping = aes(x = Time, y = v_Vo2Max)) +
+  geom_point() +
+  geom_smooth(method='loess',level = 0)
+```
+
+```{r scatter_running-check}
+strict_check(success = "The “obvious” subjective impression is that faster 3 km Times are achieved by individuals with higher v-4mM scores.  Further to this the smoother suggests that the overall trend is plausibly linear.")
+```
 
 Regression of runnning times vs VO2 Max
-```{r}
+
+```{r r_running, exercise=TRUE, exercise.lines = 5}
+model <- lm(Time ~ v_4mM, data=RUNNING)
+summary(...)
+par(mfrow=c(2,2))
+plot(...)
+```
+
+```{r t_rur_runningnning-solution}
 model <- lm(Time ~ v_4mM, data=RUNNING)
 summary(model)
 par(mfrow=c(2,2))
 plot(model)
 ```
 
-There is a significant dependence of 3 km time on v-4mM by virtue of the P-value (highlighted in bold) for the Null Hypothesis that the population slope is zero.  As the P-value is very small there is convincing evidence against the Null Hypothesis and a claim is made that the population slope is different from zero i.e. there is a meaningful dependence of 3 km Time on v-4mM.
+```{r r_running-hint}
+model <- lm(Time ~ v_4mM, data=RUNNING)
+summary(model)
+par(mfrow=c(2,2))
+plot(model)
+```
 
-The intercept is estimated to be 15.8223 and the sample slope to be -0.37285 (both highlighted in bold in Box 6.1.1.1) and hence the regression equation is (to two decimal places) 
+```{r r_running-check}
+strict_check(success = "There is a significant dependence of 3 km time on v-4mM by virtue of the P-value (highlighted in bold) for the Null Hypothesis that the population slope is zero.  As the P-value is very small there is convincing evidence against the Null Hypothesis and a claim is made that the population slope is different from zero i.e. there is a meaningful dependence of 3 km Time on v-4mM.
+
+The intercept is estimated to be 15.8223 and the sample slope to be -0.37285 (both highlighted in bold in Box 6.1.1.1) and hence the regression equation is (to two decimal places) ")
+```
+
+
 
 $$Average\quad 3km\quad Time = 15.82 - 0.37*v-4mM$$
 Scatter plot of 3km runnning times vs VO2 Max with line of best fit
-```{r}
+```{r scatter2_running, exercise=TRUE, exercise.lines = 5}
+ggplot(data = RUNNING,...) +
+  ... +
+  geom_smooth(method='lm')
+```
+
+```{r scatter2_running-solution}
 ggplot(data = RUNNING,mapping = aes(x = Time, y = v_Vo2Max)) +
   geom_point() +
   geom_smooth(method='lm')
 ```
 
-The information provided by the sample slope is that it is estimated that a 1 km.h-1 increase in v-4mM in a laboratory test will result in an improved 3 km Time of 0.37 minutes on average. Clearly this is a meaningful improvement and indicates that distance runners should attempt to improve v-4mM by adopting an appropriate training regime.
+```{r scatter2_running-hint}
+ggplot(data = RUNNING,mapping = aes(x = Time, y = v_Vo2Max)) +
+  geom_point() +
+  geom_smooth(method='lm')
+```
+
+```{r scatter2_running-check}
+strict_check(success = "The information provided by the sample slope is that it is estimated that a 1 km.h-1 increase in v-4mM in a laboratory test will result in an improved 3 km Time of 0.37 minutes on average. Clearly this is a meaningful improvement and indicates that distance runners should attempt to improve v-4mM by adopting an appropriate training regime.
 
 The sample intercept states that athlete with a v-4mM of zero will have an average 3km Running Time of 15.8 minutes.   This makes no sense and highlights a very important feature of any regression line, namely that a regression line is only valid for the range of data collected.  The minimum v-4mM recorded was 14.2 $km.h^{-1}$  and the predicted 3 km Running Time for an athlete with this v-4mM value would be 15.82-0.37*(14.2) = 10.56 minutes, which is much more plausible.  In general, never try to extrapolate the regression equation outside the range of the explanatory variable!
 
@@ -97,18 +143,33 @@ The estimated standard errors of the intercept and slope are given in Box 6.1.1.
 
 The approximation provided by the ‘quick and robust method’ is quite accurate and this is usually the case for moderate to large sample sizes.  The same approach applies for the intercept but this, of course, is seldom of interest.
 
-The estimated standard error of the intercept and slope can be used also to generate a 95% Confidence Region for the population regression equation (i.e. the underlying true line linking the average 3km Time to  v-4mM)
+The estimated standard error of the intercept and slope can be used also to generate a 95% Confidence Region for the population regression equation (i.e. the underlying true line linking the average 3km Time to  v-4mM)")
+```
 
 Plot a scatter plot of 3km time vs v-4mM with 95% confidence interval
-```{r}
+```{r scatter3_running, exercise=TRUE, exercise.lines = 5}
+ggplot(data = RUNNING,...) +
+  ... +
+  geom_smooth(method='loess', level = ...)
+```
+
+```{r scatter3_running-solution}
 ggplot(data = RUNNING,mapping = aes(x = Time, y = v_Vo2Max)) +
   geom_point() +
   geom_smooth(method='loess', level = .95)
 ```
 
-The Confidence Region represents the ‘band’ where the true regression line could plausibly lie.  If so desired the graph can be used to approximate interval estimates of the mean 3 km Time in the population of well-trained middle and long distance runners.  For example a rough and ready approximation of the population mean 3 km Time for those runners with v-4mM equal to 18 appears to be somewhere between 9 and 9½  minutes. 
+```{r scatter3_running-hint}
+ggplot(data = RUNNING,mapping = aes(x = Time, y = v_Vo2Max)) +
+  geom_point() +
+  geom_smooth(method='loess', level = .95)
+```
 
-Conclusion:  There was evidence of a significant negative dependence (P < 0.001) of 3 km Running Time on v-4mM in the population of male runners.  Further it is estimated that 3 km Running Time decreases by between 0.29 to 0.46 minutes on (average) for every unit increase in v-4mM across a range of v-4mM from 14 to 20 $km.h^{-1}$.
+```{r scatter3_running-check}
+strict_check(success = "The Confidence Region represents the ‘band’ where the true regression line could plausibly lie.  If so desired the graph can be used to approximate interval estimates of the mean 3 km Time in the population of well-trained middle and long distance runners.  For example a rough and ready approximation of the population mean 3 km Time for those runners with v-4mM equal to 18 appears to be somewhere between 9 and 9½  minutes.
+
+Conclusion:  There was evidence of a significant negative dependence (P < 0.001) of 3 km Running Time on v-4mM in the population of male runners.  Further it is estimated that 3 km Running Time decreases by between 0.29 to 0.46 minutes on (average) for every unit increase in v-4mM across a range of v-4mM from 14 to 20 km.h^{-1}.")
+```
 
 ### Assessing the Adequacy of a Simple Linear Regression
 One of the key notions in Regression is the concept of ‘explained variability’.  A useful regression model is one where the variability displayed in the response variable can be explained by its dependence on one or more explanatory variables.   Indeed this very notion is one basis for assessing the adequacy of regression models.
@@ -136,36 +197,55 @@ The Normality and Equal Spreads assumptions relate to the distribution and sprea
 A residual (in the regression context) is the difference between the observed value of the response and that predicted by the regression equation (the so-called fitted value) at the value of each subject’s explanatory variable in turn.  Two such residuals are highlighted in Figure 6.1.1.4 for Runners 7 and 9, the former being a negative residual and the latter a positive residual.  
 
 Scatter plot of 3km time: Time vs v_4mM with smooth
-```{r}
+```{r scatter4_running, exercise=TRUE, exercise.lines = 5}
+ggplot(data = RUNNING,...) +
+  ... +
+  geom_smooth(method='loess',level = 0)
+```
+
+```{r scatter4_running-solution}
 ggplot(data = RUNNING,mapping = aes(x = Time, y = v_4mM)) +
   geom_point() +
   geom_smooth(method='loess',level = 0)
 ```
 
+```{r scatter4_running-hint}
+ggplot(data = RUNNING,mapping = aes(x = Time, y = v_4mM)) +
+  geom_point() +
+  geom_smooth(method='loess',level = 0)
+```
+
+```{r scatter4_running-check}
+strict_check(success = "The Confidence Region represents the ‘band’ where the true regression line could plausibly lie.  If so desired the graph can be used to approximate interval estimates of the mean 3 km Time in the population of well-trained middle and long distance runners.  For example a rough and ready approximation of the population mean 3 km Time for those runners with v-4mM equal to 18 appears to be somewhere between 9 and 9½  minutes.
+
+Conclusion:  There was evidence of a significant negative dependence (P < 0.001) of 3 km Running Time on v-4mM in the population of male runners.  Further it is estimated that 3 km Running Time decreases by between 0.29 to 0.46 minutes on (average) for every unit increase in v-4mM across a range of v-4mM from 14 to 20 km.h^{-1}.")
+```
+
 Residuals can be used to provide an indication as to how well the model fits the data. One problem with using residuals, however, is that their values depend on the scale of the response variable.  This makes it difficult to identify residuals that are ‘too large’ in a general sense.  The conventional way of overcoming this is to standardise the residuals by dividing the residual by an estimate of its standard error.  Standardising the residuals makes their scale easier to interpret; values greater than 2 or less than -2 for example are considered large and the validity/correctness of such observations would be worth rechecking.  The value 2 is used since the vast majority (roughly 95%) of the standard Normal distribution lie between -2 and 2 and the assumptions effectively imply that the standardised residuals should roughly follow a standard Normal distribution.
 
-The validity of the simple linear regression assumptions can be checked graphically using different plots of the standardised residuals.  The two most useful residual plots are
-i) A plot of the standardised residuals (on the vertical axis) against the fitted values from the regression.  If the Linearity and Equal Spreads assumptions are valid, this plot should show a random scatter of points;
-ii)	A Normal probability plot of the standardised residuals.   This should be of a roughly linear shape if the Normality assumption is adequate. 
+The validity of the simple linear regression assumptions can be checked graphically using different plots of the standardised residuals.  The two most useful residual plots are:
+
+1. A plot of the standardised residuals (on the vertical axis) against the fitted values from the regression.  If the Linearity and Equal Spreads assumptions are valid, this plot should show a random scatter of points;
+2.	A Normal probability plot of the standardised residuals.   This should be of a roughly linear shape if the Normality assumption is adequate. 
 
 
 Plot of standarised residuals vs fitted values
-```{r}
+```{r echcho = T}
 ggplot(data = RUNNING, mapping = aes(x = 15.82228-0.37285*v_4mM, y = (Time-(15.82228-0.37285*v_4mM)))) +
   geom_point() +
   geom_smooth(method='lm',level = 0) + 
   labs(x = "Fitted Value", y = "Standardised Residual")
 ```
-There is no evidence against the linearity or equal spreads assumption as the residuals appear to be scattered in more or less a random fashion at each value of v-4mM.  Note also that one of the standardised residuals is (slightly) below -2 and it may be worth rechecking the data recorded for that individual (although, in fact, it would be expected that roughly 1 in 20 standardised residuals would be outside the range -2 to +2!).  
-
+ 
 Normal probability plot of standarised residuals
-```{r}
+```{r echo = T}
   var<- 15.82228-0.37285*RUNNING$v_4mM
 p<-probplot(qnorm(pretty(c(0.01,0.99),1000),mean=mean(var,na.rm=T),sd(var,na.rm=T)))
 probplot(var,line=F)
 lines(p)
 ad.test(var)
 ```
+
 Since this plot is more or less linear, the Normality assumption appears justified.
 
 In the technical appendix, a selection of typical residual plots which make the simple linear regression assumptions doubtful are provided.
@@ -180,38 +260,83 @@ Study Description: Twenty three physically active males (sample mean age of 30 y
 Aims:  To model the dependency of VO2 max on Body Mass and to investigate whether a ‘ratio scaled variable’ is appropriate to remove the dependency.
 
 Plot a scatter plot of VO2max vs Body_Mass with smoother
-```{r}
-ggplot(data = V02_MAX_AND_BODY_MASS,mapping = aes(x = VO2max, y = Body_Mass)) +
+```{r scatter_vo2, exercise=TRUE, exercise.lines = 5}
+ggplot(data = VO2_MAX_AND_BODY_MASS,...) +
+  ... +
+  ...
+```
+
+```{r scatter_vo2-solution}
+ggplot(data = VO2_MAX_AND_BODY_MASS,mapping = aes(x = VO2max, y = Body_Mass)) +
   geom_point() +
   geom_smooth(method='loess')
+```
+
+```{r scatter_vo2-hint}
+ggplot(data = VO2_MAX_AND_BODY_MASS,mapping = aes(x = VO2max, y = Body_Mass)) +
+  geom_point() +
+  geom_smooth(method='loess')
+```
+
+```{r scatter_vo2-check}
+strict_check(success = "")
 ```
 
 The main aim is to investigate whether forming a new ‘ratio scaled’ variable, by dividing VO2 max by Body Mass in some sense removes the dependency of VO2 max on Body Mass and therefore this ratio-adjusted variable encapsulates the dependency directly.   If this approach is plausible it would imply that the a simple linear regression model relating VO2 max to Body Mass must have intercept zero i.e. a person of zero Body Mass should have zero VO2 max.   This can be checked formally by fitting a simple linear regression model and either generating a 95% CI for the intercept and checking whether zero is a plausible value for the population intercept or through the results of a hypothesis test where the null hypothesis is that the population intercept is zero. 
 
 Regression of VO2max and Body_Mass
-```{r}
-model <- lm(VO2max ~ Body_Mass, data=V02_MAX_AND_BODY_MASS)
+```{r reg_vo2, exercise=TRUE, exercise.lines = 5}
+model <- lm(...)
 summary(model)
 par(mfrow=c(2,2))
 plot(model)
 ```
 
+```{r reg_vo2-solution}
+model <- lm(VO2max ~ Body_Mass, data=VO2_MAX_AND_BODY_MASS)
+summary(model)
+par(mfrow=c(2,2))
+plot(model)
+```
 
-Using the regression output, there is evidence that the intercept is not significantly different from zero (P=0.25) and hence there is (some) justification here to divide VO2 max by Body Mass to remove its effect.
+```{r reg_vo2-hint}
+model <- lm(VO2max ~ Body_Mass, data=VO2_MAX_AND_BODY_MASS)
+summary(model)
+par(mfrow=c(2,2))
+plot(model)
+```
+
+```{r reg_vo2-check}
+strict_check(success = "Using the regression output, there is evidence that the intercept is not significantly different from zero (P=0.25) and hence there is (some) justification here to divide VO2 max by Body Mass to remove its effect.
 
 Notice that this is another atypical example where the desired result is not to find a significant result!
 
-The sample slope is positive and significant (P<0.001) providing evidence of a dependency of VO2 max on Body Mass regression equation where it is estimated that VO2 max increases by 0.05 litres.min-1 per kilogram increase in Body Mass.  The intercept is not significantly different from zero (P=0.25) and hence a “proportional model” could be appropriate here in which case adjusting VO2 max by simply dividing by Body Mass may be sufficient to remove its effect on VO2 max.
+The sample slope is positive and significant (P<0.001) providing evidence of a dependency of VO2 max on Body Mass regression equation where it is estimated that VO2 max increases by 0.05 litres.min-1 per kilogram increase in Body Mass.  The intercept is not significantly different from zero (P=0.25) and hence a “proportional model” could be appropriate here in which case adjusting VO2 max by simply dividing by Body Mass may be sufficient to remove its effect on VO2 max.")
+```
 
 Plot a scatterplot of Ratio adjust VO2max/Body_Mass vs Body_Mass
-```{r}
-ggplot(data = V02_MAX_AND_BODY_MASS,mapping = aes(x = VO2max/Body_Mass, y = Body_Mass)) +
+```{r scatter2_vo2, exercise=TRUE, exercise.lines = 5}
+ggplot(data = VO2_MAX_AND_BODY_MASS,...) +
   geom_point()
 ```
 
+```{r scatter2_vo2-solution}
+ggplot(data = VO2_MAX_AND_BODY_MASS,mapping = aes(x = VO2max/Body_Mass, y = Body_Mass)) +
+  geom_point()
+```
+
+```{r scatter2_vo2-hint}
+ggplot(data = VO2_MAX_AND_BODY_MASS,mapping = aes(x = VO2max/Body_Mass, y = Body_Mass)) +
+  geom_point()
+```
+
+```{r scatter2_vo2-check}
+strict_check(success = "")
+```
+
 Pearson correlation test: Ratio Adjusted VO2max/Body_Mass vs Body_Mass
-```{r}
-cor.test(V02_MAX_AND_BODY_MASS$VO2max/V02_MAX_AND_BODY_MASS$Body_Mass, V02_MAX_AND_BODY_MASS$Body_Mass, method = "pearson")
+```{r echo = T}
+cor.test(VO2_MAX_AND_BODY_MASS$VO2max/VO2_MAX_AND_BODY_MASS$Body_Mass, VO2_MAX_AND_BODY_MASS$Body_Mass, method = "pearson")
 ```
 
 The P-value for the hypothesis test of zero correlation is not less than 0.05 providing evidence of no significant dependency of Ratio-Adjusted max on Body Mass.
@@ -229,28 +354,67 @@ Study Description:  Eighteen experienced male club and university rowers had the
 Aim:  To investigate the dependency of 5000 m rowing performance on Peak Power in order to predict likely 5000 m time for a future oarsman with a specific value of Peak Power.
 
 Plot a scatter plot of Rowing_Time_5000m vs Peak_Power with smoother
-```{r}
+```{r scatter_rowing, exercise=TRUE, exercise.lines = 5}
+ggplot(data = ROWING5000M,...) +
+  ...
+```
+
+```{r scatter_rowing-solution}
 ggplot(data = ROWING5000M,mapping = aes(x = Rowing_Time_5000m, y = Peak_Power)) +
   geom_point() +
   geom_smooth(method='loess',level = 0)
 ```
 
+```{r scatter_rowing-hint}
+ggplot(data = ROWING5000M,mapping = aes(x = Rowing_Time_5000m, y = Peak_Power)) +
+  geom_point() +
+  geom_smooth(method='loess',level = 0)
+```
+
+```{r scatter_rowing-check}
+strict_check(success = "")
+```
+
 Regression Analysis: Rowing_Time_5000m versus Peak_Power (W) and Stroke_Length (m) 
-```{r}
+```{r reg_rowing, exercise=TRUE, exercise.lines = 5}
+model <- .__C__.externalptr
+summary(model)
+par(mfrow=c(2,2))
+plot(model)
+```
+
+```{r reg_rowing-solution}
 model <- lm(Rowing_Time_5000m ~ Peak_Power + Stroke_Length, data=ROWING5000M)
 summary(model)
 par(mfrow=c(2,2))
 plot(model)
 ```
 
-The estimated regression equation is 
+```{r reg_rowing-hint}
+model <- lm(Rowing_Time_5000m ~ Peak_Power + Stroke_Length, data=ROWING5000M)
+summary(model)
+par(mfrow=c(2,2))
+plot(model)
+```
+
+```{r reg_rowing-check}
+strict_check(success = "The estimated regression equation is 
 Average 5000 m Time = 1518– 0.593*Peak_Power
 allowing a prediction of 5000 m Rowing Time to be made by multiplying Peak Power by 0.593 and subtracting this from 1518.  For example, it is predicted that any oarsman of the same standard as those in the sample with a Peak Power of 800 watts will have an average Rowing Time of 1518– 0.593*800 = 1043.6 seconds (i.e. 17.4 minutes). 
 
-The R2 statistic of 77% suggests that the predictive power of the model is quite good.   One oarsman was identified as having a (standardised) residual that may be worthy of attention.  This standardised residual is negative suggesting that this oarsman’s Rowing Time is notably lower than those with an identical Peak Power. 
+The R2 statistic of 77% suggests that the predictive power of the model is quite good.   One oarsman was identified as having a (standardised) residual that may be worthy of attention.  This standardised residual is negative suggesting that this oarsman’s Rowing Time is notably lower than those with an identical Peak Power. ")
+```
 
 Normal probability plot of standarised residuals
-```{r}
+```{r norm_rowing, exercise=TRUE, exercise.lines = 5}
+var <- ...
+p<-probplot(qnorm(pretty(c(0.01,0.99),1000),mean=mean(var,na.rm=T),sd(var,na.rm=T)))
+probplot(var,line=F)
+lines(p)
+ad.test(var)
+```
+
+```{r norm_rowing-solution}
 var <- 1518 - 0.593*ROWING5000M$Peak_Power
 p<-probplot(qnorm(pretty(c(0.01,0.99),1000),mean=mean(var,na.rm=T),sd(var,na.rm=T)))
 probplot(var,line=F)
@@ -258,26 +422,68 @@ lines(p)
 ad.test(var)
 ```
 
+```{r norm_rowing-hint}
+var <- 1518 - 0.593*ROWING5000M$Peak_Power
+p<-probplot(qnorm(pretty(c(0.01,0.99),1000),mean=mean(var,na.rm=T),sd(var,na.rm=T)))
+probplot(var,line=F)
+lines(p)
+ad.test(var)
+```
+
+```{r norm_rowing-check}
+strict_check(success = "")
+```
+
 Plot of standarised residuals vs fitted values
-```{r}
+```{r res_rowing, exercise=TRUE, exercise.lines = 5}
+ggplot(data = ROWING5000M, mapping = aes(x = ..., y = ...)) +
+  geom_point() +
+  geom_smooth(method='lm',level = 0) + 
+  labs(x = "Fitted Value", y = "Standardised Residual")
+```
+
+```{r res_rowing-solution}
 ggplot(data = ROWING5000M, mapping = aes(x = 1518 - 0.593*Peak_Power, y = (Rowing_Time_5000m-(1518 - 0.593*Peak_Power)))) +
   geom_point() +
   geom_smooth(method='lm',level = 0) + 
   labs(x = "Fitted Value", y = "Standardised Residual")
 ```
 
-It is often of interest to make a prediction of the likely value of the response for a particular individual with a specific value of the explanatory variable.  If this is the case a Prediction Interval is appropriate as, in this Illustration, it provides an estimate of the likely Rowing Time for a single future oarsmen with a particular Peak Power reading.
+```{r res_rowing-hint}
+ggplot(data = ROWING5000M, mapping = aes(x = 1518 - 0.593*Peak_Power, y = (Rowing_Time_5000m-(1518 - 0.593*Peak_Power)))) +
+  geom_point() +
+  geom_smooth(method='lm',level = 0) + 
+  labs(x = "Fitted Value", y = "Standardised Residual")
+```
+
+```{r res_rowing-check}
+strict_check(success = "It is often of interest to make a prediction of the likely value of the response for a particular individual with a specific value of the explanatory variable.  If this is the case a Prediction Interval is appropriate as, in this Illustration, it provides an estimate of the likely Rowing Time for a single future oarsmen with a particular Peak Power reading.")
+```
 
 Plot scatter plot of 5000m rowing times versus peak power with 95% PI
-```{r}
+```{r scatter2_rowing, exercise=TRUE, exercise.lines = 5}
+ggplot(data = ROWING5000M, ...) +
+  geom_point() +
+  geom_smooth(method='loess', level = ...)
+```
+
+```{r scatter2_rowing-solution}
 ggplot(data = ROWING5000M, mapping = aes(x = Rowing_Time_5000m, y = Peak_Power)) +
   geom_point() +
   geom_smooth(method='loess', level = .95)
 ```
 
-he width of the Prediction Interval is 86 seconds which is quite wide given the sample range of Rowing Times recorded.  Hence, even though the regression model is appropriate and the R2 statistic is quite high, the model still lacks precision when predicting at the individual level. 
+```{r scatter2_rowing-hint}
+ggplot(data = ROWING5000M, mapping = aes(x = Rowing_Time_5000m, y = Peak_Power)) +
+  geom_point() +
+  geom_smooth(method='loess', level = .95)
+```
 
-Conclusion:  There was convincing evidence that the dependency of 5000 m Rowing Time on Peak Power could be adequately modelled using a straight line.  It is estimated that nearly 80% of the variability in 5000 m Rowing Time can be explained by its dependency on Peak Power.   95% Prediction Intervals for future oarsmen of given Peak Power however are quite wide (with respect to the range of 5000 m Rowing Times recorded).
+```{r scatter2_rowing-check}
+strict_check(success = "The width of the Prediction Interval is 86 seconds which is quite wide given the sample range of Rowing Times recorded.  Hence, even though the regression model is appropriate and the R2 statistic is quite high, the model still lacks precision when predicting at the individual level. 
+
+Conclusion:  There was convincing evidence that the dependency of 5000 m Rowing Time on Peak Power could be adequately modelled using a straight line.  It is estimated that nearly 80% of the variability in 5000 m Rowing Time can be explained by its dependency on Peak Power.   95% Prediction Intervals for future oarsmen of given Peak Power however are quite wide (with respect to the range of 5000 m Rowing Times recorded).")
+```
 
 ## Multiple Regression
 The multiple (linear) regression model is used in scenarios where the response variable is dependent on two or more explanatory variables. The first illustration revisits the data collected from the sample of oarsmen where an additional explanatory variable is available.   A natural question to consider is whether a better model (in terms of predictive power) arises by including information contained in both these explanatory variables compared to the predictive power available by fitting a simple linear regression using either variable on its own.  
@@ -297,7 +503,7 @@ Aim:  To investigate whether 5000 m rowing performance depends on Peak Power and
 Analysis:    As in simple linear regression it is important to examine the relationships among all the variables involved by providing scatter plots and sample correlation coefficients for each pair of variables before any formal analysis is undertaken. Pairwise scatter plots are useful graphical summaries for multiple regression analyses as they provide a starting point for assessing the likely relationship between all variables (i.e. response and explanatory variables)
 
 Matrix Scatter Plot of Rowing_Time_5000m, Peak_Power, and Stroke_Length
-```{r}
+```{r echo = T}
 pairs(~Rowing_Time_5000m+Peak_Power+Stroke_Length,data=ROWING5000M,panel=function(...) panel.smooth(...,span=0.65))
 
 cor(cbind(Rowing_Time_5000m=ROWING5000M$Rowing_Time_5000m,Peak_Power=ROWING5000M$Peak_Power,Stroke_Length=ROWING5000M$Stroke_Length))
@@ -311,7 +517,7 @@ vif(model)
 he plot labelled A has Peak Power on the horizontal axis while in plot B Stroke Length is on the horizontal axis.  These plots suggest a negative relationship between 5000 m Rowing Time and both Peak Power and Stroke Length where increasing values of Peak Power and Stroke Length are associated with better (i.e. lower) Rowing Times.  The remaining plot (C) is a plot of the two explanatory variables, with Peak Power on the vertical axis and Stroke Length on the horizontal axis.  This plot provides a visual impression as to whether the two explanatory variables are correlated which indeed seems to be the case here.
 
 P value test for Rowing_Time_5000m vs Peak_Power, Stroke_Length vs Peak_Power, Rowing_Time_5000m vs Stroke_Length
-```{r}
+```{r echo = T}
 cor.test(ROWING5000M$Rowing_Time_5000m, ROWING5000M$Peak_Power, method = "pearson")
 cor.test(ROWING5000M$Stroke_Length, ROWING5000M$Peak_Power, method = "pearson")
 cor.test(ROWING5000M$Rowing_Time_5000m, ROWING5000M$Stroke_Length, method = "pearson")
@@ -319,21 +525,37 @@ cor.test(ROWING5000M$Rowing_Time_5000m, ROWING5000M$Stroke_Length, method = "pea
 
 There is evidence of a significant correlation between the response variable 5000 m Rowing Time and each of Peak Power (r=-0.88, p<0.001) and Stroke Length (r=-0.77, p<0.001).   This suggests each explanatory variable may be a useful predictor of 5000 m Time in its own right in a regression model but the significant correlation between the two explanatory variables (r=0.61, p=0.007) suggests that either one of these variables may not be given additional information about 5000 m Time to that from the other variable.  The next step is to use multiple regression to model the dependency of the response on both explanatory variables
 
-Regression of Rowing_Time_5000m vs Peak_Power and Stroke_Length
-```{r}
+Regression for ROWING5000M data: Rowing_Time_5000m vs Peak_Power and Stroke_Length
+```{r reg2_rowing, exercise=TRUE, exercise.lines = 5}
+model <- ...
+summary(model)
+par(mfrow=c(2,2))
+plot(model)
+```
+
+```{r reg2_rowing-solution}
 model <- lm(Rowing_Time_5000m ~ Peak_Power + Stroke_Length, data=ROWING5000M)
 summary(model)
 par(mfrow=c(2,2))
 plot(model)
 ```
 
-The output is quite similar to that generated when fitting a simple linear regression except that the regression equation now has three terms; an intercept and regression coefficients for each of the two explanatory variables. 
+```{r reg2_rowing-hint}
+model <- lm(Rowing_Time_5000m ~ Peak_Power + Stroke_Length, data=ROWING5000M)
+summary(model)
+par(mfrow=c(2,2))
+plot(model)
+```
+
+```{r reg2_rowing-check}
+strict_check(success = "The output is quite similar to that generated when fitting a simple linear regression except that the regression equation now has three terms; an intercept and regression coefficients for each of the two explanatory variables. 
 
 The estimated regression equation is given as 
 Average 5000 m Rowing Time = 1664.43– 0.44 Peak Power – 152.5*Stroke Length
 
 Note “Average” here denotes the population average for any individual with specific values of Peak Power and Stroke Length.
-There is an important difference as to how the regression coefficients are interpreted compared to simple linear regression.  The first term in the regression equation is an estimate of the intercept i.e.1664 here (a good year for Beer?).  It represents the average 5000 m Rowing Time when both Peak Power and Stroke Length are equal to zero and despite being of no practical interest it is essential to the model, is significant and should be retained in the model.  The regression coefficients for the two explanatory variables are of primary interest as they represent the change in the “average” 5000 m Rowing Time per unit increase in the corresponding explanatory variable corrected for the other explanatory variable.  The regression coefficient for Peak Power for example states that for every 1 watt increase in Peak Power 5000 m Rowing Time decreases on average by 0.44 seconds, if Stroke Length is held constant.  This 'effect' of Peak Power is assumed to be the same for every Stroke Length value.  In a similar manner, the regression coefficient for Stroke Length is an estimate of the likely effect of Stroke Length on 5000 m Rowing Time in the population of oarsmen.  The regression coefficient states that for every 1 m increase in Stroke Length, 5000 m Rowing Time decreases, on average, by 153 seconds if Peak Power is held constant.  An increase of 1 m in Stroke Length is of course massive and a more sensible interpretation might be that for every 1 cm increase in Stroke Length 5000 m Rowing Time decreases, on average, by 1.53 seconds if Peak Power is held constant. 
+There is an important difference as to how the regression coefficients are interpreted compared to simple linear regression.  The first term in the regression equation is an estimate of the intercept i.e.1664 here (a good year for Beer?).  It represents the average 5000 m Rowing Time when both Peak Power and Stroke Length are equal to zero and despite being of no practical interest it is essential to the model, is significant and should be retained in the model.  The regression coefficients for the two explanatory variables are of primary interest as they represent the change in the “average” 5000 m Rowing Time per unit increase in the corresponding explanatory variable corrected for the other explanatory variable.  The regression coefficient for Peak Power for example states that for every 1 watt increase in Peak Power 5000 m Rowing Time decreases on average by 0.44 seconds, if Stroke Length is held constant.  This 'effect' of Peak Power is assumed to be the same for every Stroke Length value.  In a similar manner, the regression coefficient for Stroke Length is an estimate of the likely effect of Stroke Length on 5000 m Rowing Time in the population of oarsmen.  The regression coefficient states that for every 1 m increase in Stroke Length, 5000 m Rowing Time decreases, on average, by 153 seconds if Peak Power is held constant.  An increase of 1 m in Stroke Length is of course massive and a more sensible interpretation might be that for every 1 cm increase in Stroke Length 5000 m Rowing Time decreases, on average, by 1.53 seconds if Peak Power is held constant. ")
+```
 
 The next step in the analysis is to provide evidence as to whether the explanatory variables are significant in the population of oarsmen.
 
@@ -386,7 +608,19 @@ Reference: Espinosa-Zepeda, Maria T. (1995).  Metabolic rate related to body com
 Aim:  To model the dependency, if any, of % Body Fat on Body Mass, Height and Age in males.
 
 Matrix scatter plot of Body_Fat by Age Body_Mass, and Height
-```{r}
+```{r mat_mass, exercise=TRUE, exercise.lines = 5}
+pairs(~...,data=BODY_FAT_MALE,panel=
+        function(...) panel.smooth(...,span=0.65))
+
+cor(cbind(Body_Fat=BODY_FAT_MALE$Body_Fat,Age=BODY_FAT_MALE$Age,Body_Mass=BODY_FAT_MALE$Body_Mass,Height=BODY_FAT_MALE$Height))
+
+model<-lm(...,data=BODY_FAT_MALE)
+summary(model)
+summary(aov(model))
+vif(model)
+```
+
+```{r mat_mass-solution}
 pairs(~Body_Fat+Age+Body_Mass+Height,data=BODY_FAT_MALE,panel=function(...) panel.smooth(...,span=0.65))
 
 cor(cbind(Body_Fat=BODY_FAT_MALE$Body_Fat,Age=BODY_FAT_MALE$Age,Body_Mass=BODY_FAT_MALE$Body_Mass,Height=BODY_FAT_MALE$Height))
@@ -397,19 +631,48 @@ summary(aov(model))
 vif(model)
 ```
 
-The main plots of interest are labelled as A, B and C representing the scatter plots of the response variable (on the vertical axis) against the three explanatory variables.  It appears that there is a slight positive dependency of % Body Fat on Body Mass and Age and a possible negative dependency of % Body Fat on Height.   An (anticipated) positive relationship is noticed between Height and Body Mass with little or no relationship between Age and Body Mass nor between Age and Height.
+```{r mat_mass-hint}
+pairs(~Body_Fat+Age+Body_Mass+Height,data=BODY_FAT_MALE,panel=function(...) panel.smooth(...,span=0.65))
+
+cor(cbind(Body_Fat=BODY_FAT_MALE$Body_Fat,Age=BODY_FAT_MALE$Age,Body_Mass=BODY_FAT_MALE$Body_Mass,Height=BODY_FAT_MALE$Height))
+
+model<-lm(Body_Fat~Body_Mass+Age+Height,data=BODY_FAT_MALE)
+summary(model)
+summary(aov(model))
+vif(model)
+```
+
+```{r mat_mass-check}
+strict_check(success = "The main plots of interest are labelled as A, B and C representing the scatter plots of the response variable (on the vertical axis) against the three explanatory variables.  It appears that there is a slight positive dependency of % Body Fat on Body Mass and Age and a possible negative dependency of % Body Fat on Height.   An (anticipated) positive relationship is noticed between Height and Body Mass with little or no relationship between Age and Body Mass nor between Age and Height.")
+```
 
 Regression of Body_Fat vs Age, Body_Mass, and Height
-```{r}
+```{r reg_body, exercise=TRUE, exercise.lines = 5}
+model <- ...
+summary(model)
+par(mfrow=c(2,2))
+plot(model)
+```
+
+```{r reg_body-solution}
 model <- lm(Body_Fat ~ Age + Body_Mass + Height, data=BODY_FAT_MALE)
 summary(model)
 par(mfrow=c(2,2))
 plot(model)
 ```
 
-The P-value from the F-test provided evidence that at least one of the explanatory variables is significant and, on examining the appropriate P-values, Age and Body Mass are identified as the only significant explanatory variables responsible.  It appears that knowing a person’s height is not providing any additional information, in terms of explaining the variability in % Body Fat as measured by Densitometry amongst males in the West of Scotland, once information on a person’s Age and Body Mass is available.
+```{r reg_body-hint}
+model <- lm(Body_Fat ~ Age + Body_Mass + Height, data=BODY_FAT_MALE)
+summary(model)
+par(mfrow=c(2,2))
+plot(model)
+```
 
-Conclusion:  In the West of Scotland at least, a male’s Age and Body Mass were identified as being significant explanatory variables (P=0.02 in both cases) of a male’s % Body Fat.  Despite identifying two useful explanatory variables the R2-adjusted for this two variable model is only 13% suggesting that these variables alone explain a very small amount of variability in % Body Fat  
+```{r reg_body-check}
+strict_check(success = "The P-value from the F-test provided evidence that at least one of the explanatory variables is significant and, on examining the appropriate P-values, Age and Body Mass are identified as the only significant explanatory variables responsible.  It appears that knowing a person’s height is not providing any additional information, in terms of explaining the variability in % Body Fat as measured by Densitometry amongst males in the West of Scotland, once information on a person’s Age and Body Mass is available.
+
+Conclusion:  In the West of Scotland at least, a male’s Age and Body Mass were identified as being significant explanatory variables (P=0.02 in both cases) of a male’s % Body Fat.  Despite identifying two useful explanatory variables the R2-adjusted for this two variable model is only 13% suggesting that these variables alone explain a very small amount of variability in % Body Fat")
+```
 
 ## Variable Selection Techniques
 The multiple regression illustrations to date have all adopted the same approach for the identification of useful and significant explanatory variables; check if the F-test is significant and then use the separate tests of the regression coefficients for each possible explanatory variable to identify which explanatory variables are responsible for the significant F-test.   The importance of following this approach is now highlighted and, in particular, it is shown why it is dangerous to consider the separate tests alone.
@@ -418,7 +681,18 @@ The multiple regression illustrations to date have all adopted the same approach
 Aim: To examine if an individual’s running velocity at Lactate Threshold (v-Tlac) is a useful predictor in addition to v-4mM when predicting 3 km Running Time.  
 
 Matrix scatter plot of 3km running Time, v_Tlac and v_4mM
-```{r}
+```{r mat_running, exercise=TRUE, exercise.lines = 5}
+pairs(~...,data=RUNNING,panel=function(...) panel.smooth(...,span=0.65))
+
+cor(cbind(Time=RUNNING$Time,v_Tlac=RUNNING$v_Tlac,v_4mM=RUNNING$v_4mM))
+
+model<-lm(...,data=RUNNING)
+summary(model)
+summary(aov(model))
+vif(model)
+```
+
+```{r mat_running-solution}
 pairs(~Time+v_Tlac+v_4mM,data=RUNNING,panel=function(...) panel.smooth(...,span=0.65))
 
 cor(cbind(Time=RUNNING$Time,v_Tlac=RUNNING$v_Tlac,v_4mM=RUNNING$v_4mM))
@@ -429,17 +703,48 @@ summary(aov(model))
 vif(model)
 ```
 
+```{r mat_running-hint}
+pairs(~Time+v_Tlac+v_4mM,data=RUNNING,panel=function(...) panel.smooth(...,span=0.65))
+
+cor(cbind(Time=RUNNING$Time,v_Tlac=RUNNING$v_Tlac,v_4mM=RUNNING$v_4mM))
+
+model<-lm(Time~v_Tlac+v_4mM,data=RUNNING)
+summary(model)
+summary(aov(model))
+vif(model)
+```
+
+```{r mat_running-check}
+strict_check(success = "")
+```
+
 Regression of 3k Time vs v_Tlac and v_4mM
-```{r}
+```{r reg_running, exercise=TRUE, exercise.lines = 5}
+model <- ...
+summary(model)
+par(mfrow=c(2,2))
+plot(model)
+```
+
+```{r reg_running-solution}
 model <- lm(Time ~ v_Tlac + v_4mM, data=RUNNING)
 summary(model)
 par(mfrow=c(2,2))
 plot(model)
 ```
 
-In the F test  (Analysis of Variance output), the Null Hypothesis that both population regression coefficients are zero is rejected with a P-value <0.001 providing evidence that at least one of the explanatory variables is significant and useful.  However, when examining the separate tests for the regression coefficients, neither that for v-Tlac (P = 0.308) nor for v-4mM (P = 0.653) are significant.  In addition the R2-adjusted value is 84.8% - so that the overall regression model appears to be worthwhile while the separate tests have failed to identify any significant predictor.  How can this be?  
+```{r reg_running-hint}
+model <- lm(Time ~ v_Tlac + v_4mM, data=RUNNING)
+summary(model)
+par(mfrow=c(2,2))
+plot(model)
+```
 
-The usefulness of an explanatory variable in a multiple regression model may be ‘masked’ or hidden by the inclusion of another explanatory variable highly correlated to it.   If there is no correlation between any pair of explanatory variables, the estimated regression coefficient for any possible explanatory variable will not depend on those for the other explanatory variables in the model. If some of the explanatory variables are correlated with each other, the estimated regression coefficients may depend on which other explanatory variables are included in the model.
+```{r reg_running-check}
+strict_check(success = "In the F test  (Analysis of Variance output), the Null Hypothesis that both population regression coefficients are zero is rejected with a P-value <0.001 providing evidence that at least one of the explanatory variables is significant and useful.  However, when examining the separate tests for the regression coefficients, neither that for v-Tlac (P = 0.308) nor for v-4mM (P = 0.653) are significant.  In addition the R2-adjusted value is 84.8% - so that the overall regression model appears to be worthwhile while the separate tests have failed to identify any significant predictor.  How can this be?  
+
+The usefulness of an explanatory variable in a multiple regression model may be ‘masked’ or hidden by the inclusion of another explanatory variable highly correlated to it.   If there is no correlation between any pair of explanatory variables, the estimated regression coefficient for any possible explanatory variable will not depend on those for the other explanatory variables in the model. If some of the explanatory variables are correlated with each other, the estimated regression coefficients may depend on which other explanatory variables are included in the model.")
+```
 
 Problems of this type involving highly correlated explanatory variables are very common in human studies.  It is relatively easy to spot this problem when there are only two explanatory variables.  In the case where there are more than two: 
 
@@ -471,7 +776,18 @@ Study Description:  Twenty-four trained female cyclists completed an incremental
 Aim: Use Stepwise Regression and Best Subsets to identify the essential subset of these plasma lactate markers needed to predict Power Output.
 
 Matrix scatter plot of AV_Power vs P_Tlac, P_Tlac.ll, P_4mM, DMax, and Rise.1.PB
-```{r}
+```{r mat_cyc, exercise=TRUE, exercise.lines = 5}
+pairs(~...,data=CYCLINGPOWER,panel=function(...) panel.smooth(...,span=0.65))
+
+cor(cbind(AV_Power=CYCLINGPOWER$AV_Power,P_Tlac=CYCLINGPOWER$P_Tlac,P_Tlac.ll=CYCLINGPOWER$P_Tlac.ll,P_4mM=CYCLINGPOWER$P_4mM,P_4mM=CYCLINGPOWER$P_4mM,DMax=CYCLINGPOWER$DMax,Rise.1.PB=CYCLINGPOWER$Rise.1.PB))
+
+model<-lm(...,data=CYCLINGPOWER)
+summary(model)
+summary(aov(model))
+vif(model)
+```
+
+```{r mat_cyc-solution}
 pairs(~AV_Power+P_Tlac+P_Tlac.ll+P_4mM+DMax+Rise.1.PB,data=CYCLINGPOWER,panel=function(...) panel.smooth(...,span=0.65))
 
 cor(cbind(AV_Power=CYCLINGPOWER$AV_Power,P_Tlac=CYCLINGPOWER$P_Tlac,P_Tlac.ll=CYCLINGPOWER$P_Tlac.ll,P_4mM=CYCLINGPOWER$P_4mM,P_4mM=CYCLINGPOWER$P_4mM,DMax=CYCLINGPOWER$DMax,Rise.1.PB=CYCLINGPOWER$Rise.1.PB))
@@ -482,24 +798,54 @@ summary(aov(model))
 vif(model)
 ```
 
-The top row of plots consists of the scatter plots of the response variable (on the Y axis) against each of the Plasma Lactate Marker explanatory variables in turn.  All of the Plasma Lactate Markers look like they may indeed be (singly) useful predictors of Power Output.   However, a closer look at the plots of the explanatory variables against each other highlights the fact that many of them are strongly correlated with each other.  For example, the scatter plot labelled A is a plot of the P-4 mM and Rise.1.PB markers with the sample correlation between these two variables being 0.96.  All the markers are clearly highly correlated.
+```{r mat_cyc-hint}
+pairs(~AV_Power+P_Tlac+P_Tlac.ll+P_4mM+DMax+Rise.1.PB,data=CYCLINGPOWER,panel=function(...) panel.smooth(...,span=0.65))
 
-Regression of AV_Power vs P_Tlac, P_Tlac.ll, P_4mM, DMax, and Rise.1.PB
-```{r}
+cor(cbind(AV_Power=CYCLINGPOWER$AV_Power,P_Tlac=CYCLINGPOWER$P_Tlac,P_Tlac.ll=CYCLINGPOWER$P_Tlac.ll,P_4mM=CYCLINGPOWER$P_4mM,P_4mM=CYCLINGPOWER$P_4mM,DMax=CYCLINGPOWER$DMax,Rise.1.PB=CYCLINGPOWER$Rise.1.PB))
+
+model<-lm(AV_Power~P_Tlac+P_Tlac.ll+P_4mM+DMax+Rise.1.PB,data=CYCLINGPOWER)
+summary(model)
+summary(aov(model))
+vif(model)
+```
+
+```{r mat_cyc-check}
+strict_check(success = "The top row of plots consists of the scatter plots of the response variable (on the Y axis) against each of the Plasma Lactate Marker explanatory variables in turn.  All of the Plasma Lactate Markers look like they may indeed be (singly) useful predictors of Power Output.   However, a closer look at the plots of the explanatory variables against each other highlights the fact that many of them are strongly correlated with each other.  For example, the scatter plot labelled A is a plot of the P-4 mM and Rise.1.PB markers with the sample correlation between these two variables being 0.96.  All the markers are clearly highly correlated.")
+```
+
+Regression for CYCLINGPOWER data: AV_Power vs P_Tlac, P_Tlac.ll, P_4mM, DMax, and Rise.1.PB
+```{r reg_cyc, exercise=TRUE, exercise.lines = 5}
+model <- ...
+summary(model)
+par(mfrow=c(2,2))
+plot(model)
+```
+
+```{r reg_cyc-solution}
 model <- lm(AV_Power ~ P_Tlac + P_Tlac.ll + P_4mM + DMax + Rise.1.PB, data=CYCLINGPOWER)
 summary(model)
 par(mfrow=c(2,2))
 plot(model)
 ```
 
+```{r reg_cyc-hint}
+model <- lm(AV_Power ~ P_Tlac + P_Tlac.ll + P_4mM + DMax + Rise.1.PB, data=CYCLINGPOWER)
+summary(model)
+par(mfrow=c(2,2))
+plot(model)
+```
+
+```{r reg_cyc-check}
+strict_check(success = "")
+```
+
 Best Subsets regression analysis of AV_Power vs P_Tlac, P_Tlac.ll, P_4mM, DMax, and Rise.1.PB
-```{r}
+```{r echo = T}
 models <- regsubsets(AV_Power ~ P_Tlac + P_Tlac.ll + P_4mM + DMax + Rise.1.PB, data=CYCLINGPOWER)
 summary(models)
 ```
 
 Conclusion:  There is evidence that Power Output in female cyclists is dependent on several Plasma Lactate endurance markers.  There is also evidence that several of these explanatory variables are strongly correlated with each other and are in essence providing the same ‘information’ as each other.  On the basis of the results when using Best Subsets and Stepwise regression techniques, the most useful regression model involved a single explanatory variable, namely the work rate corresponding to a 1 mM Rise post baseline (P<0.001) which explained 67% of the variability in the Power Output.
-
 
 ##Incorporating Categorical Explanatory Variables in a Multiple Regression Model
 As a first example, data are presented from an observational study to investigate whether an individual’s Body Mass is a useful predictor of Anaerobic Power.   In particular does it appear that Sex, in addition to Body Mass, may be a useful additional explanatory variable?  
@@ -508,7 +854,7 @@ As a first example, data are presented from an observational study to investigat
 Aim:  To investigate whether Anaerobic Power (as assessed by the Wingate test) is dependent upon the Body Mass and Sex of an individual.  
 
 Scatter plot of anaerboc power: Body_Mass vs Wingate, with seperate smoothers by gender
-```{r}
+```{r echo = T}
 male <- filter(POWER,Sex=="Male")
 female <- filter(POWER,Sex=="Female")
 ggplot(mapping = aes(x = POWER$Body_Mass, y = POWER$Wingate)) +
@@ -520,11 +866,29 @@ ggplot(mapping = aes(x = POWER$Body_Mass, y = POWER$Wingate)) +
 The suggestion from this plot is that there is a reasonable dependency of   Anaerobic Power on Body Mass in Males but really not so in Females.  The formal analysis should start by fitting a multiple regression model including both Body Mass and Sex as explanatory variables (a so-called Additive model for Body Mass and Sex). Care must be taken with regard to the categorical variable in order to create an explanatory variable to represent a person’s Sex.   This can be achieved quite easily by use of an indicator variable – a variable that takes the value 0 or 1 e.g. 1 to represent a Male and 0 to represent a Female (or if you are so inclined 1 for Females and 0 for Males although the authors strongly recommend that the baseline level (corresponding to zero) is that with the lower sample mean of the Response, in this case as chosen).
 
 Regresssion of Power vs Body_Mass and Sex
-```{r}
+```{r reg_power, exercise=TRUE, exercise.lines = 5}
+model <- ...
+summary(model)
+par(mfrow=c(2,2))
+plot(model)
+```
+
+```{r reg_power-solution}
 model <- lm(Wingate ~ Body_Mass + Sex, data=POWER)
 summary(model)
 par(mfrow=c(2,2))
 plot(model)
+```
+
+```{r reg_power-hint}
+model <- lm(Wingate ~ Body_Mass + Sex, data=POWER)
+summary(model)
+par(mfrow=c(2,2))
+plot(model)
+```
+
+```{r reg_power-check}
+strict_check(success = "")
 ```
 
 The F-test in the Analysis of Variance Table provides evidence that at least one of the explanatory variables is significant and indeed the separate tests suggest that Sex and Body Mass are both significant.    The Body Mass regression coefficient estimates that Anaerobic Power increases by 6.93 Watts on average per kilogram increase in Body Mass while the Sex regression coefficient estimates that Males have an Anaerobic Power that is, on average, 200 Watts greater than that of Females for any given value of Body Mass.
@@ -542,7 +906,7 @@ so that for every kilogram increase in Body Mass Anaerobic Power increases by 6.
 Note that the model assumes that the effect (i.e. regression coefficient) of Body Mass on Anaerobic Power is the same for both Males and Females (i.e. a parallel lines model) and that the only difference is in the intercept, which estimates the difference in mean Anaerobic Power between Males and Females assumed constant over the full range of Body Mass in this data set.
 
 Scatter plot of Wingate power vs Body_Mass with parallel lines model
-```{r}
+```{r echo = T}
 male <- filter(POWER,Sex=="Male")
 female <- filter(POWER,Sex=="Female")
 ggplot(mapping = aes(x = POWER$Body_Mass, y = POWER$Wingate)) +
@@ -556,12 +920,30 @@ Do the data support this assumption?  The smoothers suggested that the dependenc
 
 To fit a separate slopes multiple regression model a separate slopes term is needed which is formed by creating a new variable to represent the interaction by simply multiplying the two explanatory variables in question, in this instance Body Mass and the indicator variable Sex(M=1/F=0).
 
-Regresssion of Power Wingate vs Body_Mass, Sex and Sex(M/F)*Body_Mass
-```{r}
+Regresssion of Power Wingate vs Body_Mass, Sex and Sex(M/F)*Body_Mass in POWER data
+```{r reg1_power, exercise=TRUE, exercise.lines = 5}
+model <- ...
+summary(model)
+par(mfrow=c(2,2))
+plot(model)
+```
+
+```{r reg1_power-solution}
 model <- lm(Wingate ~ Body_Mass + Sex + Sex*Body_Mass, data=POWER)
 summary(model)
 par(mfrow=c(2,2))
 plot(model)
+```
+
+```{r reg1_power-hint}
+model <- lm(Wingate ~ Body_Mass + Sex + Sex*Body_Mass, data=POWER)
+summary(model)
+par(mfrow=c(2,2))
+plot(model)
+```
+
+```{r reg1_power-check}
+strict_check(success = "")
 ```
 
 The regression coefficient for the interaction term is not significant (P=0.173) suggesting that separate slopes are not necessary after all.  The simpler parallel slopes model is justified i.e. the effect of Sex is additive.  Note that neither of the explanatory variables (i.e. Body Mass or Sex) now appears significant even though they both were in the simpler parallel lines model (i.e. the effect of Sex is simply added to the linear effect of Body Mass).  This is an example of model over-fitting: too many explanatory variables have been included when a simpler model without the interaction term (Box 6.5.1.1) is more appropriate and hence real significant effects are submerged by this over-fitting.  The model must now be refitted without the interaction term
@@ -574,7 +956,14 @@ If a similar analysis is performed, this time using Anaerobic Power (as measured
 Aim:  To investigate whether Anaerobic Power (as assessed by the Margaria Test) is dependent upon the Body Mass and Sex of an individual. 
 
 Plot a scatter plot of anaerobic power: AP_Margaria vs Body_Mass with separate smoother by Sex
-```{r}
+```{r scatter2_power, exercise=TRUE, exercise.lines = 5}
+male <- filter(POWER,Sex=="Male")
+female <- filter(POWER,Sex=="Female")
+ggplot(...) +
+  ...
+```
+
+```{r scatter2_power-solution}
 male <- filter(POWER,Sex=="Male")
 female <- filter(POWER,Sex=="Female")
 ggplot(mapping = aes(x = POWER$Body_Mass, y = POWER$AP_Margaria)) +
@@ -583,12 +972,43 @@ ggplot(mapping = aes(x = POWER$Body_Mass, y = POWER$AP_Margaria)) +
   geom_smooth(mapping = aes(x = female$Body_Mass, y = female$AP_Margaria),method='loess',level = 0)
 ```
 
+```{r scatter2_power-hint}
+male <- filter(POWER,Sex=="Male")
+female <- filter(POWER,Sex=="Female")
+ggplot(mapping = aes(x = POWER$Body_Mass, y = POWER$AP_Margaria)) +
+  geom_point() +
+  geom_smooth(mapping = aes(x = male$Body_Mass, y = male$AP_Margaria),method='loess',level = 0) +
+  geom_smooth(mapping = aes(x = female$Body_Mass, y = female$AP_Margaria),method='loess',level = 0)
+```
+
+```{r scatter2_power-check}
+strict_check(success = "")
+```
+
 Regression of AP_Margaria vs Body_Mass, Sex(M/F), and Sex(M/F)*Body_Mass
-```{r}
+```{r reg2_power, exercise=TRUE, exercise.lines = 5}
+model <- ...
+summary(model)
+par(mfrow=c(2,2))
+plot(model)
+```
+
+```{r reg2_power-solution}
 model <- lm(AP_Margaria ~ Body_Mass + Sex + Sex*Body_Mass, data=POWER)
 summary(model)
 par(mfrow=c(2,2))
 plot(model)
+```
+
+```{r reg2_power-hint}
+model <- lm(AP_Margaria ~ Body_Mass + Sex + Sex*Body_Mass, data=POWER)
+summary(model)
+par(mfrow=c(2,2))
+plot(model)
+```
+
+```{r reg2_power-check}
+strict_check(success = "")
 ```
 
 Estimates of the separate regression equations for Males and Females can be calculated by substituting in the relevant values for indicator variable as before.  For example, the regression equation for Females is: 
@@ -605,7 +1025,15 @@ Margaria 	= 265 + 3.26*Body Mass – 245*1 + 6.58*1*BodyMass
 and hence Anaerobic Power in Males rises by 6.84 Watts on average per kilogram increase in Body Mass.
 
 Scatter plot of anaerobic power AP_Margaria vs Body_Mass with seperate lines of best fit for Sex
-```{r}
+```{r scatter_power, exercise=TRUE, exercise.lines = 5}
+male <- filter(POWER,Sex=="Male")
+female <- filter(POWER,Sex=="Female")
+
+ggplot(...) + 
+  ...
+```
+
+```{r scatter_power-solution}
 male <- filter(POWER,Sex=="Male")
 female <- filter(POWER,Sex=="Female")
 ggplot(mapping = aes(x = POWER$Body_Mass, y = POWER$AP_Margaria)) +
@@ -614,7 +1042,18 @@ ggplot(mapping = aes(x = POWER$Body_Mass, y = POWER$AP_Margaria)) +
   geom_smooth(mapping = aes(x = female$Body_Mass, y = female$AP_Margaria),method='lm',level = 0)
 ```
 
-Conclusion:   The dependency of Anaerobic Power, as measured by the Margaria test, on Body Mass differs for Males and Females.  It is estimated that Anaerobic Power increase by 6.84 Watts, on average, per unit increase in Body Mass in Males while in Females this average increase is estimated to be 3.26 Watts. 
+```{r scatter_power-hint}
+male <- filter(POWER,Sex=="Male")
+female <- filter(POWER,Sex=="Female")
+ggplot(mapping = aes(x = POWER$Body_Mass, y = POWER$AP_Margaria)) +
+  geom_point() +
+  geom_smooth(mapping = aes(x = male$Body_Mass, y = male$AP_Margaria),method='lm',level = 0) +
+  geom_smooth(mapping = aes(x = female$Body_Mass, y = female$AP_Margaria),method='lm',level = 0)
+```
+
+```{r scatter_power-check}
+strict_check(success = "Conclusion:   The dependency of Anaerobic Power, as measured by the Margaria test, on Body Mass differs for Males and Females.  It is estimated that Anaerobic Power increase by 6.84 Watts, on average, per unit increase in Body Mass in Males while in Females this average increase is estimated to be 3.26 Watts. ")
+```
 
 ## Regression Trees
 The technique is similar to regression in that categorical and continuous explanatory variables that are useful predictors of the response variable can be identified.   The technique needed to grow a regression tree is beyond the scope of this book but suffice to say the approach differs in that the ‘model’ that arises from fitting the tree is very intuitive and easy to interpret unlike a regression model with a large number of explanatory variables.  It is basically an empirical approach rather than a formal analysis (unlike most of the techniques dealt with in this textbook) but is at least effectively free of assumptions and may well give good insight into the structure of the data, if carefully and conservatively carried out.   It is best illustrated through an example!   
