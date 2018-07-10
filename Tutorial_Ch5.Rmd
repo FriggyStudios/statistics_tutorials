@@ -218,7 +218,7 @@ In such scenarios, it is often thought interesting to investigate whether there 
 H0:  	The mean improvement in Balance for the Control population is zero; 
 H1: 	The mean improvement in Balance for the Control population is not zero.
 
-The P-value from the corresponding One-Sample t-test output (Box 5.4.1.2) is returned as 0.272 which is interpreted as insufficient evidence of a significant mean improvement in Balance in the Control population across the study.
+The P-value from the corresponding One-Sample t-test output is returned as 0.272 which is interpreted as insufficient evidence of a significant mean improvement in Balance in the Control population across the study.
 
 One-Sample T in OSTEOPOROSIS data for Improvement in Balance (After-Before) by Control
 ```{r t2_intervention, exercise=TRUE, exercise.lines = 5}

@@ -109,7 +109,7 @@ plot(model)
 ```{r r_running-check}
 strict_check(success = "There is a significant dependence of 3 km time on v-4mM by virtue of the P-value (highlighted in bold) for the Null Hypothesis that the population slope is zero.  As the P-value is very small there is convincing evidence against the Null Hypothesis and a claim is made that the population slope is different from zero i.e. there is a meaningful dependence of 3 km Time on v-4mM.
 
-The intercept is estimated to be 15.8223 and the sample slope to be -0.37285 (both highlighted in bold in Box 6.1.1.1) and hence the regression equation is (to two decimal places) ")
+The intercept is estimated to be 15.8223 and the sample slope to be -0.37285 and hence the regression equation is (to two decimal places) ")
 ```
 
 
@@ -139,7 +139,7 @@ strict_check(success = "The information provided by the sample slope is that it 
 
 The sample intercept states that athlete with a v-4mM of zero will have an average 3km Running Time of 15.8 minutes.   This makes no sense and highlights a very important feature of any regression line, namely that a regression line is only valid for the range of data collected.  The minimum v-4mM recorded was 14.2 $km.h^{-1}$  and the predicted 3 km Running Time for an athlete with this v-4mM value would be 15.82-0.37*(14.2) = 10.56 minutes, which is much more plausible.  In general, never try to extrapolate the regression equation outside the range of the explanatory variable!
 
-The estimated standard errors of the intercept and slope are given in Box 6.1.1.1 (under the column SE Coef) and are 0.6980 and 0.04067 respectively.  When considering 95% Confidence Intervals for a population mean the formula ‘sample mean ± twice its estimated standard error’ was used as a quick and robust method.  The same approximation applies in simple linear regression where a ‘rough’ 95% confidence interval estimate of population slope is calculated as ‘sample slope ± twice its estimated standard error’.  For example using the output in Box 6.1.1.1a rough 95% CI for the v-4mM regression coefficient is calculated as $-0.37285 ± 2*0.04067= (-0.45, -0.29)$.  This interval is wholly negative providing evidence that the slope is significantly different from zero in the negative direction.
+The estimated standard errors of the intercept and slope are 0.6980 and 0.04067 respectively.  When considering 95% Confidence Intervals for a population mean the formula ‘sample mean ± twice its estimated standard error’ was used as a quick and robust method.  The same approximation applies in simple linear regression where a ‘rough’ 95% confidence interval estimate of population slope is calculated as ‘sample slope ± twice its estimated standard error’.  For example using the output for the v-4mM regression coefficient is calculated as $-0.37285 ± 2*0.04067= (-0.45, -0.29)$.  This interval is wholly negative providing evidence that the slope is significantly different from zero in the negative direction.
 
 The approximation provided by the ‘quick and robust method’ is quite accurate and this is usually the case for moderate to large sample sizes.  The same approach applies for the intercept but this, of course, is seldom of interest.
 
@@ -176,7 +176,7 @@ One of the key notions in Regression is the concept of ‘explained variability�
 
 For example, in a simple linear regression the scatter about the regression line can be used to estimate the amount of variability in the response variable ‘explained’ by its dependency on the explanatory variable.  If, for example, the data fall on a straight line then there is perfect dependence and all of the variability in the response is due to the explanatory variable.  If, however, the data scatter considerably about the line of best fit then not all of the variability in the response is due to the explanatory variable.  The ‘amount’ of explained variability is typically summarised by the R2 statistic.  The value of R2 is always between 0 and 1 (or 0% and 100% when expressed as a percentage) where a value of 1 (100%) corresponds to perfect dependence of the response on the explanatory variable i.e. all of the variation in the response is explained by the explanatory variable.   At the other end of the scale, 0 corresponds to no dependence whatsoever of the response variable on the explanatory variable.   The higher the value of R2 the more ‘useful’ is the simple linear regression.   
 
-The reported value of the R2 statistic in the regression output for the 3 km Running Time example (Box 6.1.2) is 85.7% and hence a considerable amount (i.e. 85.7%) of the variability in 3 km Running performance is explained by its dependence on the v-4mM blood lactate endurance marker. 
+The reported value of the R2 statistic in the regression output for the 3 km Running Time example is 85.7% and hence a considerable amount (i.e. 85.7%) of the variability in 3 km Running performance is explained by its dependence on the v-4mM blood lactate endurance marker. 
 
 Assumptions for the Simple Linear Regression Model
 There are of course important assumptions underlying a simple linear regression model and these assumptions must be checked. 
@@ -228,9 +228,8 @@ The validity of the simple linear regression assumptions can be checked graphica
 1. A plot of the standardised residuals (on the vertical axis) against the fitted values from the regression.  If the Linearity and Equal Spreads assumptions are valid, this plot should show a random scatter of points;
 2.	A Normal probability plot of the standardised residuals.   This should be of a roughly linear shape if the Normality assumption is adequate. 
 
-
 Plot of standarised residuals vs fitted values
-```{r echcho = T}
+```{r echo = T}
 ggplot(data = RUNNING, mapping = aes(x = 15.82228-0.37285*v_4mM, y = (Time-(15.82228-0.37285*v_4mM)))) +
   geom_point() +
   geom_smooth(method='lm',level = 0) + 
@@ -855,12 +854,9 @@ Aim:  To investigate whether Anaerobic Power (as assessed by the Wingate test) i
 
 Scatter plot of anaerboc power: Body_Mass vs Wingate, with seperate smoothers by gender
 ```{r echo = T}
-male <- filter(POWER,Sex=="Male")
-female <- filter(POWER,Sex=="Female")
-ggplot(mapping = aes(x = POWER$Body_Mass, y = POWER$Wingate)) +
+ggplot(data = POWER,mapping = aes(x = Body_Mass, y = Wingate),color = Sex) +
   geom_point() +
-  geom_smooth(mapping = aes(x = male$Body_Mass, y = male$Wingate),method='loess',level = 0) +
-  geom_smooth(mapping = aes(x = female$Body_Mass, y = female$Wingate),method='loess',level = 0)
+  geom_smooth(method='loess',level = 0)
 ```
 
 The suggestion from this plot is that there is a reasonable dependency of   Anaerobic Power on Body Mass in Males but really not so in Females.  The formal analysis should start by fitting a multiple regression model including both Body Mass and Sex as explanatory variables (a so-called Additive model for Body Mass and Sex). Care must be taken with regard to the categorical variable in order to create an explanatory variable to represent a person’s Sex.   This can be achieved quite easily by use of an indicator variable – a variable that takes the value 0 or 1 e.g. 1 to represent a Male and 0 to represent a Female (or if you are so inclined 1 for Females and 0 for Males although the authors strongly recommend that the baseline level (corresponding to zero) is that with the lower sample mean of the Response, in this case as chosen).
@@ -946,7 +942,7 @@ plot(model)
 strict_check(success = "")
 ```
 
-The regression coefficient for the interaction term is not significant (P=0.173) suggesting that separate slopes are not necessary after all.  The simpler parallel slopes model is justified i.e. the effect of Sex is additive.  Note that neither of the explanatory variables (i.e. Body Mass or Sex) now appears significant even though they both were in the simpler parallel lines model (i.e. the effect of Sex is simply added to the linear effect of Body Mass).  This is an example of model over-fitting: too many explanatory variables have been included when a simpler model without the interaction term (Box 6.5.1.1) is more appropriate and hence real significant effects are submerged by this over-fitting.  The model must now be refitted without the interaction term
+The regression coefficient for the interaction term is not significant (P=0.173) suggesting that separate slopes are not necessary after all.  The simpler parallel slopes model is justified i.e. the effect of Sex is additive.  Note that neither of the explanatory variables (i.e. Body Mass or Sex) now appears significant even though they both were in the simpler parallel lines model (i.e. the effect of Sex is simply added to the linear effect of Body Mass).  This is an example of model over-fitting: too many explanatory variables have been included when a simpler model without the interaction term is more appropriate and hence real significant effects are submerged by this over-fitting.  The model must now be refitted without the interaction term
 
 Conclusion:  There is evidence that Anaerobic Power, as measured by the Wingate test, is significantly related to both Body Mass (P=0.004) and Sex (P<0.001) where the effect of Sex is additive.   The R2-adjusted for the parallel lines model is 83.5% suggesting that a considerable amount of the variation in Anaerobic Power is explained by its dependency on Body Mass and Sex.
 

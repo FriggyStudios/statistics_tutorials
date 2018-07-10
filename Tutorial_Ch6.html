@@ -13,7 +13,7 @@
 <meta name="progressive" content="true" />
 <meta name="allow-skip" content="false" />
 
-<title>Testing Hypotheses</title>
+<title>Modelling Relationships - Regression</title>
 
 
 <!-- highlightjs -->
@@ -120,7 +120,7 @@ plot(model)</code></pre>
 <div class="tutorial-exercise-support" data-label="r_running-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>strict_check(success = &quot;There is a significant dependence of 3 km time on v-4mM by virtue of the P-value (highlighted in bold) for the Null Hypothesis that the population slope is zero.  As the P-value is very small there is convincing evidence against the Null Hypothesis and a claim is made that the population slope is different from zero i.e. there is a meaningful dependence of 3 km Time on v-4mM.
 
-The intercept is estimated to be 15.8223 and the sample slope to be -0.37285 (both highlighted in bold in Box 6.1.1.1) and hence the regression equation is (to two decimal places) &quot;)</code></pre>
+The intercept is estimated to be 15.8223 and the sample slope to be -0.37285 and hence the regression equation is (to two decimal places) &quot;)</code></pre>
 </div>
 <span class="math display">\[Average\quad 3km\quad Time = 15.82 - 0.37*v-4mM\]</span> Scatter plot of 3km runnning times vs VO2 Max with line of best fit
 <div class="tutorial-exercise" data-label="scatter2_running" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
@@ -144,7 +144,7 @@ The intercept is estimated to be 15.8223 and the sample slope to be -0.37285 (bo
 
 The sample intercept states that athlete with a v-4mM of zero will have an average 3km Running Time of 15.8 minutes.   This makes no sense and highlights a very important feature of any regression line, namely that a regression line is only valid for the range of data collected.  The minimum v-4mM recorded was 14.2 $km.h^{-1}$  and the predicted 3 km Running Time for an athlete with this v-4mM value would be 15.82-0.37*(14.2) = 10.56 minutes, which is much more plausible.  In general, never try to extrapolate the regression equation outside the range of the explanatory variable!
 
-The estimated standard errors of the intercept and slope are given in Box 6.1.1.1 (under the column SE Coef) and are 0.6980 and 0.04067 respectively.  When considering 95% Confidence Intervals for a population mean the formula ‘sample mean ± twice its estimated standard error’ was used as a quick and robust method.  The same approximation applies in simple linear regression where a ‘rough’ 95% confidence interval estimate of population slope is calculated as ‘sample slope ± twice its estimated standard error’.  For example using the output in Box 6.1.1.1a rough 95% CI for the v-4mM regression coefficient is calculated as $-0.37285 ± 2*0.04067= (-0.45, -0.29)$.  This interval is wholly negative providing evidence that the slope is significantly different from zero in the negative direction.
+The estimated standard errors of the intercept and slope are 0.6980 and 0.04067 respectively.  When considering 95% Confidence Intervals for a population mean the formula ‘sample mean ± twice its estimated standard error’ was used as a quick and robust method.  The same approximation applies in simple linear regression where a ‘rough’ 95% confidence interval estimate of population slope is calculated as ‘sample slope ± twice its estimated standard error’.  For example using the output for the v-4mM regression coefficient is calculated as $-0.37285 ± 2*0.04067= (-0.45, -0.29)$.  This interval is wholly negative providing evidence that the slope is significantly different from zero in the negative direction.
 
 The approximation provided by the ‘quick and robust method’ is quite accurate and this is usually the case for moderate to large sample sizes.  The same approach applies for the intercept but this, of course, is seldom of interest.
 
@@ -177,7 +177,7 @@ Conclusion:  There was evidence of a significant negative dependence (P &lt; 0.0
 <h3>Assessing the Adequacy of a Simple Linear Regression</h3>
 <p>One of the key notions in Regression is the concept of ‘explained variability’. A useful regression model is one where the variability displayed in the response variable can be explained by its dependence on one or more explanatory variables. Indeed this very notion is one basis for assessing the adequacy of regression models.</p>
 <p>For example, in a simple linear regression the scatter about the regression line can be used to estimate the amount of variability in the response variable ‘explained’ by its dependency on the explanatory variable. If, for example, the data fall on a straight line then there is perfect dependence and all of the variability in the response is due to the explanatory variable. If, however, the data scatter considerably about the line of best fit then not all of the variability in the response is due to the explanatory variable. The ‘amount’ of explained variability is typically summarised by the R2 statistic. The value of R2 is always between 0 and 1 (or 0% and 100% when expressed as a percentage) where a value of 1 (100%) corresponds to perfect dependence of the response on the explanatory variable i.e. all of the variation in the response is explained by the explanatory variable. At the other end of the scale, 0 corresponds to no dependence whatsoever of the response variable on the explanatory variable. The higher the value of R2 the more ‘useful’ is the simple linear regression.</p>
-<p>The reported value of the R2 statistic in the regression output for the 3 km Running Time example (Box 6.1.2) is 85.7% and hence a considerable amount (i.e. 85.7%) of the variability in 3 km Running performance is explained by its dependence on the v-4mM blood lactate endurance marker.</p>
+<p>The reported value of the R2 statistic in the regression output for the 3 km Running Time example is 85.7% and hence a considerable amount (i.e. 85.7%) of the variability in 3 km Running performance is explained by its dependence on the v-4mM blood lactate endurance marker.</p>
 <p>Assumptions for the Simple Linear Regression Model There are of course important assumptions underlying a simple linear regression model and these assumptions must be checked.</p>
 </div>
 <div id="section-a-simple-linear-regression-has-the-following-underlying-assumptions" class="section level3">
@@ -220,7 +220,12 @@ Conclusion:  There was evidence of a significant negative dependence (P &lt; 0.0
 <li>A plot of the standardised residuals (on the vertical axis) against the fitted values from the regression. If the Linearity and Equal Spreads assumptions are valid, this plot should show a random scatter of points;</li>
 <li>A Normal probability plot of the standardised residuals. This should be of a roughly linear shape if the Normality assumption is adequate.</li>
 </ol>
-<p>Plot of standarised residuals vs fitted values <img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-1-1.png" width="624" /></p>
+<p>Plot of standarised residuals vs fitted values</p>
+<pre class="r"><code>ggplot(data = RUNNING, mapping = aes(x = 15.82228-0.37285*v_4mM, y = (Time-(15.82228-0.37285*v_4mM)))) +
+  geom_point() +
+  geom_smooth(method=&#39;lm&#39;,level = 0) + 
+  labs(x = &quot;Fitted Value&quot;, y = &quot;Standardised Residual&quot;)</code></pre>
+<p><img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-1-1.png" width="624" /></p>
 <p>Normal probability plot of standarised residuals</p>
 <pre class="r"><code>  var&lt;- 15.82228-0.37285*RUNNING$v_4mM
 p&lt;-probplot(qnorm(pretty(c(0.01,0.99),1000),mean=mean(var,na.rm=T),sd(var,na.rm=T)))</code></pre>
@@ -912,7 +917,7 @@ plot(model)</code></pre>
 <div class="tutorial-exercise-support" data-label="reg1_power-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>strict_check(success = &quot;&quot;)</code></pre>
 </div>
-<p>The regression coefficient for the interaction term is not significant (P=0.173) suggesting that separate slopes are not necessary after all. The simpler parallel slopes model is justified i.e. the effect of Sex is additive. Note that neither of the explanatory variables (i.e. Body Mass or Sex) now appears significant even though they both were in the simpler parallel lines model (i.e. the effect of Sex is simply added to the linear effect of Body Mass). This is an example of model over-fitting: too many explanatory variables have been included when a simpler model without the interaction term (Box 6.5.1.1) is more appropriate and hence real significant effects are submerged by this over-fitting. The model must now be refitted without the interaction term</p>
+<p>The regression coefficient for the interaction term is not significant (P=0.173) suggesting that separate slopes are not necessary after all. The simpler parallel slopes model is justified i.e. the effect of Sex is additive. Note that neither of the explanatory variables (i.e. Body Mass or Sex) now appears significant even though they both were in the simpler parallel lines model (i.e. the effect of Sex is simply added to the linear effect of Body Mass). This is an example of model over-fitting: too many explanatory variables have been included when a simpler model without the interaction term is more appropriate and hence real significant effects are submerged by this over-fitting. The model must now be refitted without the interaction term</p>
 <p>Conclusion: There is evidence that Anaerobic Power, as measured by the Wingate test, is significantly related to both Body Mass (P=0.004) and Sex (P&lt;0.001) where the effect of Sex is additive. The R2-adjusted for the parallel lines model is 83.5% suggesting that a considerable amount of the variation in Anaerobic Power is explained by its dependency on Body Mass and Sex.</p>
 <p>If a similar analysis is performed, this time using Anaerobic Power (as measured by the Margaria test) as the response, there is evidence of a significant interaction between Body Mass and Sex i.e. a separate slopes model is justified.</p>
 </div>
@@ -1251,7 +1256,7 @@ output$`tutorial-exercise-scatter_power-output` <- renderUI({
 
 <!-- begin doc-metadata -->
 <div id="doc-metadata">
-<h2 class="title toc-ignore" style="display:none;">Testing Hypotheses</h2>
+<h2 class="title toc-ignore" style="display:none;">Modelling Relationships - Regression</h2>
 </div>
 <!-- end doc-metadata -->
 

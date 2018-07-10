@@ -8,12 +8,19 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(fBasics)
 library(tidyverse)
 library(grader)
+library(nortest)
+library(e1071)
+library(DescTools)
 knitr::opts_chunk$set(echo = FALSE)
 tutorial_options(exercise.checker = grade_learnr)
 
-BODY_FAT_MALE <- read_csv("data/chapter_6/%BODY FAT MALE.CSV")
+BIODEX<- read_csv("data/chapter_7/BIODEX.CSV")
+GRIP_STRENGTH_AND_MASS<- read_csv("data/chapter_7/GRIP STRENGTH AND MASS.CSV")
+RELAXATION<- read_csv("data/chapter_7/RELAXATION.CSV")
+RUGBY_SPRINT_TIME<- read_csv("data/chapter_7/RUGBY SPRINT TIME.CSV")
 ```
 
 # Ch7: Independent Observations - Investigating Between Subject Factors
@@ -51,25 +58,28 @@ Study Description:  Independent samples of ten Elite (i.e. have successfully com
 
 Aim:  To compare average Grip Strength of the (dominant) right hand among the three populations of male climbers.
 
-Plot a box plot of Grip Strength by Climber Type
+Plot a box plot of Grip_Strength by Climber_Type
 ```{r}
-
+ggplot(data = GRIP_STRENGTH_AND_MASS) +
+  geom_boxplot(mapping = aes(x = Climber_Type, y = Grip_Strength)) +
+  coord_flip()
 ```
 
 Remember that a box plot displays (amongst other things) the sample median. However, if each sample did arise from a Normal distribution (a necessary assumption for a One-Way ANOVA which is considered later in this section) then the sample mean and median should be quite similar.
 
-Summary of Strength variable
+Summary of Grip_Strength variable
 ```{r}
-
+basicStats(GRIP_STRENGTH_AND_MASS$Grip_Strength)
 ```
 
 The relevant Null and Alternative Hypothesis for this example are
 H0:  	The population mean Grip Strengths are the same for the three Climber Types; 
 H1: 	The population mean Grip Strengths are not all the same for the three Climber Types.
 
-General Linear Model: Strength(N) versus Level 
+General Linear Model: Grip_Strength versus Climber_Type 
 ```{r}
-
+model <- lm(Grip_Strength~Climber_Type,data = GRIP_STRENGTH_AND_MASS)
+summary(model)
 ```
 
 The output from the model is quite forbidding at first glance.  However, the key piece of information is the P-value (highlighted in bold italics for convenience).  Since the P-value here (0.092) is greater than 0.05, the Null hypothesis of equal population mean Grip Strengths cannot be rejected. It must therefore be concluded that there are no significant differences among the population mean grip strengths of the 3 Climber Types.  
@@ -81,19 +91,24 @@ The second illustration in this section involves data arising from a Completely 
 ### Relaxation and Running Performance (Revisited)
 Aim: To determine which, if either, of the relaxation methods (Meditation or Progressive Muscular Relaxation (PMR) significantly reduces Exercise Heart Rate on average compared to Controls over a two week period.
 
-Plot a boxplot of heart rate reduction by treatment
+Plot a boxplot of heart Reduction by Treatment
 ```{r}
-
+ggplot(data = RELAXATION) +
+  geom_boxplot(mapping = aes(x = Treatment, y = Reduction)) +
+  coord_flip()
 ```
 
-summary statistc of reduction by group
+summary statistc of Reduction by Treatment == Control, Meditation, and PMR
 ```{r}
-
+basicStats(filter(RELAXATION,Treatment=='Control')$Reduction)
+basicStats(filter(RELAXATION,Treatment=='Meditation')$Reduction)
+basicStats(filter(RELAXATION,Treatment=='PMR')$Reduction)
 ```
 
-General Linear Model 
+General Linear Model of Reduction by Treatment
 ```{r}
-
+model <- lm(Reduction~Treatment,data = RELAXATION)
+summary(model)
 ```
 
 Since the P-value from the One-Way ANOVA (P=0.004) is much smaller than 0.05, the Null Hypothesis of all three population mean Reductions in Heart Rate being equal can be rejected and therefore it can be concluded that there are some differences in the population mean responses to the different Treatments.  
@@ -117,9 +132,10 @@ For example, if four pair-wise comparisons are required and a simultaneous confi
 
 The Tukey (John Tukey, 1915-2000) procedure works on a slightly different  (but more complicated) method for determining the multiple for each confidence interval while controlling for the number of intervals required.  The Tukey approach is considered a less conservative approach than the Bonferroni method, especially when a small number of intervals are needed.  For this reason, the Tukey method is generally preferred. The Bonferroni method however is easier to calculate in practice (as later illustrations will highlight).  
 
-General Linear Model
+Tukey 95.0% Simultaneous Confidence Intervals
 ```{r}
-
+a <- aov(Reduction~Treatment,data = RELAXATION)
+TukeyHSD(x=a, 'Treatment', conf.level=0.95)
 ```
 
 Notice that the confidence intervals are given the label “Simultaneous Confidence Intervals” to highlight the fact that the confidence associated with the set of all three intervals is (at least) 95%.  
@@ -147,22 +163,27 @@ The Normal distribution assumption can be checked informally using box plots by 
 
 Normal probability plot
 ```{r}
+m <- filter(RELAXATION,Treatment=="Meditation")
+pmr <- filter(RELAXATION,Treatment=="PMR")
+c <- filter(RELAXATION,Treatment=="Control")
 
+var<- c(m$Reduction-(0.8462+7.9038),pmr$Reduction-(0.8462-0.4176),c$Reduction-(0.8462))
+p<-probplot(qnorm(pretty(c(0.01,0.99),1000),mean=mean(var,na.rm=T),sd(var,na.rm=T)))
+probplot(var,line=F)
+lines(p)
+ad.test(var)
 ```
 
 Versus fits
 ```{r}
-
-```
-
-Versus Order
-```{r}
-
-```
-
-Histogram
-```{r}
-
+m <- filter(RELAXATION,Treatment=="Meditation")
+pmr <- filter(RELAXATION,Treatment=="PMR")
+c <- filter(RELAXATION,Treatment=="Control")
+ggplot() +
+  geom_point(mapping = aes(x = 0.8462+7.9038, y = m$Reduction-(0.8462+7.9038))) +
+  geom_point(mapping = aes(x = 0.8462-0.4176, y = pmr$Reduction-(0.8462-0.4176))) + 
+  geom_point(mapping = aes(x = 0.8462, y = c$Reduction-(0.8462))) +
+  labs(x = "Fitted Value", y = "Standardised Residual")
 ```
 
 There is nothing in these plots to raise any concerns regarding the underlying model assumptions.
@@ -206,40 +227,50 @@ Study Description:  A sample of 12 backs and 12 forwards were selected at random
 
 Aim: The researcher has specified that she is only interested in comparing the squads to each other (i.e. Amateur Backs to Amateur Forwards and Professional Backs to Professional Forwards) and the positions to each other (i.e. Amateur Backs to Professional Backs and Amateur Forwards to Professional Forwards).  
 
-Plot a boxplot of sprint time by status and position
+Plot a boxplot of Sprint_Time by Status and Position
 ```{r}
-
+ggplot(data = RUGBY_SPRINT_TIME) +
+  geom_boxplot(mapping = aes(x = Status, y = Sprint_Time)) +
+  coord_flip() +
+  facet_grid(. ~ Position)
 ```
 
-Summary statistics of sprint speed by status and position
+Summary statistics of Sprint_Time by Status and Position
 ```{r}
+a <- filter(RUGBY_SPRINT_TIME,Status == "Amateur")
+p <- filter(RUGBY_SPRINT_TIME,Status == "Professional")
 
+basicStats(filter(a,Position=="Backs")$Sprint_Time)
+basicStats(filter(a,Position=="Forwards")$Sprint_Time)
+
+basicStats(filter(p,Position=="Backs")$Sprint_Time)
+basicStats(filter(p,Position=="Forwards")$Sprint_Time)
 ```
 
 The sample of Professional Backs was 0.18 seconds faster on average when compared to the Amateur Backs while the difference in the corresponding Forwards was considerably less at 0.03 seconds.  These differences suggest the presence of an interaction, as the difference in the mean response within position is not the same for the Amateurs when compared to the Professionals
 
-Plot a plot of mean time by squad and position
+General Linear Model of Sprint_Time versus Status and Position
 ```{r}
-
-```
-
-Notice from the plot that the difference between the mean Sprint Time is much smaller for the Forwards when compared to the Backs. Hence it makes little sense to discuss the difference in (mean) Sprint Time without taking both Factors into consideration simultaneously.
-
-These subjective impressions suggest that there may be main effects due to Status (Professional players appear quicker on average compared to Amateurs) and Position (Backs tend to be faster than Forwards) and an interaction between Status and Position (i.e. the difference between the Backs being greater than between the Forwards).
-
-General Linear Model of Sprint versus status and position
-```{r}
-
+model <- lm(Sprint_Time~Status+Position,data = RUGBY_SPRINT_TIME)
+summary(model)
 ```
 
 There is evidence of a significant interaction between the two Factors (P=0.006).  As the interaction term is significant the remaining task is to identify which Status/Position combinations are responsible for the significant interaction term.  There is one observation deemed ‘unusual’ namely an Amateur Back who is faster, when compared to the average speed of the other Backs, than the Professionals. 
 
 There are six possible comparisons available if all pair-wise comparisons are of interest.  As the researcher specified before the study that she was only interested in comparing the Positions across Status to each other only four comparisons are needed.  
 
-Confidance interval for Backs - Forwards by status
-```{r}
+Contrast
+ 
+(Backs – Forwards)			P-value
 
-```
+Amateurs		(-0.30, -0.11)			<0.001
+Professionals	(-0.48, -0.25)			<0.001
+	
+
+(Amateurs - Professionals)
+
+Backs		( 0.07, 0.30)			<0.001
+Forwards		(-0.06, 0.12)			 0.43
 
 The first interval is strictly negative providing evidence that the mean Sprint Time is higher (i.e. slower) for Forwards compared to Backs in the population of Amateur players. 
 
@@ -259,32 +290,36 @@ The model is quite robust to departures from Normality while the equality of the
 
 As in a One-Way ANOVA, the simplest way of checking the Normality and equal spreads assumption is by means of box plots - simply ensure that each sample median is roughly in the middle of each box (Normality) and that the lengths of the boxes are all about the same (Equal Spreads).  The summary statistics and box plots presented for the Sprint Time comparison suggest that the Normality and equal spreads assumptions appear adequate.  
 
-Normal probability plot
+Normal probability plot of the residuals
 ```{r}
+a <- filter(RUGBY_SPRINT_TIME,Status == "Amateur")
+p <- filter(RUGBY_SPRINT_TIME,Status == "Professional")
 
+var<- c(p$Sprint_Time-(4.00676-0.10545),a$Sprint_Time-(4.00676))
+p<-probplot(qnorm(pretty(c(0.01,0.99),1000),mean=mean(var,na.rm=T),sd(var,na.rm=T)))
+probplot(var,line=F)
+lines(p)
+ad.test(var)
 ```
 
 Versus fits
 ```{r}
+a <- filter(RUGBY_SPRINT_TIME,Status == "Amateur")
+p <- filter(RUGBY_SPRINT_TIME,Status == "Professional")
 
-```
-
-Versus Order
-```{r}
-
-```
-
-Histogram
-```{r}
-
+ggplot() +
+  geom_point(mapping = aes(x = 4.00676, y = a$Sprint_Time-(4.00676))) +
+  geom_point(mapping = aes(x = 4.00676-0.10545, y = p$Sprint_Time-(0.8462-0.4176))) + 
+  labs(x = "Fitted Value", y = "Standardised Residual")
 ```
 
 Bonferroni 95.0% Simultaneous Confidence Intervals
 ```{r}
-
+a <- aov(Sprint_Time~Status*Position,data = RUGBY_SPRINT_TIME)
+PostHocTest(x=a, method = "bonferroni", conf.level=0.95)
 ```
 
-Notice that each interval is (marginally) wider than the corresponding interval presented in Box 7.2.1.3.  Note also that the two intervals not deemed ‘interesting’ (i.e. the comparisons of Professional Backs to Amateur Forwards and of Professional Forwards to Amateur Backs) are significant as would have been expected.  
+Notice that each interval is (marginally) wider than the corresponding interval.  Note also that the two intervals not deemed ‘interesting’ (i.e. the comparisons of Professional Backs to Amateur Forwards and of Professional Forwards to Amateur Backs) are significant as would have been expected.  
 b. These results raise an interesting issue in that it is important to determine before the experiment is carried out which levels of the Between Subjects Factors are of interest to compare and which are unnecessary.  This will become particularly important when each of the Between Subject Factors have a large number of levels.  Generating a lot of uninteresting comparisons will make those intervals of primary concern less precise and a significant comparison may be missed.  This is not to say that cherry picking a subset of intervals purely to achieve significance is valid!  This is termed data-snooping and should be avoided!  A fuller discussion of this topic is given in the technical appendix.
 c. The summary table presented in the conclusions highlighted those comparisons, of the subset of interest, that were nor significantly different.  Of course the table could be misinterpreted to represent all possible pair-wise comparisons which was not the case.  Despite this the results from Box 7.2.1.4 indicate that had all been performed the comparison highlighted in the summary table as being non-significant is in the fact the only non-significant amongst all the pair-wise comparisons.
 
@@ -298,50 +333,58 @@ Study Description:  Twenty eight physically inactive female and male subjects we
 
 Aim: To determine the effects of a six week training programme with the Slendertone® System Abs device on the isometric strength of the abdominal muscles.
 
-Summary statistics for the response variable, categorised by the two Between Subject Factors: Sex
+Summary statistics for the IAS_Improvement, categorised by the two Between Subject Factors: Device and Sex
 ```{r}
+m <- filter(BIODEX,Sex=="Male")
+f <- filter(BIODEX,Sex=="Female")
 
+basicStats((filter(m,Device=="Treatment"))$IAS_Improvement)
+basicStats((filter(m,Device=="Control"))$IAS_Improvement)
+
+basicStats((filter(f,Device=="Treatment"))$IAS_Improvement)
+basicStats((filter(f,Device=="Control"))$IAS_Improvement)
 ```
 
-plot a boxplot of isometric strength improvement by device and sex
+Plot a boxplot of IAS_Improvement by Device and Sex
 ```{r}
-
+ggplot(data = BIODEX) +
+  geom_boxplot(mapping = aes(x = Sex, y = IAS_Improvement)) +
+  coord_flip() +
+  facet_grid(. ~ Device)
 ```
 
-The plot of the mean IAS for each Factor level highlights that Males experienced a slightly larger mean improvement compared to Females for both Devices.
-
-Plot of mean isometric strength improvement
+General Linear Model: IAS_Improvement versus Device, Sex with device * sex
 ```{r}
-
+model <- lm(IAS_Improvement~Device+Sex+Device*Sex,data = BIODEX)
+summary(model)
 ```
 
-General Linear Model: IAS Improvement versus Device, Sex with device * sex
+General Linear Model: IAS_Improvement versus Device, Sex without device * sex
 ```{r}
-
-```
-
-General Linear Model: IAS Improvement versus Device, Sex without device * sex
-```{r}
-
+model <- lm(IAS_Improvement~Device+Sex,data = BIODEX)
+summary(model)
 ```
 
 Once again only the main effect of Device is deemed significant with a minimal change in the P-value for the main effect of Sex compared to that from the full model.  A Multiple Comparisons procedure is not needed here to identify which levels of the Between Subject Factor Device are different from each other since there are only two levels!  
 
 Descriptive Statistics: IAS Improvement
 ```{r}
-
+basicStats((filter(BIODEX,Device=="Treatment"))$IAS_Improvement)
+basicStats((filter(BIODEX,Device=="Control"))$IAS_Improvement)
 ```
 
-A simple solution here is to recognise that the problem has now reduced to no more than a simple Two-Sample comparison of Improvements (see Chapters 4 and 5) and as this does not assume equal standard deviations the resulting confidence interval is appropriate. 
+A simple solution here is to recognise that the problem has now reduced to no more than a simple Two-Sample comparison of Improvements (see Chapters 4 and 5) and as this does not assume equal standard deviations the resulting confidence interval is appropriate.
 
-Two-Sample T-Test and CI: IAS Improvement, Device 
+Two-Sample T-Test and Confidence Interval: IAS_Improvement, Device 
 ```{r}
-
+#t.test(BIODEX$IAS_Improvement,BIODEX$Device)
 ```
 
 One-Sample T: IAS Improvement_Control, IAS Improvement_Treatment
 ```{r}
+t.test((filter(BIODEX,Device=="Control"))$IAS_Improvement)
 
+t.test((filter(BIODEX,Device=="Treatment"))$IAS_Improvement)
 ```
 
 Interval estimates of the mean Isometric Abdominal Strength improvement  highlight a significant Treatment effect as the confidence interval is strictly positive, while despite there being a small sample mean improvement in Controls it was not significant.  
@@ -358,14 +401,17 @@ The model assumed is that the Response Variable depends linearly on the Covariat
 ### Grip Strength (revisited)
 Aim: To compare average Grip Strength of the (dominant) right hand among three populations of male climbers (i.e. Elite, Recreational and Non-climbers) while adjusting for Body Mass if necessary.  
 
-Plot a scatter plot of grip strength vs body mass with smoothed lines by climber type
+Plot a scatter plot of Body_Mass vs Grip_Strength with smoothed lines by Climber_Type
 ```{r}
-
+ggplot(data = GRIP_STRENGTH_AND_MASS,mapping = aes(x = Body_Mass, y = Grip_Strength,color = Climber_Type)) +
+  geom_point() +
+  geom_smooth(method='loess', level = 0)
 ```
 
-General Linear Model: Strength(N) versus Climber Type 
+General Linear Model: Grip_Strength versus Body_Mass, Climber Type 
 ```{r}
-
+model <- lm(Grip_Strength~Body_Mass+Climber_Type,data = GRIP_STRENGTH_AND_MASS)
+summary(model)
 ```
 
 From the P-value reported for Body Mass it is clear that not only does Body Mass significantly affect Grip Strength (P-value <0.001) but also, having corrected for Body Mass, Climbing Type is now highly significant (P-value of 0.008).    The last line of the output gives an estimate of the change in Grip Strength per kilogram increase in Body Mass (i.e. the common slope) of 7.96 N.
@@ -374,16 +420,22 @@ Note that there are now significant differences among the three Climbing Types w
 
 To assess which Climbing Types are different an appropriate multiple comparison procedure, while adjusting for Body Mass, is needed.  Based on the parallel line model, the average Grip Strength at the overall average Body Mass of the thirty subjects is estimated for each Climber Type separately.  
 
-Plot a scatter plot of grip strength vs body mass with parallal lines model
+Plot a scatter plot of Body_Mass vs Grip_Strength with parallal lines model
 ```{r}
-
+e <- filter(GRIP_STRENGTH_AND_MASS,Climber_Type=="Elite")
+r <- filter(GRIP_STRENGTH_AND_MASS,Climber_Type=="Recreational")
+ggplot(mapping = aes(x = GRIP_STRENGTH_AND_MASS$Body_Mass, y = GRIP_STRENGTH_AND_MASS$Grip_Strength,color = GRIP_STRENGTH_AND_MASS$Climber_Type)) +
+  geom_point() +
+  stat_function(fun = function(x) -35 + 7.966 * x) +
+   stat_function(fun = function(x) -90 + 7.966 * x)
 ```
 
 The estimated adjusted difference in mean Grip Strength for Elite climbers compared to the Controls is therefore 545.1 - 488.7 = 56.4 N in favour of the Elite Climbers. 
 
 Tukey 95.0% Simultaneous Confidence Intervals
 ```{r}
-
+a <- aov(Grip_Strength~Climber_Type,data = GRIP_STRENGTH_AND_MASS)
+TukeyHSD(x=a, 'Climber_Type', conf.level=0.95)
 ```
 
 Since the first of these intervals is wholly positive it can be concluded that Elite climbers have, on average, a significantly greater Grip Strength than Control climbers of the same Body Mass.  As the second interval has zero lying almost in the centre of the interval there is little evidence to suggest any difference between Recreational and Control climbers in terms of Grip Strength even adjusting for Body Mass.  Finally, as the third interval is strictly negative it can be concluded that Elite climbers have, on average, a significantly greater Grip Strength than Recreational climbers, once again while adjusting for Body Mass.  
@@ -393,14 +445,17 @@ Conclusion:  There is convincing evidence that, when adjusting for Body Mass, El
 ### Model Checking for a ANCOVA model with one covariate
 The key assumption in this model is that of ‘Parallel Lines’ i.e. a common slope for all three Climbing Type’s regression of Grip Strength on Body Mass.   This can be checked subjectively by fitting separate regressions of Grip strength on Body Mass for each climber Type separately and assessing whether the resulting lines of best fit look parallel
 
-Plot a scatter plot of grip strength vs body mass with line of best fine by climber type
+Plot a scatter plot of Body_Mass vs Grip_Strength with line of best fine by climber type
 ```{r}
-
+ggplot(data = GRIP_STRENGTH_AND_MASS,mapping = aes(x = Body_Mass, y = Grip_Strength,color = Climber_Type)) +
+  geom_point() +
+  geom_smooth(method='lm', level = 0)
 ```
 
-General Linear Model: Strength(N) versus Climber Type 
+General Linear Model: Grip_Strength versus Climber_Type 
 ```{r}
-
+model <- lm(Grip_Strength~Climber_Type,data = GRIP_STRENGTH_AND_MASS)
+summary(model)
 ```
 
 Since the P-value for the test of ‘no differences in slopes of the three regressions of Grip Strength on Body Mass is 0.999 there is clearly no reason to question the assumption of parallel lines in the Analysis of Covariance model.  The usual residual plots showed no problems with the other assumptions of Normality and Equal Spreads about the regressions on Body Mass.
@@ -411,7 +466,6 @@ ANCOVA is a general approach for adjusting a treatment comparison for a covariat
 A second approach, which has gained acceptance in Sports and Exercise Science, is that of Allometric Scaling.    The word ‘Allometry’ refers to the study of the change in proportion of a body as a consequence of growth.  Allometric scaling equations are available that purport to describe the relationship between Body Mass and many body process (e.g. max, metabolic rate).  The idea is to re-express the response variable as a Body Mass scaled variable using the appropriate scaling equation and then to use this scaled response variable for any future analyses.
 
 The most popular form of scaling involves a simple power law equation 
-
 Response  Variable =   a  *Body Massb
 
 where the constant term a and exponent term b must be estimated from the data.  Such equations are very common in Biology to model the dependency of species size on land mass.  Indeed power laws arise in a surprisingly large number of naturally occurring phenomena, such as the size of cities, stock market returns and even the length of time football managers last in a post before being fired!
@@ -429,12 +483,13 @@ Aim: To compare Grip strength across the Climber Types, while adjusting for Body
 
 Analysis:	Start by creating the log transformed Grip Strength and Body Mass variables.  As Climber Type is a Between Subject Factor with three levels (Control, Recreational and Elite) replacing it with a set of indicator variables will facilitate the analysis.  Create an indicator variable called Recreational and code climbers as 1 if a Recreational climber and 0 otherwise and a second indicator variable called Elite and code climbers as 1 if an Elite climber and 0 otherwise.  
 
-Regression Analysis: log(Grip Strengt versus log(Body Mass), Elite, ... 
+Regression Analysis: log(Grip Strength) versus log(Body Mass), Climber_Type
 ```{r}
-
+model <- lm(log(Grip_Strength)~log(Body_Mass)+Climber_Type,data = GRIP_STRENGTH_AND_MASS)
+summary(model)
 ```
 
-he power law equations can now be calculated for each Climber Type.  The estimated exponent term is 1.18 and applies to each Climber Type as the parallel lines (common slope) model was assumed appropriate. The constant term (a) for the allometric scaling equation for the Control Climbers, is simply the antilog of the intercept 
+The power law equations can now be calculated for each Climber Type.  The estimated exponent term is 1.18 and applies to each Climber Type as the parallel lines (common slope) model was assumed appropriate. The constant term (a) for the allometric scaling equation for the Control Climbers, is simply the antilog of the intercept 
 term as both indicator variables are set to zero, namely exp(1.14) which is equal to 3.05.  The constant term for the allometric scaling equation for the Recreational Climbers is calculated by adding the intercept and the regression coefficient for the Recreational indicator variable i.e. exp(1.114 – 0.00272) which is equal to 3.04. Finally the constant term for the allometric scaling equation for the Elite climbers is calculated as exp(1.114+0.10611) which equals 3.39.
 
 The estimated allometric scaling equations for the dependency of Grip Strength (GS) on Body Mass for the three Climber Types are as follows:
@@ -454,38 +509,30 @@ Allometric-Scaled Grip Strength =   Grip Strength / (Body Massb)
 
 Note that the slope of the log-log regression (i.e, the b term in model above) is common to all Climber Types as there was evidence that a parallel lines model was plausible.  A box plot of allometric scaled Grip Strength suggests that it is typically higher in Elite climbers compared to both the other Climber Types which themselves are quite similar.
 
-Plot a box plot of allometric-scaled grip strength by climber type
+Plot a box plot of allometric-scaled Grip_Strength by Climber_Type
 ```{r}
-
+ggplot(data = GRIP_STRENGTH_AND_MASS,mapping = aes(x = Climber_Type, y = 3.04*Grip_Strength)) +
+  geom_boxplot() +
+  coord_flip()
 ```
 
-General Linear Model: Allo Ratio Scaled versus Climber Type 
+General Linear Model: Allo Ratio Scaled Grip_Strength versus Climber Type 
 ```{r}
-
+model <- lm(3.04*Grip_Strength~Climber_Type,data = GRIP_STRENGTH_AND_MASS)
+summary(model)
 ```
 
 Provides evidence of a difference in mean allometric scaled Grip Strength across Climber Type.  
 
 Tukey 95.0% Simultaneous Confidence Intervals
 ```{r}
-
+a <- aov(3.04*Grip_Strength~Climber_Type,data = GRIP_STRENGTH_AND_MASS)
+TukeyHSD(x=a, 'Climber_Type', conf.level=0.95)
 ```
 
 A Tukey multiple comparisons procedure identifies Elite Climbers as having significantly larger allometric scaled Grip Strength, on average, compared to Recreational and Control Climbers with no significant difference between these two Climber Types.
 
 The analysis based on the allometric scaled response variable has identified a significant Climber Type effect.   However the result, in terms of the magnitude of the difference between the Climber Types, is hard to interpret.   The response variable is now in units of Newtons.kg.-1.18.  
-
-An alternative approach to creating this allometric scaled response variable is to use an ANCOVA to compare mean Grip Strength across Climber Type, adjusting for Body Mass as a covariate.    Then, having confirmed significant differences among the Climber types, provide Tukey-based pair-wise Multiple Comparisons among the Climber Types and finally take the  anti-logs of each pair-wise Confidence Interval.
-
-Analysis of Variance for log(Grip Strength N), using Adjusted SS for Tests
-```{r}
-
-```
-
-The ANCOVA has identified significant Body Mass and Climber Type effects (as expected).  The (Tukey) pair-wise multiple comparisons identify a significant difference between Elite and both Recreational and Control climbers (again as expected).  As the response variable is being analysed on the log scale, the antilog of the intervals provide an estimate of the ratio of mean Grip Strength between the Climber Type populations. 
-
-For example, Elite Climbers are estimated to have Body Mass adjusted mean Grip Strength of between 1.01 to 1.22 that of Control Climbers (i.e. exp(0.01130) to exp(0.2092) ) while Recreational Climbers have Body Mass adjusted mean Grip Strength of between 0.72 to 0.98 times that of Elite Climbers (i.e. exp(-0.2031) to exp(-0.01461).  In order to keep the Climber Type comparisons consistent an alternative summary is that Elite Climbers are estimated to have Body Mass adjusted mean Grip Strength of between 1.01 to 1.39 times that of Recreational Climbers (i.e. 1/0.98 and 1/0.72 respectively).
-
 
 Conclusion:  A comparison of mean allometric scaled Grip Strength identified a significant Climber Type effect (P=0.009) where Elite Climbers had higher allometric scaled adjusted mean Grip Strength of between 0.05 to 0.65 of N. kg.-1.18 compared to Control Climbers and of between 0.06 to 0.67 of N. kg.-1.18 compared to Recreational Climbers.  
 
