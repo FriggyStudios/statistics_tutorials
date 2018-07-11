@@ -70,7 +70,7 @@ Visualise the distrubtion of pokemon’s hp using a histogram with binwidth = 10
 <div class="tutorial-exercise-support" data-label="visual1-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>strict_check(success = &quot;Nice histogram!&quot;)</code></pre>
 </div>
-<p>Visualise the distrubtion of pokemon’s attack using a freqpoly, filtering dragon, ground, normal and water type_1 pokemons, using a freqpoly with color = type_1 and binwidth=5</p>
+Visualise the distrubtion of pokemon’s attack using a freqpoly, filtering dragon, ground, normal and water type_1 pokemons, using a freqpoly with color = type_1 and binwidth=5
 <div class="tutorial-exercise" data-label="visual2" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
 <pre class="text"><code>ggplot(data=filter(pokemon,type_1 %in% ...)) +</code></pre>
 <script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
@@ -140,17 +140,12 @@ Add coord_cartesian ylim of c(0,20)
 <div id="section-covariation" class="section level2">
 <h2>Covariation</h2>
 <p>Covariation is the tendency for the values of two or more variables to vary togeter in a related way.</p>
-<p>Internation Reputation vs Average Wage</p>
+<p>International Reputation vs Average Wage</p>
 <pre class="r"><code>ggplot(data=(fifa %&gt;% 
   group_by(international_reputation) %&gt;%
   summarize(count = n(), avg_wage = mean(eur_wage))))+
   geom_point(mapping = aes(x = international_reputation, y = avg_wage))</code></pre>
 <p><img src="Tutorial3_files/figure-html/unnamed-chunk-4-1.png" width="624" /></p>
-<p>Boxplot showing how category of type_1 pokemon’s hp vary</p>
-<pre class="r"><code>ggplot(data = pokemon, mapping = aes(x = type_1, y = hp)) +
-  geom_boxplot() +
-  coord_flip()</code></pre>
-<p><img src="Tutorial3_files/figure-html/unnamed-chunk-5-1.png" width="624" /></p>
 Find covariation between two other variables in the fifa data
 <div class="tutorial-exercise" data-label="covariation" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
 <pre class="text"><code>ggplot(data=fifa,mapping = aes(...)) +
@@ -168,11 +163,11 @@ Find covariation between two other variables in the fifa data
   count(generation,type_1) %&gt;%
   ggplot(mapping = aes(x=generation,y=type_1)) +
     geom_tile(mapping = aes(fill = n))</code></pre>
-<p><img src="Tutorial3_files/figure-html/unnamed-chunk-6-1.png" width="624" /></p>
+<p><img src="Tutorial3_files/figure-html/unnamed-chunk-5-1.png" width="624" /></p>
 <p>This barchart confirms the suspician that the 6th generation of Pokemon has the least number of Pokemon.</p>
 <pre class="r"><code>  ggplot(data=pokemon,mapping = aes(x = generation)) +
   geom_bar()</code></pre>
-<img src="Tutorial3_files/figure-html/unnamed-chunk-7-1.png" width="624" /> 
+<img src="Tutorial3_files/figure-html/unnamed-chunk-6-1.png" width="624" /> 
 <script type="application/shiny-prerendered" data-context="server-start">
 library(learnr)
 library(tidyverse)
@@ -180,11 +175,11 @@ library(grader)
 knitr::opts_chunk$set(echo = FALSE)
 tutorial_options(exercise.checker = grade_learnr)
 
-pokemon <- read_csv("Pokemon.csv")
+pokemon <- read_csv("data/Pokemon.csv")
 
-bechdel <- read_csv("BechdelTest.csv")
+bechdel <- read_csv("data/BechdelTest.csv")
 
-fifa <- read_csv("FifaPlayers.csv")
+fifa <- read_csv("data/FifaPlayers.csv")
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">

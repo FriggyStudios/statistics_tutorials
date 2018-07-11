@@ -55,6 +55,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h3>Comparisons</h3>
 Check is 2 + 3 equal to 5
 <div class="tutorial-exercise" data-label="comparison" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
+<pre class="text"><code>... + ... == ...</code></pre>
 <script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
 </div>
 <div class="tutorial-exercise-support" data-label="comparison-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
@@ -111,6 +112,9 @@ Check is 2 + 3 equal to 5
 <div class="tutorial-exercise-support" data-label="logical1-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>strict_check(success = &quot;Nice filter!&quot;)</code></pre>
 </div>
+</div>
+<div id="section-more-filter" class="section level3">
+<h3>More filter</h3>
 <p>Filter players who play for a Machester club, Manchester City or Manchester United, using the %in% operator.</p>
 <div class="tutorial-exercise" data-label="logical2" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
 <pre class="text"><code>filter(fifa, club %in% c(...,...))</code></pre>
@@ -130,18 +134,19 @@ Check is 2 + 3 equal to 5
 <h3>Missing Values</h3>
 <p>NA - not available</p>
 <pre><code>## [1] NA</code></pre>
+<p>The value is not known or is non applicable</p>
 <p>filter only includes results which are TRUE, and excludes results which are FALSE and NA</p>
-<pre class="r"><code>df &lt;- tibble(x = c(1,20,NA,10,4,NA))
-filter(df, x %in% c(1:10,NA))</code></pre>
+<pre class="r"><code>t &lt;- tibble(x = c(1,20,NA,10,4,NA))
+filter(t, x %in% c(1:10))</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["x"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"1"},{"1":"NA"},{"1":"10"},{"1":"4"},{"1":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["x"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"1"},{"1":"10"},{"1":"4"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 <div id="section-arrange" class="section level3">
 <h3>Arrange</h3>
-Arrange the “England” players in descending order of age.
+Arrange the “England” players in descending order of age. Use desc(age)
 <div class="tutorial-exercise" data-label="arrange" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
 <pre class="text"><code>arrange(filter(fifa,nationality == &quot;England&quot;),...)</code></pre>
 <script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
@@ -160,7 +165,7 @@ Arrange the “England” players in descending order of age.
 <h3>Select</h3>
 Select the columns: overall, pac, sho, pas, dri, def, phy
 <div class="tutorial-exercise" data-label="select" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
-<pre class="text"><code>select(fifa,... = )</code></pre>
+<pre class="text"><code>select(fifa,...)</code></pre>
 <script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
 </div>
 <div class="tutorial-exercise-support" data-label="select-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
@@ -192,28 +197,28 @@ mutate(fifa_sample,kick = sho + pas)</code></pre>
 <pre class="text"><code>strict_check(success = &quot;Nice new column!&quot;)</code></pre>
 </div>
 </div>
-<div id="section-transmutate" class="section level3">
-<h3>Transmutate</h3>
-Use transmutate instead of mutate. This leaves us with only the new columns.
-<div class="tutorial-exercise" data-label="transmutate" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
+<div id="section-transmute" class="section level3">
+<h3>Transmute</h3>
+Use transmute instead of mutate. This leaves us with only the new columns.
+<div class="tutorial-exercise" data-label="transmute" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
 <pre class="text"><code>fifa_sample &lt;- select(fifa,sho,pas)
 mutate(fifa_sample,kick=sho+pas)</code></pre>
 <script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
 </div>
-<div class="tutorial-exercise-support" data-label="transmutate-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<div class="tutorial-exercise-support" data-label="transmute-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>fifa_sample &lt;- select(fifa,pac,sho,pas,dri,def,phy)
-transmutate(fifa_sample,kick=sho+pas)</code></pre>
+transmute(fifa_sample,kick=sho+pas)</code></pre>
 </div>
-<div class="tutorial-exercise-support" data-label="transmutate-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>transmutate(fifa_sample,kick=sho+pas)</code></pre>
+<div class="tutorial-exercise-support" data-label="transmute-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>transmute(fifa_sample,kick=sho+pas)</code></pre>
 </div>
-<div class="tutorial-exercise-support" data-label="transmutate-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<div class="tutorial-exercise-support" data-label="transmute-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>strict_check(success = &quot;Nice new column!&quot;)</code></pre>
 </div>
 </div>
 <div id="section-grouping" class="section level3">
 <h3>Grouping</h3>
-Group by nationality and prefers_gk. Summarize with avg_age = mean(age). Summarize the fifa dataset
+Group by nationality and prefers_gk. Summarize with avg_age = mean(age).
 <div class="tutorial-exercise" data-label="group" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="3">
 <pre class="text"><code>fifa_small &lt;- group_by(fifa, ...)
 summarize(fifa_small,...)</code></pre>
@@ -233,15 +238,15 @@ summarize(fifa_small, avg_age = mean(age))</code></pre>
 </div>
 <div id="section-pipes" class="section level3">
 <h3>Pipes</h3>
-<p>dpylr pipes make it easier to nest functions together into one statment.</p>
-<p>Without dpylr pipes using nested functions:</p>
+<p>dpylr pipes make it easier to nest functions together into one statement.</p>
+<p>Without dpylr pipes, using nested functions:</p>
 <pre class="r"><code>select(filter(fifa,nationality ==&quot;Spain&quot;),name,overall)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["overall"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"De Gea","2":"90"},{"1":"Sergio Ramos","2":"90"},{"1":"Thiago","2":"88"},{"1":"David Silva","2":"87"},{"1":"Piqué","2":"87"},{"1":"Iniesta","2":"87"},{"1":"Isco","2":"86"},{"1":"Sergio Busquets","2":"86"},{"1":"Diego Costa","2":"86"},{"1":"Javi Martínez","2":"86"},{"1":"Cesc Fàbregas","2":"86"},{"1":"Morata","2":"85"},{"1":"Koke","2":"85"},{"1":"Jordi Alba","2":"85"},{"1":"Azpilicueta","2":"85"},{"1":"Marco Asensio","2":"84"},{"1":"Carvajal","2":"84"},{"1":"Ander Herrera","2":"84"},{"1":"Pedro","2":"84"},{"1":"Bruno","2":"84"},{"1":"Sergio Asenjo","2":"84"},{"1":"Juan Mata","2":"84"},{"1":"Aduriz","2":"84"},{"1":"Vitolo","2":"83"},{"1":"Iago Aspas","2":"83"},{"1":"Parejo","2":"83"},{"1":"José Callejón","2":"83"},{"1":"Borja Valero","2":"83"},{"1":"Diego López","2":"83"},{"1":"Santi Cazorla","2":"83"},{"1":"José Reina","2":"83"},{"1":"Casillas","2":"83"},{"1":"Lucas Vázquez","2":"82"},{"1":"Saúl","2":"82"},{"1":"Sergio Rico","2":"82"},{"1":"Manu Trigueros","2":"82"},{"1":"Iñigo Martínez","2":"82"},{"1":"Roque Mesa","2":"82"},{"1":"Suso","2":"82"},{"1":"Deulofeu","2":"82"},{"1":"Jonathan Viera","2":"82"},{"1":"Víctor Ruíz","2":"82"},{"1":"Iborra","2":"82"},{"1":"Beñat","2":"82"},{"1":"Raúl Albiol","2":"82"},{"1":"Juanfran","2":"82"},{"1":"David Villa","2":"82"},{"1":"Williams","2":"81"},{"1":"Dani García","2":"81"},{"1":"Héctor Bellerín","2":"81"},{"1":"Nacho Fernández","2":"81"},{"1":"Sergi Roberto","2":"81"},{"1":"Lucas Pérez","2":"81"},{"1":"Bartra","2":"81"},{"1":"Mario Gaspar","2":"81"},{"1":"Marcos Alonso","2":"81"},{"1":"Illarramendi","2":"81"},{"1":"De Marcos","2":"81"},{"1":"Camacho","2":"81"},{"1":"Adán","2":"81"},{"1":"Raúl García","2":"81"},{"1":"Gabi","2":"81"},{"1":"Moyá","2":"81"},{"1":"Fernando Torres","2":"81"},{"1":"Samu Castillejo","2":"80"},{"1":"Grimaldo","2":"80"},{"1":"Gerard Moreno","2":"80"},{"1":"Arrizabalaga","2":"80"},{"1":"Denis Suárez","2":"80"},{"1":"Pablo Sarabia","2":"80"},{"1":"Sergi Enrich","2":"80"},{"1":"Hugo Mallo","2":"80"},{"1":"Iago Falqué","2":"80"},{"1":"Iturraspe","2":"80"},{"1":"Mikel San José","2":"80"},{"1":"Kiko Casilla","2":"80"},{"1":"Nacho Monreal","2":"80"},{"1":"Pedro León","2":"80"},{"1":"Marcano","2":"80"},{"1":"Javi Fuego","2":"80"},{"1":"Oyarzabal","2":"79"},{"1":"Diego Llorente","2":"79"},{"1":"Gayà","2":"79"},{"1":"Óliver Torres","2":"79"},{"1":"Bernat","2":"79"},{"1":"Rubén Pardo","2":"79"},{"1":"Paco Alcácer","2":"79"},{"1":"Vicente Gómez","2":"79"},{"1":"Oriol Romeu","2":"79"},{"1":"Nolito","2":"79"},{"1":"Adrián","2":"79"},{"1":"Keko","2":"79"},{"1":"Jaume Costa","2":"79"},{"1":"Escudero","2":"79"},{"1":"Canales","2":"79"},{"1":"Balenziaga","2":"79"},{"1":"Muniain","2":"79"},{"1":"Roberto","2":"79"},{"1":"Fabricio","2":"79"},{"1":"Bojan","2":"79"},{"1":"Coke","2":"79"},{"1":"Jurado","2":"79"},{"1":"Xabi Prieto","2":"79"},{"1":"Negredo","2":"79"},{"1":"Joaquín","2":"79"},{"1":"Yeray","2":"78"},{"1":"Jorge Meré","2":"78"},{"1":"Jony","2":"78"},{"1":"Dani Ceballos","2":"78"},{"1":"Pau López","2":"78"},{"1":"Morales","2":"78"},{"1":"Capa","2":"78"},{"1":"Carles Gil","2":"78"},{"1":"Bigas","2":"78"},{"1":"Pozuelo","2":"78"},{"1":"Sergi Darder","2":"78"},{"1":"David López","2":"78"},{"1":"Luis Alberto","2":"78"},{"1":"Raúl Navas","2":"78"},{"1":"Rodrigo","2":"78"},{"1":"Borja Bastón","2":"78"},{"1":"Fontàs","2":"78"},{"1":"Etxeita","2":"78"},{"1":"Victor Sánchez","2":"78"},{"1":"Susaeta","2":"78"},{"1":"Juanfran","2":"78"},{"1":"Rochina","2":"78"},{"1":"Mosquera","2":"78"},{"1":"Granero","2":"78"},{"1":"Javi García","2":"78"},{"1":"Juanmi","2":"77"},{"1":"Iván Ramis","2":"77"},{"1":"Portu","2":"77"},{"1":"Jesé","2":"77"},{"1":"Luís Hernández","2":"77"},{"1":"Jonny","2":"77"},{"1":"Bruno","2":"77"},{"1":"Jozabed","2":"77"},{"1":"Pacheco","2":"77"},{"1":"Jordi Amat","2":"77"},{"1":"Sergio León","2":"77"},{"1":"Víctor Vázquez","2":"77"},{"1":"Iraizoz","2":"77"},{"1":"Montoya","2":"77"},{"1":"Yoel","2":"77"},{"1":"Marcos Llorente","2":"77"},{"1":"Pedro Obiang","2":"77"},{"1":"Cristian Tello","2":"77"},{"1":"Sandro","2":"77"},{"1":"Vallejo","2":"77"},{"1":"David García","2":"77"},{"1":"Javi Varas","2":"77"},{"1":"Campaña","2":"77"},{"1":"Pablo Fornals","2":"77"},{"1":"Sergi Gómez","2":"77"},{"1":"Recio","2":"77"},{"1":"Álvaro","2":"77"},{"1":"Yuri","2":"77"},{"1":"Sergio","2":"77"},{"1":"Sergio Álvarez","2":"77"},{"1":"Agirretxe","2":"76"},{"1":"Aarón Martín","2":"76"},{"1":"Alcalá","2":"76"},{"1":"Chico Flores","2":"76"},{"1":"Manquillo","2":"76"},{"1":"Javi López","2":"76"},{"1":"Jairo","2":"76"},{"1":"Jesús Gámez","2":"76"},{"1":"Roberto Torres","2":"76"},{"1":"Alexis","2":"76"},{"1":"Diego Castro","2":"76"},{"1":"Gálvez","2":"76"},{"1":"Roger","2":"76"},{"1":"Andrés Fernández","2":"76"},{"1":"Bóveda","2":"76"},{"1":"Riesgo","2":"76"},{"1":"Herrerín","2":"76"},{"1":"Santi Mina","2":"76"},{"1":"Timor","2":"76"},{"1":"Carlos Soler","2":"76"},{"1":"Serantes","2":"76"},{"1":"Aritz Elustondo","2":"76"},{"1":"Laguardia","2":"76"},{"1":"Camarasa","2":"76"},{"1":"Aythami Artiles","2":"76"},{"1":"Adrián González","2":"76"},{"1":"Cejudo","2":"76"},{"1":"Javi Espinosa","2":"76"},{"1":"Omar Mascarell","2":"76"},{"1":"Lekue","2":"76"},{"1":"Ibai Gómez","2":"76"},{"1":"Pere Pons","2":"76"},{"1":"Carlos Martínez","2":"76"},{"1":"Aleix Vidal","2":"76"},{"1":"Alberto Moreno","2":"76"},{"1":"Diego Rico","2":"76"},{"1":"Marc Muniesa","2":"76"},{"1":"Samu Saiz","2":"76"},{"1":"Arribas","2":"75"},{"1":"Lombán","2":"75"},{"1":"Mikel Gonzalez","2":"75"},{"1":"Iván Cuéllar","2":"75"},{"1":"Fran Rico","2":"75"},{"1":"Joselu","2":"75"},{"1":"Jota","2":"75"},{"1":"Odriozola","2":"75"},{"1":"Miguel Torres","2":"75"},{"1":"David García","2":"75"},{"1":"Insua","2":"75"},{"1":"Edgar Méndez","2":"75"},{"1":"Burgui","2":"75"},{"1":"Munir","2":"75"},{"1":"Sergio Tejera","2":"75"},{"1":"Ximo Navarro","2":"75"},{"1":"Dani Castellano","2":"75"},{"1":"Rubén Blanco","2":"75"},{"1":"Tana","2":"75"},{"1":"Samu García","2":"75"},{"1":"Kiko Femenía","2":"75"},{"1":"Kike García","2":"75"},{"1":"Sabin Merino","2":"75"},{"1":"Jaume","2":"75"},{"1":"Trashorras","2":"75"},{"1":"Botía","2":"75"},{"1":"Borja García","2":"75"},{"1":"Rubén Pérez","2":"75"},{"1":"Toño García","2":"75"},{"1":"Omar Ramos","2":"75"},{"1":"Isaac Becerra","2":"75"},{"1":"De la Bella","2":"75"},{"1":"José Cañas","2":"75"},{"1":"Luna","2":"75"},{"1":"Adrián","2":"75"},{"1":"Manu García","2":"75"},{"1":"Alex Bergantiños","2":"74"},{"1":"David Juncà","2":"74"},{"1":"Guerrero","2":"74"},{"1":"Jaime Romero","2":"74"},{"1":"Fernando Navarro","2":"74"},{"1":"Saúl Berjón","2":"74"},{"1":"Víctor Álvarez","2":"74"},{"1":"Juankar","2":"74"},{"1":"Ayoze Pérez","2":"74"},{"1":"Rubén Peña","2":"74"},{"1":"Lora","2":"74"},{"1":"Arbilla","2":"74"},{"1":"Raúl Fernández","2":"74"},{"1":"Víctor Díaz","2":"74"},{"1":"Kiko Olivas","2":"74"},{"1":"Diego Mariño","2":"74"},{"1":"Carles Planas","2":"74"},{"1":"Míchel","2":"74"},{"1":"Lato","2":"74"},{"1":"Víctor Rodríguez","2":"74"},{"1":"David Rodríguez","2":"74"},{"1":"Abraham","2":"74"},{"1":"Àngel Rangel","2":"74"},{"1":"Joel Robles","2":"74"},{"1":"Raul García","2":"74"},{"1":"Pol Lirola","2":"74"},{"1":"Postigo","2":"74"},{"1":"Eraso","2":"74"},{"1":"Albentosa","2":"74"},{"1":"Chema Rodríguez","2":"74"},{"1":"Pablo Hernández","2":"74"},{"1":"Ramalho","2":"74"},{"1":"Dani Pacheco","2":"74"},{"1":"Álex Martínez","2":"74"},{"1":"Aitor Sanz","2":"74"},{"1":"Merino","2":"74"},{"1":"Marc Roca","2":"74"},{"1":"Mikel Rico","2":"74"},{"1":"José Ángel","2":"74"},{"1":"Granell","2":"74"},{"1":"Juanpe","2":"74"},{"1":"Oier","2":"74"},{"1":"Juan Villar","2":"74"},{"1":"Deivid","2":"74"},{"1":"Fidel","2":"74"},{"1":"David Simón","2":"74"},{"1":"Sergio Sánchez","2":"74"},{"1":"Medrán","2":"74"},{"1":"Elustondo","2":"74"},{"1":"Moi Gómez","2":"74"},{"1":"Laure","2":"73"},{"1":"Unai Nuñez","2":"73"},{"1":"Nano","2":"73"},{"1":"De las Cuevas","2":"73"},{"1":"Naranjo","2":"73"},{"1":"Cifuentes","2":"73"},{"1":"Miguel Flaño","2":"73"},{"1":"Diego González","2":"73"},{"1":"Hermoso","2":"73"},{"1":"Aarón Ñíguez","2":"73"},{"1":"Susaeta","2":"73"},{"1":"Fausto Tienza","2":"73"},{"1":"Osmar","2":"73"},{"1":"Alberto","2":"73"},{"1":"Jason","2":"73"},{"1":"Joselu","2":"73"},{"1":"Guitián","2":"73"},{"1":"Clerc","2":"73"},{"1":"Rubén García","2":"73"},{"1":"Toché","2":"73"},{"1":"Mata","2":"73"},{"1":"Oriol Riera","2":"73"},{"1":"Bustinza","2":"73"},{"1":"Jorge Molina","2":"73"},{"1":"Momo","2":"73"},{"1":"Crespo","2":"73"},{"1":"Javi Castellano","2":"73"},{"1":"Bruno Saltor","2":"73"},{"1":"Marín","2":"73"},{"1":"Quique","2":"73"},{"1":"Bueno","2":"73"},{"1":"Alex López","2":"73"},{"1":"Alex Berenguer","2":"73"},{"1":"Álvaro","2":"73"},{"1":"Carmona","2":"73"},{"1":"Raúl Lizoain","2":"73"},{"1":"Alex Alegría","2":"73"},{"1":"Adama","2":"73"},{"1":"David Soria","2":"73"},{"1":"Sergi Samper","2":"73"},{"1":"Tomás Pina","2":"73"},{"1":"Fran Mérida","2":"73"},{"1":"Tito","2":"73"},{"1":"Zaldúa","2":"73"},{"1":"Guaita","2":"73"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<p>Without dpylr pipes using variables functions:</p>
+<p>Without dpylr pipes, using variables:</p>
 <pre class="r"><code>fifa_sample &lt;- filter(fifa,nationality ==&quot;Spain&quot;)
 select(fifa_sample,name,overall)</code></pre>
 <div data-pagedtable="false">
@@ -291,7 +296,7 @@ library(grader)
 knitr::opts_chunk$set(echo = FALSE)
 tutorial_options(exercise.checker = grade_learnr)
 
-fifa <- read_csv("FifaPlayers.csv")
+fifa <- read_csv("data/FifaPlayers.csv")
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -348,9 +353,9 @@ output$`tutorial-exercise-mutate-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-`tutorial-exercise-transmutate-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-transmutate-code-editor`)), session)
-output$`tutorial-exercise-transmutate-output` <- renderUI({
-  `tutorial-exercise-transmutate-result`()
+`tutorial-exercise-transmute-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-transmute-code-editor`)), session)
+output$`tutorial-exercise-transmute-output` <- renderUI({
+  `tutorial-exercise-transmute-result`()
 })
 </script>
  

@@ -20,7 +20,6 @@ bechdel <- read_csv("data/BechdelTest.csv")
 fifa <- read_csv("data/FifaPlayers.csv")
 ```
 
-
 # Topic 1 - Data Visualisation with ggplot2
 
 ## Scatter Plots

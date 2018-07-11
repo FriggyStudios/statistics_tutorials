@@ -13,7 +13,7 @@
 <meta name="progressive" content="true" />
 <meta name="allow-skip" content="false" />
 
-<title>Relational Data</title>
+<title>Pipes with magrittr</title>
 
 
 <!-- highlightjs -->
@@ -46,14 +46,13 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="section-topic-7---pipes-with-magrittr" class="section level1">
 <h1>Topic 7 - Pipes with magrittr</h1>
-<div id="section-intermediate-steps" class="section level2">
-<h2>Intermediate steps</h2>
+<p>Pipes are a powerful way to express a sequnce of operations in a single statement.</p>
+<p>The following are alternative aproaches to using pipes. ## Intermediate steps</p>
 <pre class="r"><code>profit &lt;- bechdel$dom_gross + bechdel$int_gross - bechdel$budget
 mean_profit &lt;- mean(profit,na.rm = TRUE)
 formatted_mean_profit &lt;- format(mean_profit,scientific = TRUE)
 print(formatted_mean_profit)</code></pre>
 <pre><code>## [1] &quot;1.747397e+08&quot;</code></pre>
-</div>
 <div id="section-overwrite-the-original" class="section level2">
 <h2>Overwrite the Original</h2>
 <pre class="r"><code>formatted_mean_profit &lt;- bechdel$dom_gross + bechdel$int_gross - bechdel$budget
@@ -69,9 +68,11 @@ print(formatted_mean_profit)</code></pre>
 </div>
 <div id="section-use-the-pipe" class="section level2">
 <h2>Use the Pipe</h2>
-Rewrite using the pipes: %&gt;%
+Rewrite one of the alternatives using the pipe: %&gt;%
 <div class="tutorial-exercise" data-label="comparison" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
-<pre class="text"><code>bechdel</code></pre>
+<pre class="text"><code>(bechdel$dom_gross + bechdel$int_gross - bechdel$budget) %&gt;%
+  mean(...) %&gt;%
+  ...</code></pre>
 <script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
 </div>
 <div class="tutorial-exercise-support" data-label="comparison-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
@@ -97,7 +98,7 @@ library(grader)
 knitr::opts_chunk$set(echo = FALSE)
 tutorial_options(exercise.checker = grade_learnr)
 
-bechdel <- read_csv("BechdelTest.csv")
+bechdel <- read_csv("data/BechdelTest.csv")
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -127,7 +128,7 @@ output$`tutorial-exercise-comparison-output` <- renderUI({
 
 <!-- begin doc-metadata -->
 <div id="doc-metadata">
-<h2 class="title toc-ignore" style="display:none;">Relational Data</h2>
+<h2 class="title toc-ignore" style="display:none;">Pipes with magrittr</h2>
 </div>
 <!-- end doc-metadata -->
 

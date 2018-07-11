@@ -58,7 +58,7 @@ A probability (of an event of interest) is always evaluated on a scale from 0 to
 
 The notion of Statistical Significance represents an observed effect that was ‘unlikely to have occurred by chance’.   This is formalised in the hypothesis testing paradigm by determining when a P-value is small enough to warrant rejecting the Null Hypothesis.  The choice of such a “small enough value” is known as the Significance Level and is traditionally set at 0.05, so that a P-value less than or equal to 0.05 is thought to provide enough evidence to reject the Null Hypothesis.  In such a case, then the data are said to have produced a ‘statistically significant’ conclusion and a decision is made to reject the Null Hypothesis.
 
-The Illustration on Soccer Fitness, introduced previously in Chapters 3 and 4, involved a comparison of two population means.  A 95% Confidence Interval for the difference in population mean CMJ Height (Seniors minus Youths) ranged from 3.05 to 10.13 cm (Box 4.3.1) providing evidence of a higher mean CMJ Height in the population of Senior soccer players.  It may be rightly claimed that conclusion has been achieved by virtue of the 95% CI providing a credible range for the parameter of interest, namely the difference in the population means.   This interval did not contain zero implying that the population means are significantly different.    
+The Illustration on Soccer Fitness, introduced previously in Chapters 3 and 4, involved a comparison of two population means.  A 95% Confidence Interval for the difference in population mean CMJ Height (Seniors minus Youths) ranged from 3.05 to 10.13 cm providing evidence of a higher mean CMJ Height in the population of Senior soccer players.  It may be rightly claimed that conclusion has been achieved by virtue of the 95% CI providing a credible range for the parameter of interest, namely the difference in the population means.   This interval did not contain zero implying that the population means are significantly different.    
 
 What is a hypothesis test adding to the evidence provided by the interval estimate?  The answer is nothing!  Historically hypothesis testing was used before interval estimation ideas were ‘developed’ and, although it adds little, the approach is still used extensively in Sports and Exercise Science - often pointlessly as in this example.  There are, however, a number of scenarios where it is useful – for example in the ideas of Model Choice introduced in later chapters.  Although hypothesis testing is, strictly speaking, unnecessary for the examples presented here, it is useful to introduce the basic idea here rather than in more complicated situations where interval estimation is much less effective or indeed even ‘impossible’.
 
@@ -90,7 +90,7 @@ t.test((filter(SOCCER_FITNESS,Squad == 'Youth'))$CMJump,
 ```
 
 ```{r t_jump-check}
-strict_check(success = "The value of the test statistic (referred to as T-Value in the output) is 3.87 which is not directly interpretable.  The more useful measure is the P-value (highlighted in bold in Box 5.2.1) which is reported as 0.001 and hence it can be claimed that, if the two populations had the same mean, the chances of observing a difference (at least as extreme) as in the actual two sample means is less than one in a thousand.   Since this P-value is much less than the conventional significance level of 0.05, the Null Hypothesis can therefore be rejected and hence the Alternative Hypothesis that the difference in the two population means is not zero is assumed to be true.
+strict_check(success = "The value of the test statistic (referred to as T-Value in the output) is 3.87 which is not directly interpretable.  The more useful measure is the P-value which is reported as 0.001 and hence it can be claimed that, if the two populations had the same mean, the chances of observing a difference (at least as extreme) as in the actual two sample means is less than one in a thousand.   Since this P-value is much less than the conventional significance level of 0.05, the Null Hypothesis can therefore be rejected and hence the Alternative Hypothesis that the difference in the two population means is not zero is assumed to be true.
 
 Conclusion: There is convincing evidence of a significant difference in mean CMJ Height in the population of Senior and Youth soccer players (P=0.001).")
 ```
@@ -303,13 +303,6 @@ strict_check(success = "When reporting such analyses in a paper or a presentatio
 
 Two-sample T in WALKDANCE data for Peak_VO2_Dance - Peak_VO2_Walk (Sex==Male) vs
 Peak_VO2_Dance - Peak_VO2_Walk (Sex==Female)
-```{r}
-t.test(filter(WALKDANCE,Sex=='Male')$Peak_VO2_Dance -
-         filter(WALKDANCE,Sex=='Male')$Peak_VO2_Walk,
-       filter(WALKDANCE,Sex=='Female')$Peak_VO2_Dance -
-         filter(WALKDANCE,Sex=='Female')$Peak_VO2_Walk)
-```
-
 ```{r t3_dance, exercise=TRUE, exercise.lines = 5}
 t.test(... - ...,
        ... - ...)

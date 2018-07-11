@@ -83,7 +83,7 @@ strict_check(success = "")
 Remember that a box plot displays (amongst other things) the sample median. However, if each sample did arise from a Normal distribution (a necessary assumption for a One-Way ANOVA which is considered later in this section) then the sample mean and median should be quite similar.
 
 Summary of Grip_Strength variable
-```{r}
+```{r echo = T}
 basicStats(GRIP_STRENGTH_AND_MASS$Grip_Strength)
 ```
 
@@ -92,7 +92,7 @@ H0:  	The population mean Grip Strengths are the same for the three Climber Type
 H1: 	The population mean Grip Strengths are not all the same for the three Climber Types.
 
 General Linear Model: Grip_Strength versus Climber_Type 
-```{r}
+```{r echo = T}
 model <- lm(Grip_Strength~Climber_Type,data = GRIP_STRENGTH_AND_MASS)
 summary(model)
 ```
@@ -129,7 +129,7 @@ strict_check(success = "")
 ```
 
 summary statistc of Reduction by Treatment == Control, Meditation, and PMR
-```{r}
+```{r echo = T}
 basicStats(filter(RELAXATION,Treatment=='Control')$Reduction)
 basicStats(filter(RELAXATION,Treatment=='Meditation')$Reduction)
 basicStats(filter(RELAXATION,Treatment=='PMR')$Reduction)
@@ -175,7 +175,7 @@ For example, if four pair-wise comparisons are required and a simultaneous confi
 The Tukey (John Tukey, 1915-2000) procedure works on a slightly different  (but more complicated) method for determining the multiple for each confidence interval while controlling for the number of intervals required.  The Tukey approach is considered a less conservative approach than the Bonferroni method, especially when a small number of intervals are needed.  For this reason, the Tukey method is generally preferred. The Bonferroni method however is easier to calculate in practice (as later illustrations will highlight).  
 
 Tukey 95.0% Simultaneous Confidence Intervals
-```{r}
+```{r echo = T}
 a <- aov(Reduction~Treatment,data = RELAXATION)
 TukeyHSD(x=a, 'Treatment', conf.level=0.95)
 ```
@@ -204,7 +204,7 @@ In the last chapter hypothesis tests of equality of population standard deviatio
 The Normal distribution assumption can be checked informally using box plots by looking for symmetry in each sample separately.  A better approach however is to use residual plots in a similar manner to that presented for regression models in Chapter 5.  A residual in a GLM is the difference between observed and expected values for each observation e.g. each individual Grip Strength measurement minus the respective sample mean. 
 
 Normal probability plot
-```{r}
+```{r echo = T}
 m <- filter(RELAXATION,Treatment=="Meditation")
 pmr <- filter(RELAXATION,Treatment=="PMR")
 c <- filter(RELAXATION,Treatment=="Control")
@@ -217,7 +217,7 @@ ad.test(var)
 ```
 
 Versus fits
-```{r}
+```{r echo = T}
 m <- filter(RELAXATION,Treatment=="Meditation")
 pmr <- filter(RELAXATION,Treatment=="PMR")
 c <- filter(RELAXATION,Treatment=="Control")
@@ -291,7 +291,7 @@ strict_check(success = "")
 ```
 
 Summary statistics of Sprint_Time by Status and Position
-```{r}
+```{r echo = T}
 a <- filter(RUGBY_SPRINT_TIME,Status == "Amateur")
 p <- filter(RUGBY_SPRINT_TIME,Status == "Professional")
 
@@ -419,7 +419,7 @@ strict_check(success = "")
 ```
 
 Bonferroni 95.0% Simultaneous Confidence Intervals
-```{r}
+```{r echo = T}
 a <- aov(Sprint_Time~Status*Position,data = RUGBY_SPRINT_TIME)
 PostHocTest(x=a, method = "bonferroni", conf.level=0.95)
 ```
@@ -439,7 +439,7 @@ Study Description:  Twenty eight physically inactive female and male subjects we
 Aim: To determine the effects of a six week training programme with the Slendertone® System Abs device on the isometric strength of the abdominal muscles.
 
 Summary statistics for the IAS_Improvement, categorised by the two Between Subject Factors: Device and Sex
-```{r}
+```{r echo = T}
 m <- filter(BIODEX,Sex=="Male")
 f <- filter(BIODEX,Sex=="Female")
 
@@ -512,7 +512,7 @@ strict_check(success = "Once again only the main effect of Device is deemed sign
 ```
 
 Descriptive Statistics: IAS Improvement
-```{r}
+```{r echo = T}
 basicStats((filter(BIODEX,Device=="Treatment"))$IAS_Improvement)
 basicStats((filter(BIODEX,Device=="Control"))$IAS_Improvement)
 ```
@@ -520,12 +520,6 @@ basicStats((filter(BIODEX,Device=="Control"))$IAS_Improvement)
 A simple solution here is to recognise that the problem has now reduced to no more than a simple Two-Sample comparison of Improvements (see Chapters 4 and 5) and as this does not assume equal standard deviations the resulting confidence interval is appropriate.
 
 Two-Sample T-Test and Confidence Interval: IAS_Improvement Control, IAS_Improvement Treatment 
-```{r}
-control <- filter(BIODEX,Device=="Control")
-treatment <- filter(BIODEX,Device=="Treatment")
-
-t.test(control$IAS_Improvement,treatment$IAS_Improvement)
-```
 ```{r t_biodex, exercise=TRUE, exercise.lines = 5}
 control <- filter(BIODEX,Device=="Control")
 treatment <- filter(BIODEX,Device=="Treatment")
@@ -666,9 +660,6 @@ Conclusion:  There is convincing evidence that, when adjusting for Body Mass, El
 The key assumption in this model is that of ‘Parallel Lines’ i.e. a common slope for all three Climbing Type’s regression of Grip Strength on Body Mass.   This can be checked subjectively by fitting separate regressions of Grip strength on Body Mass for each climber Type separately and assessing whether the resulting lines of best fit look parallel
 
 Plot a scatter plot of Body_Mass vs Grip_Strength with line of best fine by climber type
-```{r}
-
-```
 ```{r scatter3_grip, exercise=TRUE, exercise.lines = 5}
 ggplot(data = GRIP_STRENGTH_AND_MASS,...) +
   ...
@@ -691,10 +682,6 @@ strict_check(success = "")
 ```
 
 General Linear Model: Grip_Strength versus Climber_Type 
-```{r}
-model <- lm(Grip_Strength~Climber_Type,data = GRIP_STRENGTH_AND_MASS)
-summary(model)
-```
 ```{r lm2_grip, exercise=TRUE, exercise.lines = 5}
 model <- ...
 summary(model)

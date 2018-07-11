@@ -76,7 +76,7 @@ ggplot(data=fifa) +
 ```
 The only evidence of outliers is the unusually wide limits on the y-axis
 
-Add coord_cartesian ylim of c(0,20)
+Add coord_cartesian ylim of c(0,10)
 ```{r unusual, exercise=TRUE, exercise.lines = 5}
 ggplot(data=fifa) +
   geom_histogram(mapping = aes(x = eur_wage),binwidth=1000)
@@ -85,13 +85,13 @@ ggplot(data=fifa) +
 ```{r unusual-solution}
 ggplot(data=fifa) +
   geom_histogram(mapping = aes(x = eur_wage),binwidth=1000) +
-  coord_cartesian(ylim = c(0,20))
+  coord_cartesian(ylim = c(0,10))
 ```
 
 ```{r unusual-hint}
 ggplot(data=fifa) +
   geom_histogram(mapping = aes(x = eur_wage),binwidth=1000) +
-  coord_cartesian(ylim = c(0,20))
+  coord_cartesian(ylim = c(0,10))
 ```
 
 ```{r unusual-check}

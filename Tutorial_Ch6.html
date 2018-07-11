@@ -849,12 +849,9 @@ summary(models)</code></pre>
 <h3>Power and Body Mass (Revisited)</h3>
 <p>Aim: To investigate whether Anaerobic Power (as assessed by the Wingate test) is dependent upon the Body Mass and Sex of an individual.</p>
 <p>Scatter plot of anaerboc power: Body_Mass vs Wingate, with seperate smoothers by gender</p>
-<pre class="r"><code>male &lt;- filter(POWER,Sex==&quot;Male&quot;)
-female &lt;- filter(POWER,Sex==&quot;Female&quot;)
-ggplot(mapping = aes(x = POWER$Body_Mass, y = POWER$Wingate)) +
+<pre class="r"><code>ggplot(data = POWER,mapping = aes(x = Body_Mass, y = Wingate),color = Sex) +
   geom_point() +
-  geom_smooth(mapping = aes(x = male$Body_Mass, y = male$Wingate),method=&#39;loess&#39;,level = 0) +
-  geom_smooth(mapping = aes(x = female$Body_Mass, y = female$Wingate),method=&#39;loess&#39;,level = 0)</code></pre>
+  geom_smooth(method=&#39;loess&#39;,level = 0)</code></pre>
 <p><img src="Tutorial_Ch6_files/figure-html/unnamed-chunk-7-1.png" width="624" /></p>
 <p>The suggestion from this plot is that there is a reasonable dependency of Anaerobic Power on Body Mass in Males but really not so in Females. The formal analysis should start by fitting a multiple regression model including both Body Mass and Sex as explanatory variables (a so-called Additive model for Body Mass and Sex). Care must be taken with regard to the categorical variable in order to create an explanatory variable to represent a person’s Sex. This can be achieved quite easily by use of an indicator variable – a variable that takes the value 0 or 1 e.g. 1 to represent a Male and 0 to represent a Female (or if you are so inclined 1 for Females and 0 for Males although the authors strongly recommend that the baseline level (corresponding to zero) is that with the lower sample mean of the Response, in this case as chosen).</p>
 Regresssion of Power vs Body_Mass and Sex
