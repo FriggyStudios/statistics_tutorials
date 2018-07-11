@@ -1,0 +1,139 @@
+---
+title: "ST237 examples"
+author: "Andrew Simpkin"
+date: "26/6/2018"
+output: 
+      learnr::tutorial:
+          progressive: false
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(grader)
+knitr::opts_chunk$set(echo = TRUE)
+tutorial_options(exercise.checker = grade_learnr)
+```
+
+## Binomial 
+For a general sequence of $n$ Bernoulli trials we can count the number of successes, $X$. The probability of any *particular* pattern of $x$ successes and $(n-x)$ failures is $$ p^x(1-p)^{n-x}$$ 
+
+The number of arrangements of $x$ successes in $n$ trials $=\displaystyle\binom{n}{x}$
+
+$$P(X=x)=\binom{n}{x}p^x(1-p)^{n-x},\qquad x=0,1,2,\ldots,n$$
+
+This is known as the **binomial distribution**  with parameters $n$ (sample size) and $p$ (success probability).
+
+- Mean $= E(X)=np$
+- Variance = $Var(X)=np(1-p) = npq$
+
+## Binomial example
+- A university team has 11 games in a season
+- Probability of winning each game in $0.4$
+- Assume independence of games (is this reasonable?)
+
+Using the dbinom function:
+1. Find the probability that the team wins 6 games
+2. Find the probability that the team has a winning season, i.e. **wins at least 6 games**.
+
+```{r binom1, exercise=TRUE, exercise.lines = 5}
+
+```
+
+```{r binom1-solution}
+dbinom(6,11,0.4)
+```
+
+```{r binom1-hint}
+dbinom(6,11,0.4)
+```
+
+```{r binom1-check}
+strict_check(success = "Success!")
+```
+
+```{r binom2, exercise=TRUE, exercise.lines = 5}
+
+```
+
+```{r binom2-solution}
+sum(dbinom(6:11,11,0.4))
+```
+
+```{r binom2-hint}
+sum(dbinom(6:11,11,0.4))
+```
+
+```{r binom2-check}
+strict_check(success = "Success!")
+```
+
+## Poisson
+The random variable $X$ has a Poisson distribution with parameter $\lambda$ if
+
+$$P(X=x)=f_X(x)=\displaystyle\frac{e^{-\lambda}\lambda^x}{x!},\quad x=0,1,2,\ldots$$
+
+- Mean $= E(X)=\lambda$
+- Variance = $Var(X)=\lambda$
+
+## Poisson example
+- The number of cars per hour entering McDonald's drive-thru is Poisson distributed with mean
+$\lambda=60$.
+- Arrivals are **independent**
+- $T=$ Total number of cars entering in an hour
+$$T\sim  \text{Poisson}(60)$$
+Using the dpois function:
+1. Find the probability of 70 cars entering McDonald's drive-thru
+2. Find the probability of at most 70 cars entering McDonald's drive-thru
+3. Find the probability of more than 70 cars entering McDonald's drive-thru
+
+```{r pois1, exercise=TRUE, exercise.lines = 5}
+
+```
+
+```{r pois1-solution}
+dpois(70,60)
+```
+
+```{r pois1-hint}
+dpois(70,60)
+```
+
+```{r pois1-check}
+strict_check(success = "Success!")
+```
+
+```{r pois2, exercise=TRUE, exercise.lines = 5}
+
+```
+
+```{r pois2-solution}
+sum(dpois(1:70,60))
+```
+
+```{r pois2-hint}
+sum(dpois(1:70,60))
+```
+
+```{r pois2-check}
+strict_check(success = "Success!")
+```
+
+```{r pois3, exercise=TRUE, exercise.lines = 5}
+
+```
+
+```{r pois3-solution}
+1 - sum(dpois(1:70,60))
+```
+
+```{r pois3-hint}
+1 - sum(dpois(1:70,60))
+```
+
+```{r pois3-check}
+strict_check(success = "Success!")
+```
+
+

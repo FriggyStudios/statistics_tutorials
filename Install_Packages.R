@@ -6,9 +6,10 @@ check.installed <- function(pkg){
     install.packages(pkg)
   }
 }
+check.installed('devtools')
+install_github('rstudio-education/grader')
 check.installed('learnr')
 check.installed('tidyverse')
-check.installed('grader')
 check.installed('tolerance')
 check.installed('boot')
 check.installed('nortest')
@@ -16,4 +17,6 @@ check.installed('e1071')
 check.installed('ggpubr')
 check.installed('faraway')
 check.installed('leaps')
+check.installed('DescTools')
+check.installed('fBasics')
 check.installed('DescTools')
