@@ -72,7 +72,25 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>Background: In the sport of rock climbing the steeper the rock face is, generally, the more difficult the climb is graded. Climbs are graded from Moderate to Extreme (E), with E1 being the easiest climb on this E scale. A grading of Severe is between Moderate and Extreme and is not deemed to be a high climbing standard. It is reasonable to speculate that high levels of climbing specific finger strength and perhaps Grip Strength are of great importance in elite climbing.</p>
 <p>Study Description: Independent samples of ten Elite (i.e. have successfully completed a climbing standard of ‘E1’ in the last 12 months), ten Recreational (i.e. have successfully completed a climb no harder than ‘Severe’ in the last 12 months) and ten Non-climbers (i.e. Controls) had the Grip Strength of their (dominant) right hand measured, as well as having their Body Mass recorded. All subjects were male.</p>
 <p>Aim: To compare average Grip Strength of the (dominant) right hand among the three populations of male climbers.</p>
-<p>Plot a box plot of Grip_Strength by Climber_Type <img src="Tutorial_Ch7_files/figure-html/unnamed-chunk-1-1.png" width="624" /></p>
+Plot a box plot of Grip_Strength by Climber_Type
+<div class="tutorial-exercise" data-label="box_grip" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
+<pre class="text"><code>ggplot(data = GRIP_STRENGTH_AND_MASS) +
+  ...</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="box_grip-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>ggplot(data = GRIP_STRENGTH_AND_MASS) +
+  geom_boxplot(mapping = aes(x = Climber_Type, y = Grip_Strength)) +
+  coord_flip()</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="box_grip-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>ggplot(data = GRIP_STRENGTH_AND_MASS) +
+  geom_boxplot(mapping = aes(x = Climber_Type, y = Grip_Strength)) +
+  coord_flip()</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="box_grip-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>strict_check(success = &quot;&quot;)</code></pre>
+</div>
 <p>Remember that a box plot displays (amongst other things) the sample median. However, if each sample did arise from a Normal distribution (a necessary assumption for a One-Way ANOVA which is considered later in this section) then the sample mean and median should be quite similar.</p>
 Summary of Grip_Strength variable
 <div data-pagedtable="false">
@@ -108,7 +126,25 @@ Summary of Grip_Strength variable
 <div id="section-relaxation-and-running-performance-revisited" class="section level3">
 <h3>Relaxation and Running Performance (Revisited)</h3>
 <p>Aim: To determine which, if either, of the relaxation methods (Meditation or Progressive Muscular Relaxation (PMR) significantly reduces Exercise Heart Rate on average compared to Controls over a two week period.</p>
-<p>Plot a boxplot of heart Reduction by Treatment <img src="Tutorial_Ch7_files/figure-html/unnamed-chunk-4-1.png" width="624" /></p>
+Plot a boxplot of heart Reduction by Treatment
+<div class="tutorial-exercise" data-label="box_relax" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
+<pre class="text"><code>ggplot(data = RELAXATION,...) +
+  ...</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="box_relax-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>ggplot(data = RELAXATION, mapping = aes(x = Treatment, y = Reduction)) +
+  geom_boxplot() +
+  coord_flip()</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="box_relax-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>ggplot(data = RELAXATION, mapping = aes(x = Treatment, y = Reduction)) +
+  geom_boxplot() +
+  coord_flip()</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="box_relax-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>strict_check(success = &quot;&quot;)</code></pre>
+</div>
 summary statistc of Reduction by Treatment == Control, Meditation, and PMR
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
@@ -125,28 +161,25 @@ summary statistc of Reduction by Treatment == Control, Meditation, and PMR
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["X..filter.RELAXATION..Treatment.....PMR...Reduction"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"7.000000","_rn_":"nobs"},{"1":"0.000000","_rn_":"NAs"},{"1":"-5.000000","_rn_":"Minimum"},{"1":"9.000000","_rn_":"Maximum"},{"1":"-3.500000","_rn_":"1. Quartile"},{"1":"4.500000","_rn_":"3. Quartile"},{"1":"0.428571","_rn_":"Mean"},{"1":"-3.000000","_rn_":"Median"},{"1":"3.000000","_rn_":"Sum"},{"1":"2.068553","_rn_":"SE Mean"},{"1":"-4.632995","_rn_":"LCL Mean"},{"1":"5.490138","_rn_":"UCL Mean"},{"1":"29.952381","_rn_":"Variance"},{"1":"5.472877","_rn_":"Stdev"},{"1":"0.386401","_rn_":"Skewness"},{"1":"-1.801497","_rn_":"Kurtosis"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<p>General Linear Model of Reduction by Treatment</p>
-<pre><code>## 
-## Call:
-## lm(formula = Reduction ~ Treatment, data = RELAXATION)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -9.8462 -3.7740 -0.7981  3.8214 11.1538 
-## 
-## Coefficients:
-##                     Estimate Std. Error t value Pr(&gt;|t|)   
-## (Intercept)           0.8462     1.4474   0.585  0.56407   
-## TreatmentMeditation   7.9038     2.3451   3.370  0.00244 **
-## TreatmentPMR         -0.4176     2.4466  -0.171  0.86585   
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 5.219 on 25 degrees of freedom
-## Multiple R-squared:  0.3528, Adjusted R-squared:  0.301 
-## F-statistic: 6.812 on 2 and 25 DF,  p-value: 0.004349</code></pre>
-<p>Since the P-value from the One-Way ANOVA (P=0.004) is much smaller than 0.05, the Null Hypothesis of all three population mean Reductions in Heart Rate being equal can be rejected and therefore it can be concluded that there are some differences in the population mean responses to the different Treatments.</p>
-<p>Having established the presence of some differences among the Treatments it is necessary to identify which Treatments are significantly different and to quantify the likely difference in mean Heart Rate Reduction between the Treatments. This is achieved by using a Multiple Comparisons procedure to generate a set of simultaneous interval estimates for all the pair-wise comparisons (i.e. for the differences in population mean Reduction in Heart Rate between each pair of Treatments).</p>
+General Linear Model of Reduction by Treatment
+<div class="tutorial-exercise" data-label="lm_relax" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
+<pre class="text"><code>model &lt;- ...
+summary(model)</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="lm_relax-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>model &lt;- lm(Reduction~Treatment,data = RELAXATION)
+summary(model)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="lm_relax-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>model &lt;- lm(Reduction~Treatment,data = RELAXATION)
+summary(model)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="lm_relax-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>strict_check(success = &quot;Since the P-value from the One-Way ANOVA (P=0.004) is much smaller than 0.05, the Null Hypothesis of all three population mean Reductions in Heart Rate being equal can be rejected and therefore it can be concluded that there are some differences in the population mean responses to the different Treatments.  
+
+Having established the presence of some differences among the Treatments it is necessary to identify which Treatments are significantly different and to quantify the likely difference in mean Heart Rate Reduction between the Treatments. This is achieved by using a Multiple Comparisons procedure to generate a set of simultaneous interval estimates for all the pair-wise   comparisons (i.e. for the differences in population mean Reduction in Heart Rate between each pair of Treatments).&quot;)</code></pre>
+</div>
 </div>
 <div id="section-multiple-comparison-procedures" class="section level3">
 <h3>Multiple Comparison Procedures</h3>
@@ -185,13 +218,13 @@ summary statistc of Reduction by Treatment == Control, Meditation, and PMR
 <p>the underlying populations are Normally distributed with equal standard deviations but possibly different means. In a Designed Experiment: the underlying population is Normally distributed with equal standard deviations but possibly different means for each Between Subject Factor level.</p>
 <p>In the last chapter hypothesis tests of equality of population standard deviations (or variances) were not recommended as such tests tend not to be particularly powerful when used on small samples. Thankfully the GLM is robust to non-equal standard deviations in particular when there are equal numbers in each sample (or sub-sample) but not so robust if the sample sizes are unequal. A rough rule of thumb to consider is that differences in sample standard deviations are only a concern if the largest of the sample standard deviations is larger than twice the smallest standard deviation. In the Grip Strength Illustration, the largest standard deviation (96.5) is less than twice the smallest (2x 63=126) and the assumption of equality of population standard deviations is deemed reasonable. The same applied in the Relaxation and Running Performance Illustration as the sample standard deviations were similar in each of the three Treatments.</p>
 <p>The Normal distribution assumption can be checked informally using box plots by looking for symmetry in each sample separately. A better approach however is to use residual plots in a similar manner to that presented for regression models in Chapter 5. A residual in a GLM is the difference between observed and expected values for each observation e.g. each individual Grip Strength measurement minus the respective sample mean.</p>
-<p>Normal probability plot <img src="Tutorial_Ch7_files/figure-html/unnamed-chunk-8-1.png" width="624" /><img src="Tutorial_Ch7_files/figure-html/unnamed-chunk-8-2.png" width="624" /></p>
+<p>Normal probability plot <img src="Tutorial_Ch7_files/figure-html/unnamed-chunk-5-1.png" width="624" /><img src="Tutorial_Ch7_files/figure-html/unnamed-chunk-5-2.png" width="624" /></p>
 <pre><code>## 
 ##  Anderson-Darling normality test
 ## 
 ## data:  var
 ## A = 0.4927, p-value = 0.2002</code></pre>
-<p>Versus fits <img src="Tutorial_Ch7_files/figure-html/unnamed-chunk-9-1.png" width="624" /></p>
+<p>Versus fits <img src="Tutorial_Ch7_files/figure-html/unnamed-chunk-6-1.png" width="624" /></p>
 <p>There is nothing in these plots to raise any concerns regarding the underlying model assumptions.</p>
 </div>
 </div>
@@ -228,7 +261,24 @@ Exercise and Sex? A two-way ANOVA offers an improvement over a One-Way ANOVA as 
 <p>Background: Speed is important in rugby for attack (in an attempt to score a try) and defence (to prevent a try). It is of interest to determine if one of the characteristics that distinguishes professional and amateur rugby players, is sprint speed. In addition, it is considered worthwhile to determine if there is a consistency between forwards and backs i.e. are professional forwards as well as backs faster than their amateur counterparts?</p>
 <p>Study Description: A sample of 12 backs and 12 forwards were selected at random from an amateur and a professional rugby team. The players were asked to sprint over a distance of 20 metres from a standing start. There are two Factors of interest, namely Status (Amateur and Professional) and Position (Backs and Forwards).</p>
 <p>Aim: The researcher has specified that she is only interested in comparing the squads to each other (i.e. Amateur Backs to Amateur Forwards and Professional Backs to Professional Forwards) and the positions to each other (i.e. Amateur Backs to Professional Backs and Amateur Forwards to Professional Forwards).</p>
-<p>Plot a boxplot of Sprint_Time by Status and Position <img src="Tutorial_Ch7_files/figure-html/unnamed-chunk-10-1.png" width="624" /></p>
+Plot a boxplot of Sprint_Time by Status and Position
+<div class="tutorial-exercise" data-label="box_rugby" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
+<pre class="text"><code>ggplot(data = RUGBY_SPRINT_TIME) +
+ ...</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="box_rugby-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>ggplot(data = RUGBY_SPRINT_TIME) +
+  geom_boxplot(mapping = aes(x = Status, y = Sprint_Time)) +
+  coord_flip() +
+  facet_grid(. ~ Position)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="box_rugby-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code> + facet_grid(. ~ Position)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="box_rugby-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>strict_check(success = &quot;&quot;)</code></pre>
+</div>
 Summary statistics of Sprint_Time by Status and Position
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
@@ -251,27 +301,23 @@ Summary statistics of Sprint_Time by Status and Position
   </script>
 </div>
 <p>The sample of Professional Backs was 0.18 seconds faster on average when compared to the Amateur Backs while the difference in the corresponding Forwards was considerably less at 0.03 seconds. These differences suggest the presence of an interaction, as the difference in the mean response within position is not the same for the Amateurs when compared to the Professionals</p>
-<p>General Linear Model of Sprint_Time versus Status and Position</p>
-<pre><code>## 
-## Call:
-## lm(formula = Sprint_Time ~ Status + Position, data = RUGBY_SPRINT_TIME)
-## 
-## Residuals:
-##       Min        1Q    Median        3Q       Max 
-## -0.200399 -0.059297 -0.005855  0.081955  0.186144 
-## 
-## Coefficients:
-##                    Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)         4.00676    0.02539 157.834  &lt; 2e-16 ***
-## StatusProfessional -0.10545    0.02931  -3.597 0.000796 ***
-## PositionForwards    0.28350    0.02931   9.671 1.47e-12 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 0.1015 on 45 degrees of freedom
-## Multiple R-squared:  0.7029, Adjusted R-squared:  0.6897 
-## F-statistic: 53.24 on 2 and 45 DF,  p-value: 1.378e-12</code></pre>
-<p>There is evidence of a significant interaction between the two Factors (P=0.006). As the interaction term is significant the remaining task is to identify which Status/Position combinations are responsible for the significant interaction term. There is one observation deemed ‘unusual’ namely an Amateur Back who is faster, when compared to the average speed of the other Backs, than the Professionals.</p>
+General Linear Model of Sprint_Time versus Status and Position
+<div class="tutorial-exercise" data-label="lm_rugby" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
+<pre class="text"><code>model &lt;- ...
+summary(model)</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="lm_rugby-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>model &lt;- lm(Sprint_Time~Status+Position,data = RUGBY_SPRINT_TIME)
+summary(model)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="lm_rugby-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>model &lt;- lm(Sprint_Time~Status+Position,data = RUGBY_SPRINT_TIME)
+summary(model)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="lm_rugby-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>strict_check(success = &quot;There is evidence of a significant interaction between the two Factors (P=0.006).  As the interaction term is significant the remaining task is to identify which Status/Position combinations are responsible for the significant interaction term.  There is one observation deemed ‘unusual’ namely an Amateur Back who is faster, when compared to the average speed of the other Backs, than the Professionals. &quot;)</code></pre>
+</div>
 <p>There are six possible comparisons available if all pair-wise comparisons are of interest. As the researcher specified before the study that she was only interested in comparing the Positions across Status to each other only four comparisons are needed.</p>
 <p>Contrast</p>
 <p>(Backs – Forwards) P-value</p>
@@ -288,13 +334,61 @@ Summary statistics of Sprint_Time by Status and Position
 <p>A Two-Way ANOVA assumes that all the observations are independent of each other; the underlying distribution of the response variable of interest for any combination of the two Factors is Normal; all the population standard deviations (for the different combinations) are the same but the population means may be different.</p>
 <p>The model is quite robust to departures from Normality while the equality of the standard deviations (spreads) rule of thumb applies again; this assumption is only of concern if the largest of the sample standard deviations is no more than twice the smallest.</p>
 <p>As in a One-Way ANOVA, the simplest way of checking the Normality and equal spreads assumption is by means of box plots - simply ensure that each sample median is roughly in the middle of each box (Normality) and that the lengths of the boxes are all about the same (Equal Spreads). The summary statistics and box plots presented for the Sprint Time comparison suggest that the Normality and equal spreads assumptions appear adequate.</p>
-<p>Normal probability plot of the residuals <img src="Tutorial_Ch7_files/figure-html/unnamed-chunk-13-1.png" width="624" /><img src="Tutorial_Ch7_files/figure-html/unnamed-chunk-13-2.png" width="624" /></p>
-<pre><code>## 
-##  Anderson-Darling normality test
-## 
-## data:  var
-## A = 0.29717, p-value = 0.5766</code></pre>
-<p>Versus fits <img src="Tutorial_Ch7_files/figure-html/unnamed-chunk-14-1.png" width="624" /></p>
+Normal probability plot of the residuals
+<div class="tutorial-exercise" data-label="norm_rugby" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="10">
+<pre class="text"><code>a &lt;- filter(RUGBY_SPRINT_TIME,Status == &quot;Amateur&quot;)
+p &lt;- filter(RUGBY_SPRINT_TIME,Status == &quot;Professional&quot;)</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="norm_rugby-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>a &lt;- filter(RUGBY_SPRINT_TIME,Status == &quot;Amateur&quot;)
+p &lt;- filter(RUGBY_SPRINT_TIME,Status == &quot;Professional&quot;)
+
+var&lt;- c(p$Sprint_Time-(4.00676-0.10545),a$Sprint_Time-(4.00676))
+p&lt;-probplot(qnorm(pretty(c(0.01,0.99),1000),mean=mean(var,na.rm=T),sd(var,na.rm=T)))
+probplot(var,line=F)
+lines(p)
+ad.test(var)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="norm_rugby-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>var&lt;- c(p$Sprint_Time-(4.00676-0.10545),a$Sprint_Time-(4.00676))
+p&lt;-probplot(qnorm(pretty(c(0.01,0.99),1000),mean=mean(var,na.rm=T),sd(var,na.rm=T)))
+probplot(var,line=F)
+lines(p)
+ad.test(var)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="norm_rugby-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>strict_check(success = &quot;&quot;)</code></pre>
+</div>
+Versus fits
+<div class="tutorial-exercise" data-label="versus_rugby" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
+<pre class="text"><code>a &lt;- filter(RUGBY_SPRINT_TIME,Status == &quot;Amateur&quot;)
+p &lt;- filter(RUGBY_SPRINT_TIME,Status == &quot;Professional&quot;)
+
+ggplot() +
+  geom_point(mapping = aes(x = 4.00676, y = a$Sprint_Time-(4.00676))) +
+  geom_point(mapping = aes(x = 4.00676-0.10545, y = p$Sprint_Time-(0.8462-0.4176))) + 
+  labs(x = &quot;Fitted Value&quot;, y = &quot;Standardised Residual&quot;)</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="versus_rugby-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>a &lt;- filter(RUGBY_SPRINT_TIME,Status == &quot;Amateur&quot;)
+p &lt;- filter(RUGBY_SPRINT_TIME,Status == &quot;Professional&quot;)
+
+ggplot() +
+  geom_point(mapping = aes(x = 4.00676, y = a$Sprint_Time-(4.00676))) +
+  geom_point(mapping = aes(x = 4.00676-0.10545, y = p$Sprint_Time-(0.8462-0.4176))) + 
+  labs(x = &quot;Fitted Value&quot;, y = &quot;Standardised Residual&quot;)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="versus_rugby-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>ggplot() +
+  geom_point(mapping = aes(x = 4.00676, y = a$Sprint_Time-(4.00676))) +
+  geom_point(mapping = aes(x = 4.00676-0.10545, y = p$Sprint_Time-(0.8462-0.4176))) + 
+  labs(x = &quot;Fitted Value&quot;, y = &quot;Standardised Residual&quot;)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="versus_rugby-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>strict_check(success = &quot;&quot;)</code></pre>
+</div>
 <p>Bonferroni 95.0% Simultaneous Confidence Intervals</p>
 <pre><code>## 
 ##   Posthoc multiple comparisons of means : Bonferroni 
@@ -356,53 +450,58 @@ Summary statistics for the IAS_Improvement, categorised by the two Between Subje
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["X...filter.f..Device.....Control....IAS_Improvement"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"14.000000","_rn_":"nobs"},{"1":"0.000000","_rn_":"NAs"},{"1":"-15.500000","_rn_":"Minimum"},{"1":"6.000000","_rn_":"Maximum"},{"1":"-0.875000","_rn_":"1. Quartile"},{"1":"5.250000","_rn_":"3. Quartile"},{"1":"1.035714","_rn_":"Mean"},{"1":"3.250000","_rn_":"Median"},{"1":"14.500000","_rn_":"Sum"},{"1":"1.578064","_rn_":"SE Mean"},{"1":"-2.373486","_rn_":"LCL Mean"},{"1":"4.444915","_rn_":"UCL Mean"},{"1":"34.864011","_rn_":"Variance"},{"1":"5.904575","_rn_":"Stdev"},{"1":"-1.539967","_rn_":"Skewness"},{"1":"1.663464","_rn_":"Kurtosis"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<p>Plot a boxplot of IAS_Improvement by Device and Sex</p>
-<pre><code>## Warning: Removed 1 rows containing non-finite values (stat_boxplot).</code></pre>
-<p><img src="Tutorial_Ch7_files/figure-html/unnamed-chunk-17-1.png" width="624" /></p>
-<p>General Linear Model: IAS_Improvement versus Device, Sex with device * sex</p>
-<pre><code>## 
-## Call:
-## lm(formula = IAS_Improvement ~ Device + Sex + Device * Sex, data = BIODEX)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -21.615  -5.740   1.296   4.196  49.385 
-## 
-## Coefficients:
-##                         Estimate Std. Error t value Pr(&gt;|t|)   
-## (Intercept)                1.036      3.432   0.302  0.76411   
-## DeviceTreatment           16.272      4.946   3.290  0.00188 **
-## SexMale                    2.256      5.051   0.447  0.65718   
-## DeviceTreatment:SexMale    3.052      7.133   0.428  0.67070   
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 12.84 on 48 degrees of freedom
-##   (1 observation deleted due to missingness)
-## Multiple R-squared:  0.356,  Adjusted R-squared:  0.3157 
-## F-statistic: 8.843 on 3 and 48 DF,  p-value: 8.992e-05</code></pre>
-<p>General Linear Model: IAS_Improvement versus Device, Sex without device * sex</p>
-<pre><code>## 
-## Call:
-## lm(formula = IAS_Improvement ~ Device + Sex, data = BIODEX)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -20.855  -6.134   0.884   3.396  50.145 
-## 
-## Coefficients:
-##                 Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)       0.3294     2.9834   0.110    0.913    
-## DeviceTreatment  17.7390     3.5342   5.019 7.24e-06 ***
-## SexMale           3.7864     3.5368   1.071    0.290    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 12.73 on 49 degrees of freedom
-##   (1 observation deleted due to missingness)
-## Multiple R-squared:  0.3535, Adjusted R-squared:  0.3271 
-## F-statistic:  13.4 on 2 and 49 DF,  p-value: 2.285e-05</code></pre>
-<p>Once again only the main effect of Device is deemed significant with a minimal change in the P-value for the main effect of Sex compared to that from the full model. A Multiple Comparisons procedure is not needed here to identify which levels of the Between Subject Factor Device are different from each other since there are only two levels!</p>
+Plot a boxplot of IAS_Improvement by Device and Sex
+<div class="tutorial-exercise" data-label="box_biodex" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
+<pre class="text"><code>ggplot(data = BIODEX, mapping = aes(x = Sex, y = IAS_Improvement)) +
+  ...</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="box_biodex-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>ggplot(data = BIODEX, mapping = aes(x = Sex, y = IAS_Improvement)) +
+  geom_boxplot() +
+  coord_flip() +
+  facet_grid(. ~ Device)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="box_biodex-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>+ facet_grid(. ~ Device)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="box_biodex-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>strict_check(success = &quot;&quot;)</code></pre>
+</div>
+General Linear Model: IAS_Improvement versus Device, Sex with device * sex
+<div class="tutorial-exercise" data-label="lm_biodex" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
+<pre class="text"><code>model &lt;- ...
+summary(model)</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="lm_biodex-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>model &lt;- lm(IAS_Improvement~Device+Sex+Device*Sex,data = BIODEX)
+summary(model)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="lm_biodex-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>model &lt;- lm(IAS_Improvement~Device+Sex+Device*Sex,data = BIODEX)
+summary(model)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="lm_biodex-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>strict_check(success = &quot;&quot;)</code></pre>
+</div>
+General Linear Model: IAS_Improvement versus Device, Sex without device * sex
+<div class="tutorial-exercise" data-label="lm2_biodex" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
+<pre class="text"><code>model &lt;- ...
+summary(model)</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="lm2_biodex-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>model &lt;- lm(IAS_Improvement~Device+Sex,data = BIODEX)
+summary(model)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="lm2_biodex-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>model &lt;- lm(IAS_Improvement~Device+Sex,data = BIODEX)
+summary(model)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="lm2_biodex-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>strict_check(success = &quot;Once again only the main effect of Device is deemed significant with a minimal change in the P-value for the main effect of Sex compared to that from the full model.  A Multiple Comparisons procedure is not needed here to identify which levels of the Between Subject Factor Device are different from each other since there are only two levels!&quot;)</code></pre>
+</div>
 Descriptive Statistics: IAS Improvement
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
@@ -415,32 +514,57 @@ Descriptive Statistics: IAS Improvement
   </script>
 </div>
 <p>A simple solution here is to recognise that the problem has now reduced to no more than a simple Two-Sample comparison of Improvements (see Chapters 4 and 5) and as this does not assume equal standard deviations the resulting confidence interval is appropriate.</p>
-<p>Two-Sample T-Test and Confidence Interval: IAS_Improvement, Device</p>
-<p>One-Sample T: IAS Improvement_Control, IAS Improvement_Treatment</p>
+<p>Two-Sample T-Test and Confidence Interval: IAS_Improvement Control, IAS_Improvement Treatment</p>
 <pre><code>## 
-##  One Sample t-test
+##  Welch Two Sample t-test
 ## 
-## data:  (filter(BIODEX, Device == &quot;Control&quot;))$IAS_Improvement
-## t = 1.9023, df = 25, p-value = 0.06872
-## alternative hypothesis: true mean is not equal to 0
+## data:  control$IAS_Improvement and treatment$IAS_Improvement
+## t = -5.0569, df = 30.209, p-value = 1.949e-05
+## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.1717224  4.3255685
+##  -25.10540 -10.66383
 ## sample estimates:
-## mean of x 
-##  2.076923</code></pre>
-<pre><code>## 
-##  One Sample t-test
-## 
-## data:  (filter(BIODEX, Device == &quot;Treatment&quot;))$IAS_Improvement
-## t = 5.934, df = 25, p-value = 3.408e-06
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  13.03337 26.88970
-## sample estimates:
-## mean of x 
-##  19.96154</code></pre>
-<p>Interval estimates of the mean Isometric Abdominal Strength improvement highlight a significant Treatment effect as the confidence interval is strictly positive, while despite there being a small sample mean improvement in Controls it was not significant.</p>
-<p>Conclusion: There is convincing evidence that the use of Slendertone® System Abs device for 5 days per week for 30 minutes each session, over a 6 week period, results in a significant increase in mean Isometric Abdominal Strength (IAS) among inactive people. As Sex did not have a significant effect it is sufficient to summarise the improvement due to Treatment alone. Those on the Treatment demonstrated a significant mean improvement of between 13 to 27 N.m while no significant improvement was evident in Controls. An estimate of the magnitude of the difference in mean improvement (over Controls) is 18 N.m in favour of those Treated with a corresponding 95% Confidence Interval of 10.66 to 25.11 N.m.</p>
+## mean of x mean of y 
+##  2.076923 19.961538</code></pre>
+<div class="tutorial-exercise" data-label="t_biodex" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
+<pre class="text"><code>control &lt;- filter(BIODEX,Device==&quot;Control&quot;)
+treatment &lt;- filter(BIODEX,Device==&quot;Treatment&quot;)</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="t_biodex-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>control &lt;- filter(BIODEX,Device==&quot;Control&quot;)
+treatment &lt;- filter(BIODEX,Device==&quot;Treatment&quot;)
+
+t.test(control$IAS_Improvement,treatment$IAS_Improvement)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="t_biodex-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>t.test(control$IAS_Improvement,treatment$IAS_Improvement)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="t_biodex-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>strict_check(success = &quot;&quot;)</code></pre>
+</div>
+One-Sample T: IAS Improvement_Control, IAS Improvement_Treatment
+<div class="tutorial-exercise" data-label="t2_biodex" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
+<pre class="text"><code>t.test(...)
+
+t.test(...)</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="t2_biodex-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>t.test((filter(BIODEX,Device==&quot;Control&quot;))$IAS_Improvement)
+
+t.test((filter(BIODEX,Device==&quot;Treatment&quot;))$IAS_Improvement)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="t2_biodex-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>t.test((filter(BIODEX,Device==&quot;Control&quot;))$IAS_Improvement)
+
+t.test((filter(BIODEX,Device==&quot;Treatment&quot;))$IAS_Improvement)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="t2_biodex-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>strict_check(success = &quot;Interval estimates of the mean Isometric Abdominal Strength improvement  highlight a significant Treatment effect as the confidence interval is strictly positive, while despite there being a small sample mean improvement in Controls it was not significant.  
+
+Conclusion:  There is convincing evidence that the use of Slendertone® System Abs device for 5 days per week for 30 minutes each session, over a 6 week period, results in a significant increase in mean Isometric Abdominal Strength (IAS) among inactive people.  As Sex did not have a significant effect it is sufficient to summarise the improvement due to Treatment alone.  Those on the Treatment demonstrated a significant mean improvement of between 13 to 27 N.m while no significant improvement was evident in Controls.  An estimate of the magnitude of the difference in mean improvement (over Controls) is 18 N.m in favour of those Treated with a corresponding 95% Confidence Interval of 10.66 to 25.11 N.m.   &quot;)</code></pre>
+</div>
 </div>
 </div>
 <div id="section-ancova-correcting-for-a-covariate-in-anova" class="section level2">
@@ -451,61 +575,130 @@ Descriptive Statistics: IAS Improvement
 <div id="section-grip-strength-revisited-1" class="section level3">
 <h3>Grip Strength (revisited)</h3>
 <p>Aim: To compare average Grip Strength of the (dominant) right hand among three populations of male climbers (i.e. Elite, Recreational and Non-climbers) while adjusting for Body Mass if necessary.</p>
-<p>Plot a scatter plot of Body_Mass vs Grip_Strength with smoothed lines by Climber_Type <img src="Tutorial_Ch7_files/figure-html/unnamed-chunk-23-1.png" width="624" /></p>
-<p>General Linear Model: Grip_Strength versus Body_Mass, Climber Type</p>
-<pre><code>## 
-## Call:
-## lm(formula = Grip_Strength ~ Body_Mass + Climber_Type, data = GRIP_STRENGTH_AND_MASS)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -70.019 -30.140  -4.032  33.065  75.596 
-## 
-## Coefficients:
-##                          Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)               -89.007     66.737  -1.334  0.19387    
-## Body_Mass                   7.966      0.922   8.640 4.05e-09 ***
-## Climber_TypeElite          56.333     19.345   2.912  0.00728 ** 
-## Climber_TypeRecreational   -1.541     19.251  -0.080  0.93683    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 42.84 on 26 degrees of freedom
-## Multiple R-squared:  0.7835, Adjusted R-squared:  0.7586 
-## F-statistic: 31.37 on 3 and 26 DF,  p-value: 8.564e-09</code></pre>
+Plot a scatter plot of Body_Mass vs Grip_Strength with smoothed lines by Climber_Type
+<div class="tutorial-exercise" data-label="scatter2_grip" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
+<pre class="text"><code>ggplot(data = GRIP_STRENGTH_AND_MASS,...) +
+ ...</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="scatter2_grip-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>ggplot(data = GRIP_STRENGTH_AND_MASS,mapping = aes(x = Body_Mass, y = Grip_Strength,color = Climber_Type)) +
+  geom_point() +
+  geom_smooth(method=&#39;loess&#39;, level = 0)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="scatter2_grip-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>ggplot(data = GRIP_STRENGTH_AND_MASS,mapping = aes(x = Body_Mass, y = Grip_Strength,color = Climber_Type)) +
+  geom_point() +
+  geom_smooth(method=&#39;loess&#39;, level = 0)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="scatter2_grip-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>strict_check(success = &quot;&quot;)</code></pre>
+</div>
+General Linear Model: Grip_Strength versus Body_Mass, Climber Type
+<div class="tutorial-exercise" data-label="lm_grip" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
+<pre class="text"><code>model &lt;- ...
+summary(model)</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="lm_grip-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>model &lt;- lm(Grip_Strength~Body_Mass+Climber_Type,data = GRIP_STRENGTH_AND_MASS)
+summary(model)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="lm_grip-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>model &lt;- lm(Grip_Strength~Body_Mass+Climber_Type,data = GRIP_STRENGTH_AND_MASS)
+summary(model)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="lm_grip-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>strict_check(success = &quot;&quot;)</code></pre>
+</div>
 <p>From the P-value reported for Body Mass it is clear that not only does Body Mass significantly affect Grip Strength (P-value &lt;0.001) but also, having corrected for Body Mass, Climbing Type is now highly significant (P-value of 0.008). The last line of the output gives an estimate of the change in Grip Strength per kilogram increase in Body Mass (i.e. the common slope) of 7.96 N.</p>
 <p>Note that there are now significant differences among the three Climbing Types when correcting for Body Mass whereas the One-Way ANOVA fitted to the same data while ignoring Body Mass (Illustration 7.1) showed (wrongly) no evidence of a Climbing Type effect on Grip Strength!</p>
 <p>To assess which Climbing Types are different an appropriate multiple comparison procedure, while adjusting for Body Mass, is needed. Based on the parallel line model, the average Grip Strength at the overall average Body Mass of the thirty subjects is estimated for each Climber Type separately.</p>
-<p>Plot a scatter plot of Body_Mass vs Grip_Strength with parallal lines model <img src="Tutorial_Ch7_files/figure-html/unnamed-chunk-25-1.png" width="624" /></p>
+<p>Scatter plot of Body_Mass vs Grip_Strength with parallal lines model <img src="Tutorial_Ch7_files/figure-html/unnamed-chunk-12-1.png" width="624" /></p>
 <p>The estimated adjusted difference in mean Grip Strength for Elite climbers compared to the Controls is therefore 545.1 - 488.7 = 56.4 N in favour of the Elite Climbers.</p>
-<p>Tukey 95.0% Simultaneous Confidence Intervals</p>
-<pre><code>##   Tukey multiple comparisons of means
-##     95% family-wise confidence level
-## 
-## Fit: aov(formula = Grip_Strength ~ Climber_Type, data = GRIP_STRENGTH_AND_MASS)
-## 
-## $Climber_Type
-##                           diff        lwr       upr     p adj
-## Elite-Control         79.43386  -12.28441 171.15214 0.0991243
-## Recreational-Control  14.70997  -77.00830 106.42825 0.9167963
-## Recreational-Elite   -64.72389 -156.44216  26.99438 0.2056768</code></pre>
-<p>Since the first of these intervals is wholly positive it can be concluded that Elite climbers have, on average, a significantly greater Grip Strength than Control climbers of the same Body Mass. As the second interval has zero lying almost in the centre of the interval there is little evidence to suggest any difference between Recreational and Control climbers in terms of Grip Strength even adjusting for Body Mass. Finally, as the third interval is strictly negative it can be concluded that Elite climbers have, on average, a significantly greater Grip Strength than Recreational climbers, once again while adjusting for Body Mass.</p>
-<p>Conclusion: There is convincing evidence that, when adjusting for Body Mass, Elite climbers have a higher mean Grip Strength than Recreational climbers and non-climbers of between 10 and 106 N and 8 to 104 N respectively. There was no evidence of a significant difference in mean Body Mass adjusted Grip strength between Recreational climbers and Controls.</p>
+Tukey 95.0% Simultaneous Confidence Intervals
+<div class="tutorial-exercise" data-label="tukey_grip" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="tukey_grip-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>a &lt;- aov(Grip_Strength~Climber_Type,data = GRIP_STRENGTH_AND_MASS)
+TukeyHSD(x=a, &#39;Climber_Type&#39;, conf.level=0.95)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="tukey_grip-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>a &lt;- aov(Grip_Strength~Climber_Type,data = GRIP_STRENGTH_AND_MASS)
+TukeyHSD(x=a, &#39;Climber_Type&#39;, conf.level=0.95)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="tukey_grip-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>strict_check(success = &quot;Since the first of these intervals is wholly positive it can be concluded that Elite climbers have, on average, a significantly greater Grip Strength than Control climbers of the same Body Mass.  As the second interval has zero lying almost in the centre of the interval there is little evidence to suggest any difference between Recreational and Control climbers in terms of Grip Strength even adjusting for Body Mass.  Finally, as the third interval is strictly negative it can be concluded that Elite climbers have, on average, a significantly greater Grip Strength than Recreational climbers, once again while adjusting for Body Mass.  
+
+Conclusion:  There is convincing evidence that, when adjusting for Body Mass, Elite climbers have a higher mean Grip Strength than Recreational climbers and non-climbers of between 10 and 106 N and 8 to 104 N respectively.  There was no evidence of a significant difference in mean Body Mass adjusted Grip strength between Recreational climbers and Controls.&quot;)</code></pre>
+</div>
 </div>
 <div id="section-model-checking-for-a-ancova-model-with-one-covariate" class="section level3">
 <h3>Model Checking for a ANCOVA model with one covariate</h3>
 <p>The key assumption in this model is that of ‘Parallel Lines’ i.e. a common slope for all three Climbing Type’s regression of Grip Strength on Body Mass. This can be checked subjectively by fitting separate regressions of Grip strength on Body Mass for each climber Type separately and assessing whether the resulting lines of best fit look parallel</p>
-<p>Plot a scatter plot of grip strength vs body mass with line of best fine by climber type</p>
-<p>General Linear Model: Strength(N) versus Climber Type</p>
-<p>Since the P-value for the test of ‘no differences in slopes of the three regressions of Grip Strength on Body Mass is 0.999 there is clearly no reason to question the assumption of parallel lines in the Analysis of Covariance model. The usual residual plots showed no problems with the other assumptions of Normality and Equal Spreads about the regressions on Body Mass.</p>
+<p>Plot a scatter plot of Body_Mass vs Grip_Strength with line of best fine by climber type</p>
+<div class="tutorial-exercise" data-label="scatter3_grip" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
+<pre class="text"><code>ggplot(data = GRIP_STRENGTH_AND_MASS,...) +
+  ...</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="scatter3_grip-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>ggplot(data = GRIP_STRENGTH_AND_MASS,mapping = aes(x = Body_Mass, y = Grip_Strength,color = Climber_Type)) +
+  geom_point() +
+  geom_smooth(method=&#39;lm&#39;, level = 0)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="scatter3_grip-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>ggplot(data = GRIP_STRENGTH_AND_MASS,mapping = aes(x = Body_Mass, y = Grip_Strength,color = Climber_Type)) +
+  geom_point() +
+  geom_smooth(method=&#39;lm&#39;, level = 0)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="scatter3_grip-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>strict_check(success = &quot;&quot;)</code></pre>
+</div>
+<p>General Linear Model: Grip_Strength versus Climber_Type</p>
+<pre><code>## 
+## Call:
+## lm(formula = Grip_Strength ~ Climber_Type, data = GRIP_STRENGTH_AND_MASS)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -167.69  -51.48   29.42   56.63  112.78 
+## 
+## Coefficients:
+##                          Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                475.62      26.16  18.183   &lt;2e-16 ***
+## Climber_TypeElite           79.43      36.99   2.147   0.0409 *  
+## Climber_TypeRecreational    14.71      36.99   0.398   0.6940    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 82.72 on 27 degrees of freedom
+## Multiple R-squared:  0.162,  Adjusted R-squared:  0.09995 
+## F-statistic:  2.61 on 2 and 27 DF,  p-value: 0.09197</code></pre>
+<div class="tutorial-exercise" data-label="lm2_grip" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
+<pre class="text"><code>model &lt;- ...
+summary(model)</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="lm2_grip-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>model &lt;- lm(Grip_Strength~Climber_Type,data = GRIP_STRENGTH_AND_MASS)
+summary(model)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="lm2_grip-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>model &lt;- lm(Grip_Strength~Climber_Type,data = GRIP_STRENGTH_AND_MASS)
+summary(model)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="lm2_grip-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>strict_check(success = &quot;Since the P-value for the test of ‘no differences in slopes of the three regressions of Grip Strength on Body Mass is 0.999 there is clearly no reason to question the assumption of parallel lines in the Analysis of Covariance model.  The usual residual plots showed no problems with the other assumptions of Normality and Equal Spreads about the regressions on Body Mass.&quot;)</code></pre>
+</div>
 </div>
 </div>
 <div id="section-using-scaling-to-correct-for-body-size" class="section level2">
 <h2>Using Scaling to correct for body size</h2>
 <p>ANCOVA is a general approach for adjusting a treatment comparison for a covariate. Scaling is an alternative approach to ANCOVA for adjusting Between Subject comparisons for a response variable however the key difference is that the covariate is invariably Body Mass. The simplest scaling approach is that of Ratio Scaling where the response variable is simply divided by Body Mass and use this ratio scaled variable as the new ‘Body Mass corrected’ response. This simple approach is only relevant under certain circumstances. An example of this was given in Illustration 6.1.2 in the regression chapter where the dependency of max on Body Mass was ‘removed’ by forming the ratio scaled variable max/Body Mass. Indeed max has appeared as a response variable in several Illustrations in this book and the units employed, namely ml.kg-1.min-1, indicate that the response is in fact a Body Mass scaled variable!</p>
 <p>A second approach, which has gained acceptance in Sports and Exercise Science, is that of Allometric Scaling. The word ‘Allometry’ refers to the study of the change in proportion of a body as a consequence of growth. Allometric scaling equations are available that purport to describe the relationship between Body Mass and many body process (e.g. max, metabolic rate). The idea is to re-express the response variable as a Body Mass scaled variable using the appropriate scaling equation and then to use this scaled response variable for any future analyses.</p>
-<p>The most popular form of scaling involves a simple power law equation</p>
-<p>Response Variable = a *Body Massb</p>
+<p>The most popular form of scaling involves a simple power law equation Response Variable = a *Body Massb</p>
 <p>where the constant term a and exponent term b must be estimated from the data. Such equations are very common in Biology to model the dependency of species size on land mass. Indeed power laws arise in a surprisingly large number of naturally occurring phenomena, such as the size of cities, stock market returns and even the length of time football managers last in a post before being fired!</p>
 <p>The coefficients of the Allometric Scaling model (i.e. a and b) can be estimated easily using regression. The reason for doing this is that the allometric scaling equation, using the laws of logarithms, becomes</p>
 <p>Log(response) = log a +b*log(Body Mass)</p>
@@ -515,24 +708,84 @@ Descriptive Statistics: IAS Improvement
 <h3>Grip Strength (revisited)</h3>
 <p>Aim: To compare Grip strength across the Climber Types, while adjusting for Body Mass, using the Allometric Scaling model.</p>
 <p>Analysis: Start by creating the log transformed Grip Strength and Body Mass variables. As Climber Type is a Between Subject Factor with three levels (Control, Recreational and Elite) replacing it with a set of indicator variables will facilitate the analysis. Create an indicator variable called Recreational and code climbers as 1 if a Recreational climber and 0 otherwise and a second indicator variable called Elite and code climbers as 1 if an Elite climber and 0 otherwise.</p>
-<p>Regression Analysis: log(Grip Strengt versus log(Body Mass), Elite, …</p>
-<p>he power law equations can now be calculated for each Climber Type. The estimated exponent term is 1.18 and applies to each Climber Type as the parallel lines (common slope) model was assumed appropriate. The constant term (a) for the allometric scaling equation for the Control Climbers, is simply the antilog of the intercept term as both indicator variables are set to zero, namely exp(1.14) which is equal to 3.05. The constant term for the allometric scaling equation for the Recreational Climbers is calculated by adding the intercept and the regression coefficient for the Recreational indicator variable i.e. exp(1.114 – 0.00272) which is equal to 3.04. Finally the constant term for the allometric scaling equation for the Elite climbers is calculated as exp(1.114+0.10611) which equals 3.39.</p>
+Regression Analysis: log(Grip Strength) versus log(Body Mass), Climber_Type
+<div class="tutorial-exercise" data-label="reg_grip" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
+<pre class="text"><code>model &lt;- ...
+summary(model)</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="reg_grip-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>model &lt;- lm(log(Grip_Strength)~log(Body_Mass)+Climber_Type,data = GRIP_STRENGTH_AND_MASS)
+summary(model)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="reg_grip-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>model &lt;- lm(log(Grip_Strength)~log(Body_Mass)+Climber_Type,data = GRIP_STRENGTH_AND_MASS)
+summary(model)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="reg_grip-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>strict_check(success = &quot;&quot;)</code></pre>
+</div>
+<p>The power law equations can now be calculated for each Climber Type. The estimated exponent term is 1.18 and applies to each Climber Type as the parallel lines (common slope) model was assumed appropriate. The constant term (a) for the allometric scaling equation for the Control Climbers, is simply the antilog of the intercept term as both indicator variables are set to zero, namely exp(1.14) which is equal to 3.05. The constant term for the allometric scaling equation for the Recreational Climbers is calculated by adding the intercept and the regression coefficient for the Recreational indicator variable i.e. exp(1.114 – 0.00272) which is equal to 3.04. Finally the constant term for the allometric scaling equation for the Elite climbers is calculated as exp(1.114+0.10611) which equals 3.39.</p>
 <p>The estimated allometric scaling equations for the dependency of Grip Strength (GS) on Body Mass for the three Climber Types are as follows:</p>
 <p>Climber Type Allometric scaling equation Controls Grip Strength = 3.04<em>Body Mass1.18 Recreational Grip Strength = 3.04</em>Body Mass1.18 Elite Grip Strength = 3.39*Body Mass1.18</p>
 <p>What is of more importance is the comparison of Grip Strength across Climber Type, while adjusting for Body Mass. This can be carried out by calculating an allometric-scaled response variable for each subject as</p>
 <p>Allometric-Scaled Grip Strength = Grip Strength / (Body Massb)</p>
 <p>Note that the slope of the log-log regression (i.e, the b term in model above) is common to all Climber Types as there was evidence that a parallel lines model was plausible. A box plot of allometric scaled Grip Strength suggests that it is typically higher in Elite climbers compared to both the other Climber Types which themselves are quite similar.</p>
-<p>Plot a box plot of allometric-scaled grip strength by climber type</p>
-<p>General Linear Model: Allo Ratio Scaled versus Climber Type</p>
+Plot a box plot of allometric-scaled Grip_Strength by Climber_Type
+<div class="tutorial-exercise" data-label="box2_grip" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
+<pre class="text"><code>ggplot(data = GRIP_STRENGTH_AND_MASS,...)  +
+  ...</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="box2_grip-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>ggplot(data = VO2_MAX_AND_BODY_MASS,mapping = aes(x = VO2max/Body_Mass, y = Body_Mass)) +
+  geom_point()</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="box2_grip-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>ggplot(data = GRIP_STRENGTH_AND_MASS,mapping = aes(x = Climber_Type, y = 3.04*Grip_Strength)) +
+  geom_boxplot() +
+  coord_flip()</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="box2_grip-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>strict_check(success = &quot;&quot;)</code></pre>
+</div>
+General Linear Model: Allo Ratio Scaled Grip_Strength versus Climber Type
+<div class="tutorial-exercise" data-label="lm3_grip" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
+<pre class="text"><code>model &lt;- ...
+summary(model)</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="lm3_grip-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>model &lt;- lm(3.04*Grip_Strength~Climber_Type,data = GRIP_STRENGTH_AND_MASS)
+summary(model)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="lm3_grip-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>model &lt;- lm(3.04*Grip_Strength~Climber_Type,data = GRIP_STRENGTH_AND_MASS)
+summary(model)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="lm3_grip-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>strict_check(success = &quot;&quot;)</code></pre>
+</div>
 <p>Provides evidence of a difference in mean allometric scaled Grip Strength across Climber Type.</p>
-<p>Tukey 95.0% Simultaneous Confidence Intervals</p>
-<p>A Tukey multiple comparisons procedure identifies Elite Climbers as having significantly larger allometric scaled Grip Strength, on average, compared to Recreational and Control Climbers with no significant difference between these two Climber Types.</p>
-<p>The analysis based on the allometric scaled response variable has identified a significant Climber Type effect. However the result, in terms of the magnitude of the difference between the Climber Types, is hard to interpret. The response variable is now in units of Newtons.kg.-1.18.</p>
-<p>An alternative approach to creating this allometric scaled response variable is to use an ANCOVA to compare mean Grip Strength across Climber Type, adjusting for Body Mass as a covariate. Then, having confirmed significant differences among the Climber types, provide Tukey-based pair-wise Multiple Comparisons among the Climber Types and finally take the anti-logs of each pair-wise Confidence Interval.</p>
-<p>Analysis of Variance for log(Grip Strength N), using Adjusted SS for Tests</p>
-<p>The ANCOVA has identified significant Body Mass and Climber Type effects (as expected). The (Tukey) pair-wise multiple comparisons identify a significant difference between Elite and both Recreational and Control climbers (again as expected). As the response variable is being analysed on the log scale, the antilog of the intervals provide an estimate of the ratio of mean Grip Strength between the Climber Type populations.</p>
-<p>For example, Elite Climbers are estimated to have Body Mass adjusted mean Grip Strength of between 1.01 to 1.22 that of Control Climbers (i.e. exp(0.01130) to exp(0.2092) ) while Recreational Climbers have Body Mass adjusted mean Grip Strength of between 0.72 to 0.98 times that of Elite Climbers (i.e. exp(-0.2031) to exp(-0.01461). In order to keep the Climber Type comparisons consistent an alternative summary is that Elite Climbers are estimated to have Body Mass adjusted mean Grip Strength of between 1.01 to 1.39 times that of Recreational Climbers (i.e. 1/0.98 and 1/0.72 respectively).</p>
-<p>Conclusion: A comparison of mean allometric scaled Grip Strength identified a significant Climber Type effect (P=0.009) where Elite Climbers had higher allometric scaled adjusted mean Grip Strength of between 0.05 to 0.65 of N. kg.-1.18 compared to Control Climbers and of between 0.06 to 0.67 of N. kg.-1.18 compared to Recreational Climbers.</p>
+Tukey 95.0% Simultaneous Confidence Intervals
+<div class="tutorial-exercise" data-label="scatter2_vo2" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="5">
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (is.null(solution_code)) {","        return(list(message = \"No solution is provided for this exercise.\", ","            correct = TRUE, type = \"info\", location = \"append\"))","    }","    else {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    grading_code <- pryr::standardise_call(parse(text = check_code)[[1]])","    grading_code$user <- rlang::as_quosure(user_code[[length(user_code)]])","    grading_code$solution <- rlang::as_quosure(solution_code[[length(solution_code)]])","    feedback <- eval(grading_code)","    if (feedback == grading_code$success) {","        result <- list(message = feedback, correct = TRUE, type = \"success\", ","            location = \"append\")","    }","    else {","        result <- list(message = feedback, correct = FALSE, type = \"error\", ","            location = \"append\")","    }","    result","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="scatter2_vo2-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>a &lt;- aov(3.04*Grip_Strength~Climber_Type,data = GRIP_STRENGTH_AND_MASS)
+TukeyHSD(x=a, &#39;Climber_Type&#39;, conf.level=0.95)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="scatter2_vo2-hint" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>a &lt;- aov(3.04*Grip_Strength~Climber_Type,data = GRIP_STRENGTH_AND_MASS)
+TukeyHSD(x=a, &#39;Climber_Type&#39;, conf.level=0.95)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="scatter2_vo2-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>strict_check(success = &quot;A Tukey multiple comparisons procedure identifies Elite Climbers as having significantly larger allometric scaled Grip Strength, on average, compared to Recreational and Control Climbers with no significant difference between these two Climber Types.
+
+The analysis based on the allometric scaled response variable has identified a significant Climber Type effect.   However the result, in terms of the magnitude of the difference between the Climber Types, is hard to interpret.   The response variable is now in units of Newtons.kg.-1.18.  
+
+Conclusion:  A comparison of mean allometric scaled Grip Strength identified a significant Climber Type effect (P=0.009) where Elite Climbers had higher allometric scaled adjusted mean Grip Strength of between 0.05 to 0.65 of N. kg.-1.18 compared to Control Climbers and of between 0.06 to 0.67 of N. kg.-1.18 compared to Recreational Climbers.  &quot;)</code></pre>
+</div>
 
 <script type="application/shiny-prerendered" data-context="server-start">
 library(learnr)
@@ -554,9 +807,156 @@ RUGBY_SPRINT_TIME<- read_csv("data/chapter_7/RUGBY SPRINT TIME.CSV")
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::register_http_handlers(session, metadata = NULL)
 </script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-box_grip-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-box_grip-code-editor`)), session)
+output$`tutorial-exercise-box_grip-output` <- renderUI({
+  `tutorial-exercise-box_grip-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-box_relax-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-box_relax-code-editor`)), session)
+output$`tutorial-exercise-box_relax-output` <- renderUI({
+  `tutorial-exercise-box_relax-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-lm_relax-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-lm_relax-code-editor`)), session)
+output$`tutorial-exercise-lm_relax-output` <- renderUI({
+  `tutorial-exercise-lm_relax-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-box_rugby-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-box_rugby-code-editor`)), session)
+output$`tutorial-exercise-box_rugby-output` <- renderUI({
+  `tutorial-exercise-box_rugby-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-lm_rugby-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-lm_rugby-code-editor`)), session)
+output$`tutorial-exercise-lm_rugby-output` <- renderUI({
+  `tutorial-exercise-lm_rugby-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-norm_rugby-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-norm_rugby-code-editor`)), session)
+output$`tutorial-exercise-norm_rugby-output` <- renderUI({
+  `tutorial-exercise-norm_rugby-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-versus_rugby-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-versus_rugby-code-editor`)), session)
+output$`tutorial-exercise-versus_rugby-output` <- renderUI({
+  `tutorial-exercise-versus_rugby-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-box_biodex-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-box_biodex-code-editor`)), session)
+output$`tutorial-exercise-box_biodex-output` <- renderUI({
+  `tutorial-exercise-box_biodex-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-lm_biodex-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-lm_biodex-code-editor`)), session)
+output$`tutorial-exercise-lm_biodex-output` <- renderUI({
+  `tutorial-exercise-lm_biodex-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-lm2_biodex-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-lm2_biodex-code-editor`)), session)
+output$`tutorial-exercise-lm2_biodex-output` <- renderUI({
+  `tutorial-exercise-lm2_biodex-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-t_biodex-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-t_biodex-code-editor`)), session)
+output$`tutorial-exercise-t_biodex-output` <- renderUI({
+  `tutorial-exercise-t_biodex-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-t2_biodex-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-t2_biodex-code-editor`)), session)
+output$`tutorial-exercise-t2_biodex-output` <- renderUI({
+  `tutorial-exercise-t2_biodex-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-scatter2_grip-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-scatter2_grip-code-editor`)), session)
+output$`tutorial-exercise-scatter2_grip-output` <- renderUI({
+  `tutorial-exercise-scatter2_grip-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-lm_grip-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-lm_grip-code-editor`)), session)
+output$`tutorial-exercise-lm_grip-output` <- renderUI({
+  `tutorial-exercise-lm_grip-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-tukey_grip-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-tukey_grip-code-editor`)), session)
+output$`tutorial-exercise-tukey_grip-output` <- renderUI({
+  `tutorial-exercise-tukey_grip-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-scatter3_grip-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-scatter3_grip-code-editor`)), session)
+output$`tutorial-exercise-scatter3_grip-output` <- renderUI({
+  `tutorial-exercise-scatter3_grip-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-lm2_grip-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-lm2_grip-code-editor`)), session)
+output$`tutorial-exercise-lm2_grip-output` <- renderUI({
+  `tutorial-exercise-lm2_grip-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-reg_grip-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-reg_grip-code-editor`)), session)
+output$`tutorial-exercise-reg_grip-output` <- renderUI({
+  `tutorial-exercise-reg_grip-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-box2_grip-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-box2_grip-code-editor`)), session)
+output$`tutorial-exercise-box2_grip-output` <- renderUI({
+  `tutorial-exercise-box2_grip-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-lm3_grip-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-lm3_grip-code-editor`)), session)
+output$`tutorial-exercise-lm3_grip-output` <- renderUI({
+  `tutorial-exercise-lm3_grip-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-scatter2_vo2-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-scatter2_vo2-code-editor`)), session)
+output$`tutorial-exercise-scatter2_vo2-output` <- renderUI({
+  `tutorial-exercise-scatter2_vo2-result`()
+})
+</script>
  <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="dependencies">
-{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery-1.11.3"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap-3.3.5"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/cerulean.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["pagedtable"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pagedtable-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/pagedtable.js"]},{"type":"character","attributes":{},"value":["css/pagedtable.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["9.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["textmate.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-format"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmarkdown/templates/tutorial/resources"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-format.js"]},{"type":"character","attributes":{},"value":["tutorial-format.css","rstudio-theme.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery-1.11.3"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["font-awesome"]},{"type":"character","attributes":{},"value":["5.0.13"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/fontawesome"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/fontawesome-all.min.js","js/fa-v4-shims.min.js"]},{"type":"character","attributes":{},"value":["css/fa-svg-with-js.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["4.4.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["localforage"]},{"type":"character","attributes":{},"value":["1.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/localforage"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["localforage.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]}]}
+{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery-1.11.3"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap-3.3.5"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/cerulean.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["pagedtable"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pagedtable-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/pagedtable.js"]},{"type":"character","attributes":{},"value":["css/pagedtable.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["9.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["textmate.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-format"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmarkdown/templates/tutorial/resources"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-format.js"]},{"type":"character","attributes":{},"value":["tutorial-format.css","rstudio-theme.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery-1.11.3"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["font-awesome"]},{"type":"character","attributes":{},"value":["5.0.13"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/fontawesome"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/fontawesome-all.min.js","js/fa-v4-shims.min.js"]},{"type":"character","attributes":{},"value":["css/fa-svg-with-js.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["4.4.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["localforage"]},{"type":"character","attributes":{},"value":["1.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/localforage"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["localforage.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]}]}
 </script>
 <!--/html_preserve-->
 </div>
